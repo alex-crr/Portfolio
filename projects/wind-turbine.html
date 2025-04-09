@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vertical Axis Wind Turbine | John Doe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#1a1a1a',
+                            700: '#2a2a2a',
+                            600: '#3a3a3a',
+                            500: '#4a4a4a',
+                        },
+                        primary: {
+                            600: '#3b82f6',
+                            700: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+        
+        /* Selection color */
+        ::selection {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-dark-800 shadow-lg fixed w-full z-10 border-b border-dark-700">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-xl font-bold text-primary-600">JD</span>
+                        <span class="ml-2 text-xl font-semibold">John Doe</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#home" class="text-gray-400 hover:text-primary-600 transition">Home</a>
+                    <a href="../index.html#about" class="text-gray-400 hover:text-primary-600 transition">About</a>
+                    <a href="../index.html#projects" class="text-primary-600 font-medium">Projects</a>
+                    <a href="../index.html#contact" class="text-gray-400 hover:text-primary-600 transition">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 pb-4 px-4 border-b border-dark-700">
+            <a href="../index.html#home" class="block py-2 text-gray-400 hover:text-primary-600 transition">Home</a>
+            <a href="../index.html#about" class="block py-2 text-gray-400 hover:text-primary-600 transition">About</a>
+            <a href="../index.html#projects" class="block py-2 text-primary-600 font-medium">Projects</a>
+            <a href="../index.html#contact" class="block py-2 text-gray-400 hover:text-primary-600 transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Project Content -->
+    <section class="pt-24 pb-16 px-4 bg-dark-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center mb-8">
+                <a href="../index.html#projects" class="text-primary-600 hover:text-primary-700 mr-3">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-white">Vertical Axis Wind Turbine</h1>
+                <span class="ml-4 bg-yellow-900 text-yellow-400 text-xs px-2 py-1 rounded-full">Sustainable Energy</span>
+            </div>
+            
+            <div class="mb-8">
+                <img src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="Wind Turbine" class="w-full h-96 object-cover rounded-lg border border-dark-700">
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Project Details</h4>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Date:</span> December 2022</p>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Category:</span> Sustainable Energy</p>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Team Size:</span> 2 members</p>
+                </div>
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Technologies Used</h4>
+                    <ul class="list-disc pl-5 text-gray-400">
+                        <li>CFD Analysis</li>
+                        <li>Composite Materials</li>
+                        <li>Power Electronics</li>
+                        <li>3D Printing</li>
+                    </ul>
+                </div>
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Achievements</h4>
+                    <ul class="list-disc pl-5 text-gray-400">
+                        <li>MIT Clean Energy Award</li>
+                        <li>Featured in Renewable Energy Journal</li>
+                        <li>Prototype installed on campus</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Project Description</h4>
+                <p class="mb-4 text-gray-400">
+                    Our vertical axis wind turbine (VAWT) design addresses the limitations of traditional horizontal axis turbines in urban environments. The helical blade configuration reduces noise and vibration while maintaining efficiency across a wide range of wind directions - crucial for the turbulent wind conditions found in cities.
+                </p>
+                <p class="mb-4 text-gray-400">
+                    Through computational fluid dynamics (CFD) simulations, we optimized the blade profile to achieve a 30% improvement in power coefficient compared to conventional Savonius designs. The turbine incorporates a novel magnetic bearing system that reduces mechanical losses and maintenance requirements. Our prototype generates 1.2kW at 12m/s wind speed with a cut-in speed of just 3m/s.
+                </p>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Technical Specifications</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-dark-700 border border-dark-600">
+                        <thead class="bg-dark-600">
+                            <tr>
+                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Parameter</th>
+                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Height</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">3.2 meters</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Diameter</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">1.5 meters</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Material</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Carbon fiber composite</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Rated Power</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">1.2 kW at 12 m/s</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Cut-in Speed</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">3 m/s</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Gallery</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <img src="https://images.unsplash.com/photo-1535083783855-76ae62b2914e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Turbine Design" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                    <img src="https://images.unsplash.com/photo-1592058164734-3069bbbfbe29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" 
+                         alt="CFD Analysis" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                    <img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                         alt="Installed Prototype" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-dark-800 border-t border-dark-700">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-400">© 2023 John Doe. All rights reserved.</p>
+            <p class="text-gray-500 mt-2 text-sm">Built with passion and precision, just like my engineering projects.</p>
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+</body>
+</html>

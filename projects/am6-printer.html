@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AM6 3D Printer | Alexandre COURRIEU</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#1a1a1a',
+                            700: '#2a2a2a',
+                            600: '#3a3a3a',
+                            500: '#4a4a4a',
+                        },
+                        primary: {
+                            600: '#3b82f6',
+                            700: '#2563eb',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #4a4a4a;
+        }
+        
+        /* Selection color */
+        ::selection {
+            background: #3b82f6;
+            color: white;
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Navigation -->
+    <nav class="bg-dark-800 shadow-lg fixed w-full z-10 border-b border-dark-700">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="../index.html" class="flex items-center">
+                        <span class="text-xl font-bold text-primary-600">AC</span>
+                        <span class="ml-2 text-xl font-semibold">Alexandre COURRIEU</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="../index.html#home" class="text-gray-400 hover:text-primary-600 transition">Home</a>
+                    <a href="../index.html#about" class="text-gray-400 hover:text-primary-600 transition">About</a>
+                    <a href="../index.html#projects" class="text-primary-600 font-medium">Projects</a>
+                    <a href="../index.html#contact" class="text-gray-400 hover:text-primary-600 transition">Contact</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" class="text-gray-400 hover:text-white">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 pb-4 px-4 border-b border-dark-700">
+            <a href="../index.html#home" class="block py-2 text-gray-400 hover:text-primary-600 transition">Home</a>
+            <a href="../index.html#about" class="block py-2 text-gray-400 hover:text-primary-600 transition">About</a>
+            <a href="../index.html#projects" class="block py-2 text-primary-600 font-medium">Projects</a>
+            <a href="../index.html#contact" class="block py-2 text-gray-400 hover:text-primary-600 transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Project Content -->
+    <section class="pt-24 pb-16 px-4 bg-dark-900">
+        <div class="max-w-4xl mx-auto">
+            <div class="flex items-center mb-8">
+                <a href="../index.html#projects" class="text-primary-600 hover:text-primary-700 mr-3">
+        
+        4
+        7            <i class="fas fa-arrow-left"></i>
+                </a>
+                <h1 class="text-3xl font-bold text-white">AM6 3D Printer</h1>
+                <span class="ml-4 bg-indigo-900 text-indigo-400 text-xs px-2 py-1 rounded-full">Additive Manufacturing</span>
+            </div>
+            
+            <div class="mb-8">
+                <img src="https://images.unsplash.com/photo-1581094271901-8022df4466f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                     alt="AM6 3D Printer" class="w-full h-96 object-cover rounded-lg border border-dark-700">
+                <!-- Note: Replace with actual image of your AM6 printer when available -->
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Project Details</h4>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Started:</span> 2018</p>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Category:</span> Additive Manufacturing</p>
+                    <p class="text-gray-400"><span class="font-medium text-gray-300">Type:</span> Personal Project</p>
+                </div>
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Technologies Used</h4>
+                    <ul class="list-disc pl-5 text-gray-400">
+                        <li>Klipper Firmware (Previously Marlin)</li>
+                        <li>Additive manufacturing</li>
+                        <li>CAD Modeling</li>
+                        <li>Mechanical Engineering</li>
+                    </ul>
+                </div>
+                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
+                    <h4 class="font-bold mb-2 text-white">Skills Developed</h4>
+                    <ul class="list-disc pl-5 text-gray-400">
+                        <li>Mechanical Assembly and Design</li>
+                        <li>Electronics Safety</li>
+                        <li>Firmware Programming</li>
+                        <li>3D Modeling</li>
+                        <li>Additive manufacturing</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Project Description</h4>
+                <p class="mb-4 text-gray-400">
+                    My journey into the world of 3D printing began in 2018 when my parents bought me an Anet A6 kit. What started as a simple assembly project sparked a deep passion for additive manufacturing and ultimately helped shape my path toward engineering. This printer has been continually evolving as my knowledge and skills have grown.
+                </p>
+                <p class="mb-4 text-gray-400">
+                    The original Anet A6 has undergone significant modifications over the years. I upgraded the frame with an AM6 extrusion kit for improved stability and precision. I also transitioned from the stock firmware to Marlin firmware, and then to Klipper, allowing for more advanced features and better print quality. This ongoing project has been my introduction to electronics, mechanical design, programming, and 3D modeling - all essential skills in my engineering education.
+                </p>
+                <p class="mb-4 text-gray-400">
+                    While not the fastest or most advanced printer by today's standards, this machine has immense personal value. It represents my growth as a maker and engineer, showing how continuous iteration and learning can transform both a project and the person behind it. It continues to be a test bed for new ideas and modifications as I expand my engineering knowledge.
+                </p>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Technical Specifications</h4>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full bg-dark-700 border border-dark-600">
+                        <thead class="bg-dark-600">
+                            <tr>
+                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Parameter</th>
+                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Build Volume</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">220 x 220 x 220 mm</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Maximum Print Speed</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">300 mm/s</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Layer Resolution</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">0.07 - 0.35 mm</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Maximum Hotend Temperature</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">280°C</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Maximum Bed Temperature</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">90°C</td>
+                            </tr>
+                            <tr>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Firmware</td>
+                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Klipper (Previously Marlin)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Key Learnings</h4>
+                <p class="mb-4 text-gray-400">
+                    This project has been instrumental in my development as an engineer. Through it, I learned:
+                </p>
+                <ul class="list-disc pl-5 text-gray-400 mb-4">
+                    <li class="mb-2">How to safely work with electronics, including power supplies, stepper motors, and heating elements</li>
+                    <li class="mb-2">The fundamentals of mechanical design and how different components interact in a system</li>
+                    <li class="mb-2">Programming and firmware customization to optimize machine performance</li>
+                    <li class="mb-2">3D modeling skills for both creating printable objects and designing machine upgrades</li>
+                    <li class="mb-2">Problem-solving through numerous iterations and improvements</li>
+                </ul>
+                <p class="text-gray-400">
+                    This printer was one of the key inspirations that led me to pursue engineering as a career path, showing me how technical knowledge can be applied to create practical solutions.
+                </p>
+            </div>
+            
+            <div class="mb-8">
+                <h4 class="text-xl font-bold mb-4 text-white">Gallery</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <img src="https://via.placeholder.com/400x300" 
+                         alt="Original Anet A6 Kit" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                    <img src="https://via.placeholder.com/400x300" 
+                         alt="AM6 Extrusion Upgrade" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                    <img src="https://via.placeholder.com/400x300" 
+                         alt="Current Configuration" class="w-full h-48 object-cover rounded-lg border border-dark-700">
+                    <!-- Replace placeholder images with actual photos of your printer's evolution -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 bg-dark-800 border-t border-dark-700">
+        <div class="max-w-6xl mx-auto text-center">
+            <p class="text-gray-400">© 2023 Alexandre COURRIEU. All rights reserved.</p>
+            <p class="text-gray-500 mt-2 text-sm">Built with passion and precision, just like my engineering projects.</p>
+        </div>
+    </footer>
+    
+    <script src="../js/main.js"></script>
+</body>
+</html>
