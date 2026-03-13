@@ -3,216 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Title | John Doe</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        dark: {
-                            900: '#0a0a0a',
-                            800: '#1a1a1a',
-                            700: '#2a2a2a',
-                            600: '#3a3a3a',
-                            500: '#4a4a4a',
-                        },
-                        primary: {
-                            600: '#3b82f6',
-                            700: '#2563eb',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+    <title>Minifab | Alexandre COURRIEU</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        /* Custom CSS */
-        body {
-            background-color: #0a0a0a;
-            color: #e5e5e5;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3a3a3a;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #4a4a4a;
-        }
-        
-        /* Selection color */
-        ::selection {
-            background: #3b82f6;
-            color: white;
-        }
-    </style>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
 </head>
-<body class="font-sans">
+<body>
+    
+    <!-- Margin Line -->
+    <div class="margin-line"></div>
+    
     <!-- Navigation -->
-    <nav class="bg-dark-800 shadow-lg fixed w-full z-10 border-b border-dark-700">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="../index.html" class="flex items-center">
-                        <span class="text-xl font-bold text-primary-600">AC</span>
-                        <span class="ml-2 text-xl font-semibold">Alexandre COURRIEU</span>
-                    </a>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="../index.html#home" class="text-gray-400 hover:text-primary-600 transition">Home</a>
-                    <a href="../index.html#about" class="text-gray-400 hover:text-primary-600 transition">About</a>
-                    <a href="../index.html#projects" class="text-primary-600 font-medium">Projects</a>
-                    <a href="../index.html#contact" class="text-gray-400 hover:text-primary-600 transition">Contact</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="menu-btn" class="text-gray-400 hover:text-white">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-brand">
+                <span class="nav-brand-code">DWG-001</span>
+                <span class="nav-brand-name">Alexandre COURRIEU</span>
+            </a>
+            <div class="nav-links hide-mobile">
+                <a href="../index.html#home" class="nav-link">Home</a>
+                <a href="../index.html#about" class="nav-link">About</a>
+                <a href="../index.html#projects" class="nav-link active">Projects</a>
+                <a href="../index.html#contact" class="nav-link">Contact</a>
             </div>
+            <button class="nav-toggle hide-desktop" id="menu-btn" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-dark-800 pb-4 px-4 border-b border-dark-700">
-            <a href="../index.html#home" class="block py-2 text-gray-400 hover:text-primary-600 transition">Home</a>
-            <a href="../index.html#about" class="block py-2 text-gray-400 hover:text-primary-600 transition">About</a>
-            <a href="../index.html#projects" class="block py-2 text-primary-600 font-medium">Projects</a>
-            <a href="../index.html#contact" class="block py-2 text-gray-400 hover:text-primary-600 transition">Contact</a>
+        <div class="nav-mobile" id="mobile-menu">
+            <a href="../index.html#home" class="nav-link">Home</a>
+            <a href="../index.html#about" class="nav-link">About</a>
+            <a href="../index.html#projects" class="nav-link">Projects</a>
+            <a href="../index.html#contact" class="nav-link">Contact</a>
         </div>
     </nav>
 
-    <!-- Project Content -->
-    <section class="pt-24 pb-16 px-4 bg-dark-900">
-        <div class="max-w-4xl mx-auto">
-            <div class="flex items-center mb-8">
-                <a href="../index.html#projects" class="text-primary-600 hover:text-primary-700 mr-3">
-                    <i class="fas fa-arrow-left"></i>
-                </a>
-                <h1 class="text-3xl font-bold text-white">Minifab</h1>
-                <span class="ml-4 bg-blue-900 text-primary-600 text-xs px-2 py-1 rounded-full">Category</span>
-                <!-- 
-                Color options for category badges:
-                - bg-blue-900 text-primary-600 (Robotics)
-                - bg-green-900 text-green-400 (Mechatronics)
-                - bg-yellow-900 text-yellow-400 (Sustainable Energy)
-                - bg-purple-900 text-purple-400 (Automotive)
-                - bg-red-900 text-red-400 (Thermodynamics)
-                - bg-indigo-900 text-indigo-400 (Additive Manufacturing)
-                -->
-            </div>
+    <!-- Project Header -->
+    <section class="project-header">
+        <div class="container container-narrow">
+            <a href="../index.html#projects" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                <span>BACK TO PROJECTS</span>
+            </a>
             
-            <div class="mb-8">
-                <img src="../img/minifab.jpg" 
-                     alt="Project Image" class="w-full h-96 object-cover rounded-lg border border-dark-700">
-                <!-- Replace the placeholder image URL with your actual project image -->
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 mb-8">
-                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
-                    <h4 class="font-bold mb-2 text-white">Project Details</h4>
-                    <p class="text-gray-400"><span class="font-medium text-gray-300">Date:</span> 2023-2025</p>
-                    <p class="text-gray-400"><span class="font-medium text-gray-300">Category:</span> Micromanufacturing</p>
-                    <p class="text-gray-400"><span class="font-medium text-gray-300">Team Size:</span> 8 members</p>
+            <div class="flex items-start gap-4 flex-wrap mb-4">
+                <div>
+                    <p class="label mb-2">PROJECT 02</p>
+                    <h1>Minifab</h1>
                 </div>
-                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
-                    <h4 class="font-bold mb-2 text-white">Technologies Used</h4>
-                    <ul class="list-disc pl-5 text-gray-400">
-                        <li>Technology 1</li>
-                        <li>Technology 2</li>
-                        <li>Technology 3</li>
-                        <li>Technology 4</li>
+                <span class="tag mt-2">MICROFAB</span>
+            </div>
+            <hr class="divider">
+        </div>
+    </section>
+    
+    <!-- Hero Image -->
+    <section class="container container-narrow mb-12">
+        <div class="frame">
+            <div class="frame-header">
+                <span class="frame-header-title">FIG. 1 — MINIFAB HYBRID MACHINE</span>
+                <span class="frame-header-meta">2024 — PRESENT</span>
+            </div>
+            <img src="../img/minifab.jpg" alt="Minifab" style="width: 100%; height: 400px; object-fit: cover;">
+        </div>
+    </section>
+
+    <!-- Project Details Grid -->
+    <section class="container container-narrow mb-12">
+        <div class="grid grid-3">
+            
+            <div class="frame">
+                <div class="frame-header">
+                    <span class="frame-header-title">SPEC 01 — DETAILS</span>
+                </div>
+                <div class="frame-body">
+                    <p class="label mb-1">DATE</p>
+                    <p class="mb-3">2023 — 2025</p>
+                    
+                    <p class="label mb-1">CATEGORY</p>
+                    <p class="mb-3">Micromanufacturing</p>
+                    
+                    <p class="label mb-1">TEAM SIZE</p>
+                    <p>8 members</p>
+                </div>
+            </div>
+            
+            <div class="frame">
+                <div class="frame-header">
+                    <span class="frame-header-title">SPEC 02 — TECHNOLOGIES</span>
+                </div>
+                <div class="frame-body">
+                    <ul class="list-brass">
+                        <li>CNC Milling</li>
+                        <li>3D Printing</li>
+                        <li>CAD/CAM</li>
+                        <li>Motion Control</li>
                     </ul>
                 </div>
-                <div class="bg-dark-700 p-4 rounded-lg border border-dark-600">
-                    <h4 class="font-bold mb-2 text-white">Achievements</h4>
-                    <ul class="list-disc pl-5 text-gray-400">
-                        <li>aluminum milling</li>
-                        <li>Achievement 2</li>
-                        <li>Achievement 3</li>
+            </div>
+            
+            <div class="frame">
+                <div class="frame-header">
+                    <span class="frame-header-title">SPEC 03 — ACHIEVEMENTS</span>
+                </div>
+                <div class="frame-body">
+                    <ul class="list-brass">
+                        <li>Aluminum Milling</li>
+                        <li>Open Source Design</li>
+                        <li>Hybrid Manufacturing</li>
                     </ul>
                 </div>
             </div>
             
-            <div class="mb-8">
-                <h4 class="text-xl font-bold mb-4 text-white">Project Description</h4>
-                <p class="mb-4 text-gray-400">
-                    First paragraph of your project description. Provide an overview of the project,
-                    its purpose, and the problem it solves. Aim for around 3-4 sentences.
-                </p>
-                <p class="mb-4 text-gray-400">
-                    Second paragraph with more technical details about your approach, methodologies,
-                    and innovative aspects of your solution. Discuss challenges you faced and how
-                    you overcame them.
-                </p>
-                <p class="mb-4 text-gray-400">
-                    <!-- Optional: Include a link to a demo, report, or other resource -->
-                    <a href="#" class="text-primary-600 hover:text-primary-700 inline-flex items-center">
-                        <i class="fas fa-file-pdf mr-2"></i> Download Project Report
-                    </a>
-                </p>
+        </div>
+    </section>
+
+    <!-- Project Description -->
+    <section class="container container-narrow mb-12">
+        <p class="label mb-3">2.1 DESCRIPTION</p>
+        <h2 class="mb-4">Project Overview</h2>
+        <hr class="divider divider-sm">
+        
+        <div class="prose">
+            <p>
+                Minifab is a highly customisable open source hybrid manufacturing machine capable of both 
+                3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities 
+                to makers and small workshops.
+            </p>
+            <p>
+                The project focuses on creating a versatile platform that can switch between additive and 
+                subtractive manufacturing processes, enabling complex workflows that would typically require 
+                multiple machines.
+            </p>
+        </div>
+    </section>
+
+    <!-- Technical Specifications -->
+    <section class="container container-narrow mb-12">
+        <p class="label mb-3">2.2 SPECIFICATIONS</p>
+        <h2 class="mb-4">Technical Details</h2>
+        <hr class="divider divider-sm">
+        
+        <div class="frame">
+            <div class="frame-header">
+                <span class="frame-header-title">TABLE 1 — TECHNICAL SPECIFICATIONS</span>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>PARAMETER</th>
+                        <th>VALUE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Total Size</td>
+                        <td class="table-value">800 × 700 × 650 mm</td>
+                    </tr>
+                    <tr>
+                        <td>Maximum Speed</td>
+                        <td class="table-value">70 mm/s</td>
+                    </tr>
+                    <tr>
+                        <td>Aluminum DOC</td>
+                        <td class="table-value">TBD</td>
+                    </tr>
+                    <tr>
+                        <td>Work Envelope</td>
+                        <td class="table-value">TBD</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="container container-narrow" style="padding-bottom: var(--space-20);">
+        <p class="label mb-3">2.3 DOCUMENTATION</p>
+        <h2 class="mb-4">Gallery</h2>
+        <hr class="divider divider-sm">
+        
+        <div class="grid grid-3">
+            
+            <div class="frame gallery-item">
+                <div class="frame-header">
+                    <span class="frame-header-title">FIG. 2</span>
+                </div>
+                <img src="https://via.placeholder.com/400x300" alt="Image 1" style="width: 100%; height: 160px; object-fit: cover;">
             </div>
             
-            <div class="mb-8">
-                <h4 class="text-xl font-bold mb-4 text-white">Technical Specifications</h4>
-                <div class="overflow-x-auto">
-                    <table class="min-w-full bg-dark-700 border border-dark-600">
-                        <thead class="bg-dark-600">
-                            <tr>
-                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Parameter</th>
-                                <th class="py-2 px-4 border border-dark-500 text-white text-left">Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Total size (cm)</td>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">80x70x65</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Maximal speed</td>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">70mm/s</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Aluminum DOC</td>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Value 3</td>
-                            </tr>
-                            <tr>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Parameter 4</td>
-                                <td class="py-2 px-4 border border-dark-500 text-gray-400">Value 4</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <div class="frame gallery-item">
+                <div class="frame-header">
+                    <span class="frame-header-title">FIG. 3</span>
                 </div>
+                <img src="https://via.placeholder.com/400x300" alt="Image 2" style="width: 100%; height: 160px; object-fit: cover;">
             </div>
             
-            <div class="mb-8">
-                <h4 class="text-xl font-bold mb-4 text-white">Gallery</h4>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    <img src="https://via.placeholder.com/400x300" 
-                         alt="Image 1" class="w-full h-48 object-cover rounded-lg border border-dark-700">
-                    <img src="https://via.placeholder.com/400x300" 
-                         alt="Image 2" class="w-full h-48 object-cover rounded-lg border border-dark-700">
-                    <img src="https://via.placeholder.com/400x300" 
-                         alt="Image 3" class="w-full h-48 object-cover rounded-lg border border-dark-700">
-                    <!-- Replace placeholder images with your actual project gallery images -->
+            <div class="frame gallery-item">
+                <div class="frame-header">
+                    <span class="frame-header-title">FIG. 4</span>
                 </div>
+                <img src="https://via.placeholder.com/400x300" alt="Image 3" style="width: 100%; height: 160px; object-fit: cover;">
             </div>
+            
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-4 bg-dark-800 border-t border-dark-700">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-gray-400">© 2023 John Doe. All rights reserved.</p>
-            <p class="text-gray-500 mt-2 text-sm">Built with passion and precision, just like my engineering projects.</p>
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner">
+                <p class="footer-copy">© 2025 Alexandre COURRIEU. All rights reserved.</p>
+                <p class="footer-tagline">BUILT WITH PRECISION</p>
+            </div>
         </div>
     </footer>
     

@@ -1,0 +1,110 @@
+/* ==========================================================================
+   THE ATELIER — Design System Variables
+   
+   Change these values to update the entire site's visual identity.
+   ========================================================================== */
+
+:root {
+    /* -------------------------
+       Colors
+       ------------------------- */
+    --color-vellum: #f7f4ef;        /* Background - warm paper */
+    --color-paper: #ebe6dc;          /* Secondary background */
+    --color-ink: #2a2a2a;            /* Primary text & borders */
+    --color-steel: #5a5a5a;          /* Secondary text */
+    --color-brass: #b8a067;          /* Accent */
+    --color-brass-light: rgba(184, 160, 103, 0.3);
+    
+    /* -------------------------
+       Typography
+       ------------------------- */
+    --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+    
+    /* Font sizes */
+    --text-xs: 0.6875rem;            /* 11px - labels */
+    --text-sm: 0.8125rem;            /* 13px - small text */
+    --text-base: 0.9375rem;          /* 15px - body */
+    --text-lg: 1.125rem;             /* 18px - large body */
+    --text-xl: 1.25rem;              /* 20px - small headings */
+    --text-2xl: 1.5rem;              /* 24px - headings */
+    --text-3xl: 2rem;                /* 32px - section titles */
+    --text-4xl: 2.5rem;              /* 40px - page titles */
+    --text-5xl: 3.5rem;              /* 56px - hero */
+    
+    /* Font weights */
+    --weight-normal: 400;
+    --weight-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
+    
+    /* Line heights */
+    --leading-tight: 1.1;
+    --leading-snug: 1.3;
+    --leading-normal: 1.5;
+    --leading-relaxed: 1.7;
+    
+    /* Letter spacing */
+    --tracking-tight: -0.01em;
+    --tracking-normal: 0;
+    --tracking-wide: 0.05em;
+    --tracking-wider: 0.1em;
+    
+    /* -------------------------
+       Spacing
+       ------------------------- */
+    --space-1: 0.25rem;              /* 4px */
+    --space-2: 0.5rem;               /* 8px */
+    --space-3: 0.75rem;              /* 12px */
+    --space-4: 1rem;                 /* 16px */
+    --space-5: 1.25rem;              /* 20px */
+    --space-6: 1.5rem;               /* 24px */
+    --space-8: 2rem;                 /* 32px */
+    --space-10: 2.5rem;              /* 40px */
+    --space-12: 3rem;                /* 48px */
+    --space-16: 4rem;                /* 64px */
+    --space-20: 5rem;                /* 80px */
+    
+    /* -------------------------
+       Layout
+       ------------------------- */
+    --margin-line: 48px;             /* Left margin line position */
+    --margin-line-mobile: 24px;
+    --content-indent: 72px;          /* Content starts after margin */
+    --content-indent-mobile: 40px;
+    --max-width: 1152px;             /* Max content width */
+    --max-width-narrow: 720px;       /* Narrow content (text) */
+    --nav-height: 64px;
+    
+    /* -------------------------
+       Borders
+       ------------------------- */
+    --border-thin: 1px;
+    --border-medium: 2px;
+    --border-thick: 3px;
+    
+    /* -------------------------
+       Transitions
+       ------------------------- */
+    --transition-fast: 150ms ease;
+    --transition-base: 200ms ease;
+    --transition-slow: 300ms ease;
+    
+    /* -------------------------
+       Shadows
+       ------------------------- */
+    --shadow-card: 8px 8px 0 var(--color-brass-light);
+}
+
+/* -------------------------
+   Responsive overrides
+   ------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --margin-line: var(--margin-line-mobile);
+        --content-indent: var(--content-indent-mobile);
+        --text-5xl: 2.5rem;
+        --text-4xl: 2rem;
+        --text-3xl: 1.75rem;
+    }
+}
