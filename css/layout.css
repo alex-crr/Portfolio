@@ -1,0 +1,255 @@
+/* ==========================================================================
+   THE ATELIER — Layout
+   
+   Page structure, sections, grid system, responsive utilities.
+   ========================================================================== */
+
+/* -------------------------
+   Container
+   ------------------------- */
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--space-4);
+    padding-left: var(--content-indent);
+}
+
+.container-narrow {
+    max-width: 896px;
+}
+
+/* -------------------------
+   Sections
+   ------------------------- */
+.section {
+    padding: var(--space-20) 0;
+}
+
+.section-header {
+    margin-bottom: var(--space-12);
+}
+
+.section-alt {
+    background-color: var(--color-paper);
+}
+
+.section-dark {
+    background-color: var(--color-ink);
+    color: var(--color-vellum);
+}
+
+.section-dark .divider {
+    background-color: var(--color-brass);
+}
+
+/* -------------------------
+   Hero
+   ------------------------- */
+.hero {
+    padding-top: calc(var(--nav-height) + var(--space-12));
+    padding-bottom: var(--space-20);
+}
+
+/* -------------------------
+   Grid
+   ------------------------- */
+.grid {
+    display: grid;
+    gap: var(--space-8);
+}
+
+.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 1024px) {
+    .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-2,
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------
+   Flex utilities
+   ------------------------- */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.items-start {
+    align-items: flex-start;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-2 { gap: var(--space-2); }
+.gap-3 { gap: var(--space-3); }
+.gap-4 { gap: var(--space-4); }
+.gap-6 { gap: var(--space-6); }
+.gap-8 { gap: var(--space-8); }
+.gap-12 { gap: var(--space-12); }
+
+/* -------------------------
+   Two column layout
+   ------------------------- */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+}
+
+@media (max-width: 768px) {
+    .two-col {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* -------------------------
+   Hero layout (text + image)
+   ------------------------- */
+.hero-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .hero-image {
+        order: -1;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
+/* -------------------------
+   Spacing utilities
+   ------------------------- */
+.mb-1 { margin-bottom: var(--space-1); }
+.mb-2 { margin-bottom: var(--space-2); }
+.mb-3 { margin-bottom: var(--space-3); }
+.mb-4 { margin-bottom: var(--space-4); }
+.mb-6 { margin-bottom: var(--space-6); }
+.mb-8 { margin-bottom: var(--space-8); }
+.mb-12 { margin-bottom: var(--space-12); }
+
+.mt-4 { margin-top: var(--space-4); }
+.mt-6 { margin-top: var(--space-6); }
+.mt-8 { margin-top: var(--space-8); }
+.mt-10 { margin-top: var(--space-10); }
+
+.pt-24 { padding-top: var(--space-20); }
+
+/* -------------------------
+   Width utilities
+   ------------------------- */
+.w-full { width: 100%; }
+.max-w-narrow { max-width: var(--max-width-narrow); }
+
+/* -------------------------
+   Footer
+   ------------------------- */
+.footer {
+    padding: var(--space-8) 0;
+    background-color: var(--color-ink);
+    border-top: 1px solid rgba(90, 90, 90, 0.3);
+}
+
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-copy {
+    font-size: var(--text-sm);
+    color: rgba(247, 244, 239, 0.6);
+}
+
+.footer-tagline {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-brass);
+}
+
+@media (max-width: 768px) {
+    .footer-inner {
+        flex-direction: column;
+        gap: var(--space-2);
+        text-align: center;
+    }
+}
+
+/* -------------------------
+   Project page header
+   ------------------------- */
+.project-header {
+    padding-top: calc(var(--nav-height) + var(--space-6));
+    padding-bottom: var(--space-8);
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-brass);
+    margin-bottom: var(--space-6);
+    transition: color var(--transition-fast);
+}
+
+.back-link:hover {
+    color: var(--color-ink);
+}
+
+.back-link span {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: var(--tracking-wide);
+}
+
+/* -------------------------
+   Responsive visibility
+   ------------------------- */
+@media (max-width: 768px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
