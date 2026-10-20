@@ -133,8 +133,8 @@ a:hover{color:var(--acc)}
                             <span style="position:absolute;top:9px;left:9px;width:8px;height:8px;border-radius:50%;background:#55575a"></span><span style="position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:50%;background:#55575a"></span><span style="position:absolute;bottom:9px;left:9px;width:8px;height:8px;border-radius:50%;background:#55575a"></span><span style="position:absolute;bottom:9px;right:9px;width:8px;height:8px;border-radius:50%;background:#55575a"></span>
                             <div style="font-family:var(--fM);font-size:9px;letter-spacing:.16em;color:#9a9b98">MODEL [{{ p.num }}]</div>
                             <div style="font-family:var(--fD);font-stretch:125%;font-weight:800;text-transform:uppercase;font-size:clamp(36px,6.5vh,60px);line-height:.92;margin:8px 0 6px;overflow-wrap:anywhere">{{ p.short }}</div>
-                            <div style="font-family:var(--fD);font-stretch:110%;font-weight:500;font-size:13px;text-transform:uppercase;letter-spacing:.06em">{{ p.title }}</div>
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin-top:18px;padding-top:14px;border-top:1px solid #3a3b3d">
+                            <p style="margin:12px 0 0;font-size:14px;line-height:1.5;text-wrap:pretty;opacity:.9">{{ p.desc }}</p>
+                            <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 14px;margin-top:18px;padding-top:14px;border-top:1px solid #3a3b3d">
                               <sc-for list="{{ s.cells }}" as="c" hint-placeholder-count="6">
                                 <div style="min-width:0;opacity:{{ c.o }};transition:opacity .3s steps(3) {{ c.d }}"><div style="font-family:var(--fM);font-size:8px;letter-spacing:.12em;color:#9a9b98">{{ c.k }}</div><div style="font-family:var(--fM);font-size:11px;overflow-wrap:anywhere">{{ c.v }}</div></div>
                               </sc-for>
@@ -175,7 +175,6 @@ a:hover{color:var(--acc)}
                           <div style="position:absolute;top:0;bottom:0;left:{{ s.split }};width:1px;background:var(--acc);pointer-events:none">
                             <div style="position:absolute;top:50%;left:-22px;width:44px;height:44px;margin-top:-22px;border-radius:50%;background:var(--acc);color:var(--accInk);display:flex;align-items:center;justify-content:center;font-family:var(--fM);font-size:13px">◂▸</div>
                           </div>
-                          <div style="position:absolute;bottom:14px;right:14px;display:flex;gap:8px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;pointer-events:none"><span style="background:var(--bg);padding:5px 8px">DRAG TO COMPARE</span><span style="background:var(--acc);color:var(--accInk);padding:5px 8px">PHOTO</span></div>
                         </sc-if>
                         <div style="position:absolute;left:0;right:0;height:1px;background:var(--acc);box-shadow:0 0 14px var(--acc);pointer-events:none;top:{{ s.sweepTop }};opacity:{{ s.sweepO }};transition:{{ s.sweepTr }}"></div>
                         <div style="position:absolute;top:10px;left:14px;right:14px;display:flex;justify-content:space-between;font-family:var(--fM);font-size:9px;color:var(--steel);pointer-events:none;opacity:{{ zonesO }}"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span></div>
@@ -264,7 +263,7 @@ a:hover{color:var(--acc)}
                   <sc-if value="{{ s.isLink }}" hint-placeholder-val="{{ false }}">
                     <div style="flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:28px;background:var(--panel);border-radius:var(--r);padding:clamp(24px,5vw,64px);opacity:{{ s.o }};transform:{{ s.t }};transition:opacity .5s ease .25s,transform .7s cubic-bezier(.2,.7,0,1) .25s">
                       <div style="font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--acc)">[R01] EXTERNAL REFERENCE</div>
-                      <p style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(40px,9vh,96px);line-height:.9;max-width:14ch">{{ p.desc }}</p>
+                      <p style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(40px,9vh,96px);line-height:.9;max-width:14ch">{{ p.linkText }}</p>
                       <a href="{{ p.link }}" target="_blank" style="align-self:flex-start;display:inline-flex;align-items:center;gap:14px;padding:16px 22px;border-radius:var(--r);background:var(--acc);color:var(--accInk);font-family:var(--fM);font-size:12px;letter-spacing:.1em">{{ p.linkLabel }} ↗</a>
                     </div>
                   </sc-if>
@@ -397,7 +396,7 @@ const EASE = { mechanical: 'transform 760ms cubic-bezier(.77,0,.18,1)', smooth: 
 const PROJECTS = [
   {
     id: 'am6', num: '01', dwg: 'AC-01-AM6', title: 'AM6 3D Printer', short: 'AM6', tag: 'ADDITIVE MFG', period: '2018 — PRESENT', status: 'ONGOING',
-    desc: 'Custom-designed 3D printer with high precision and reliability for engineering prototypes.',
+    desc: 'Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware.',
     img: 'img/am6_exploded.svg', photo: 'img/AM6.jpg',
     details: [{ k: 'STARTED', v: '2018' }, { k: 'CATEGORY', v: 'Additive Manufacturing' }, { k: 'TYPE', v: 'Personal Project' }],
     tech: ['Klipper Firmware', 'Additive Manufacturing', 'CAD Modeling', 'Mechanical Engineering'],
@@ -427,9 +426,9 @@ const PROJECTS = [
     ]
   },
   {
-    id: 'espin', num: '03', dwg: 'AC-03-ESP', title: 'E-Spin', short: 'E-SPIN', tag: 'KICKSTARTER', period: 'KICKSTARTER', status: 'LAUNCHED',
-    desc: 'Check out the E-Spin project on Kickstarter.',
-    overview: ['E-Spin is an ESP32-C3 development board in the form factor of a fidget spinner. I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.'],
+    id: 'espin', num: '03', dwg: 'AC-03-ESP', title: 'E-Spin', short: 'E-SPIN', tag: 'EMBEDDED HW', period: 'KICKSTARTER', status: 'LAUNCHED',
+    desc: 'ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing.', linkText: 'Check out the E-Spin project on Kickstarter.',
+    overview: ['E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.', 'I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.'],
     img: 'img/Exploded_details.png',
     link: 'https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp', linkLabel: 'VIEW ON KICKSTARTER'
   },
@@ -655,7 +654,7 @@ class Component extends DCLogic {
             numT: on ? 'translateY(0)' : 'translateY(100%)', plateT: on ? 'translateX(0)' : 'translateX(48px)', bigT: on ? 'translateX(0)' : 'translateX(-40%)',
             sweepTop: on ? '100%' : '0%', sweepO: on ? 0 : 1,
             sweepTr: on ? 'top 1.1s cubic-bezier(.6,0,.4,1) .25s, opacity .3s ease 1.3s' : 'none',
-            cells: [['DWG NO.', p.dwg], ['STATUS', p.status], ['CATEGORY', p.tag], ['PERIOD', p.period], ['DRAWN', 'A. COURRIEU'], ['SHEET', `01 / ${total}`]]
+            cells: [['STATUS', p.status], ['PERIOD', p.period], ['FIELD', p.tag]]
               .map((x, j) => ({ k: x[0], ks: x[0].charAt(0) + x[0].slice(1).toLowerCase(), v: x[1], o: on ? 1 : 0, d: on ? (450 + j * 70) + 'ms' : '0ms' }))
           });
         }
@@ -665,7 +664,7 @@ class Component extends DCLogic {
       });
       return { ...p, total, sheets, colT: `translate3d(0,${-cr * 100}%,0)`,
         sheetList: defs.map((d, i) => ({ n: pad2(i + 1), title: d.title, o: i === cr ? 1 : .5, mark: i === cr ? '●' : '', go: () => this.jump(c, i) })),
-        hasProse: !!p.prose, notesTitle: p.notesTitle || 'Notes', hasLearnings: !!p.learnings, learnings: (p.learnings || []).map((t, j) => ({ n: pad2(j + 1), t })) };
+        linkText: p.linkText || p.desc, hasProse: !!p.prose, notesTitle: p.notesTitle || 'Notes', hasLearnings: !!p.learnings, learnings: (p.learnings || []).map((t, j) => ({ n: pad2(j + 1), t })) };
     });
 
     const aboutC = COLS.length - 1, ar = this.rowIn(aboutC), aboutOn = ready && col === aboutC && ar === 0;
