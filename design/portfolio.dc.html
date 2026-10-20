@@ -24,21 +24,21 @@ a:hover{color:var(--acc)}
 
 <div ref="{{ rootRef }}" style="position:fixed;inset:0;display:flex;flex-direction:column;background:var(--bg,#0f1011);color:var(--ink,#e6e4df);font-family:var(--fB);transition:background-color .5s ease,color .5s ease">
 
-  <nav style="flex:0 0 52px;display:flex;align-items:stretch;border-bottom:var(--sep);position:relative;z-index:10;background:var(--bg)">
+  <nav style="flex:0 0 64px;display:flex;align-items:stretch;border-bottom:var(--sep);position:relative;z-index:10;background:var(--bg)">
     <div style="display:flex;align-items:center;gap:10px;padding:0 clamp(12px,1.5vw,20px);border-right:var(--sep);flex:none">
       <span style="width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)"></span>
-      <span style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:17px;letter-spacing:var(--navLS);white-space:nowrap">{{ brand }}</span>
+      <span style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:20px;letter-spacing:var(--navLS);white-space:nowrap">{{ brand }}</span>
     </div>
     <div style="display:flex;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none">
       <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
-        <button onClick="{{ t.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0 clamp(8px,1.2vw,16px);border-right:var(--sep);font-family:var(--fM);font-size:11px;letter-spacing:.08em;white-space:nowrap;color:{{ t.color }};background:{{ t.bg }};transition:background .3s ease,color .3s ease">
+        <button onClick="{{ t.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;gap:6px;padding:0 clamp(10px,1.4vw,20px);border-right:var(--sep);font-family:var(--fM);font-size:13px;letter-spacing:.08em;white-space:nowrap;color:{{ t.color }};background:{{ t.bg }};transition:background .3s ease,color .3s ease">
           <span style="opacity:.6;display:{{ numDisp }}">[{{ t.num }}]</span><span>{{ t.label }}</span>
         </button>
       </sc-for>
     </div>
     <div style="display:flex;align-items:stretch;border-left:var(--sep);flex:none">
       <sc-for list="{{ styleOpts }}" as="so" hint-placeholder-count="3">
-        <button onClick="{{ so.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;padding:0 clamp(8px,1vw,14px);border-left:var(--sep);font-family:var(--fM);font-size:11px;letter-spacing:.08em;white-space:nowrap;color:{{ so.color }};background:{{ so.bg }};transition:background .3s ease,color .3s ease">{{ so.label }}</button>
+        <button onClick="{{ so.go }}" style="all:unset;cursor:pointer;display:flex;align-items:center;padding:0 clamp(10px,1.2vw,18px);border-left:var(--sep);font-family:var(--fM);font-size:13px;letter-spacing:.08em;white-space:nowrap;color:{{ so.color }};background:{{ so.bg }};transition:background .3s ease,color .3s ease">{{ so.label }}</button>
       </sc-for>
     </div>
   </nav>
@@ -65,11 +65,11 @@ a:hover{color:var(--acc)}
               <div style="display:flex;justify-content:space-between;font-family:var(--fM);font-size:11px;letter-spacing:.1em;color:var(--steel)"><span>ENGINEERING PORTFOLIO</span><span>REV. 2026</span></div>
               <div>
                 <h1 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(36px,min(6.5vw,9vh),120px);line-height:.88;text-wrap:balance;transform:{{ cover.t }};opacity:{{ cover.o }};transition:transform 1s cubic-bezier(.2,.7,0,1) .15s,opacity .6s ease .15s">Hi, I'm Alexandre COURRIEU</h1>
+                <p style="margin:clamp(14px,2.5vh,28px) 0 0;font-size:clamp(18px,min(2vw,3vh),28px);font-weight:500;color:var(--steel);opacity:{{ cover.o }};transition:opacity .6s ease .35s">Engineering Student &amp; Maker</p>
               </div>
               <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;align-items:end">
                 <div style="opacity:{{ cover.o }};transition:opacity .6s ease .45s">
                   <div style="width:48px;height:3px;background:var(--acc);margin-bottom:16px"></div>
-                  <p style="margin:0 0 8px;font-size:20px;font-weight:500">Engineering Student &amp; Maker</p>
                   <p style="margin:0;max-width:48ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Passionate about robotics, manufacturing, and innovative engineering solutions. I bring ideas to life through creative design and technical execution.</p>
                 </div>
                 <div style="display:grid;grid-template-columns:auto auto 1fr;gap:6px 10px;font-family:var(--fM);font-size:11px;letter-spacing:.06em;opacity:{{ cover.o }};transition:opacity .6s ease .6s">
@@ -348,7 +348,7 @@ a:hover{color:var(--acc)}
     <button onClick="{{ right }}" aria-label="Next" style="all:unset;cursor:pointer;position:absolute;right:8px;top:50%;width:44px;height:44px;margin-top:-22px;display:var(--arrowD);align-items:center;justify-content:center;border-radius:var(--r);background:var(--bg);border:var(--sep);font-family:var(--fM);font-size:15px;z-index:8;opacity:{{ rightO }};pointer-events:{{ rightPE }};transition:opacity .3s ease">→</button>
     <div style="position:absolute;left:50%;bottom:8px;transform:translateX(-50%);display:flex;gap:6px;z-index:8">
       <button onClick="{{ up }}" aria-label="Previous sheet" style="all:unset;cursor:pointer;width:32px;height:32px;align-items:center;justify-content:center;border-radius:var(--r);background:var(--bg);border:var(--sep);font-family:var(--fM);font-size:13px;display:{{ upD }}">↑</button>
-      <button onClick="{{ down }}" aria-label="Next sheet" style="all:unset;cursor:pointer;height:32px;align-items:center;gap:12px;padding:0 14px;border-radius:var(--r);background:var(--ink);color:var(--bg);font-family:var(--fM);font-size:10px;letter-spacing:.1em;white-space:nowrap;display:{{ downD }};transition:background .2s ease" style-hover="{background:var(--acc);color:var(--accInk)}"><span>{{ nextLabel }}</span><span>↓</span></button>
+      <button onClick="{{ down }}" aria-label="Next sheet" style="all:unset;cursor:pointer;height:32px;align-items:center;gap:12px;padding:0 14px;border-radius:var(--r);background:var(--acc);color:var(--accInk);font-family:var(--fM);font-size:10px;letter-spacing:.1em;white-space:nowrap;display:{{ downD }};transition:background .2s ease" style-hover="{background:var(--ink);color:var(--bg)}"><span>{{ nextLabel }}</span><span>↓</span></button>
     </div>
 
     <div style="position:absolute;inset:0;z-index:20;background:var(--acc);pointer-events:none;transform:{{ wipeT }};transition:{{ wipeTr }}"></div>
@@ -395,7 +395,41 @@ const STYLES = {
 const EASE = { mechanical: 'transform 760ms cubic-bezier(.77,0,.18,1)', smooth: 'transform 1000ms cubic-bezier(.22,1,.36,1)' };
 const PROJECTS = [
   {
-    id: 'am6', num: '01', dwg: 'AC-01-AM6', title: 'AM6 3D Printer', short: 'AM6', tag: 'ADDITIVE MFG', period: '2018 — PRESENT', status: 'ONGOING',
+    id: 'minifab', num: '01', dwg: 'AC-01-MNF', title: 'Minifab', short: 'MINIFAB', tag: 'MICROFAB', period: '2024 — PRESENT', status: 'ONGOING',
+    desc: 'Highly customisable open source hybrid manufacturing machine capable of 3D printing and CNC milling.',
+    img: 'img/minifab_exploded.svg', photo: 'img/minifab.jpg',
+    details: [{ k: 'DATE', v: '2023 — 2025' }, { k: 'CATEGORY', v: 'Micromanufacturing' }, { k: 'TEAM SIZE', v: '8 members' }],
+    tech: ['CNC Milling', '3D Printing', 'CAD/CAM', 'Motion Control'],
+    thirdLabel: 'ACHIEVEMENTS', third: ['Aluminum Milling', 'Open Source Design', 'Hybrid Manufacturing'],
+    table: [['Total Size', '800 × 700 × 650 mm'], ['Maximum Speed', '70 mm/s'], ['Aluminum DOC', 'TBD'], ['Work Envelope', 'TBD']],
+    overview: [
+      'Minifab is a highly customisable open source hybrid manufacturing machine capable of both 3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities to makers and small workshops.',
+      'The project focuses on creating a versatile platform that can switch between additive and subtractive manufacturing processes, enabling complex workflows that would typically require multiple machines.'
+    ]
+  },
+  {
+    id: 'reskin', num: '02', dwg: 'AC-02-RSK', title: 'reSkin', short: 'RESKIN', tag: 'E-SKIN / HCI', period: '2025 — PRESENT', status: 'ONGOING',
+    desc: 'Printed stretchable artificial skin that senses pressure and tells human touch from objects.',
+    img: 'img/reskin_exploded.svg',
+    details: [{ k: 'STARTED', v: '2025' }, { k: 'CATEGORY', v: 'Soft sensors / HCI' }, { k: 'TYPE', v: 'ESILV research project' }],
+    tech: ['Mutual capacitance (MUCA)', 'Stretchable silver ink (ACI SS1109)', 'TPU substrate, silicone spacer', 'FocalTech touch controller'],
+    thirdLabel: 'FOCUS', third: ['Reproducible printed fabrication', 'Characterization test bench', 'Pressure sensing', 'Human vs. object contact'],
+    table: [['Sensing principle', 'Mutual capacitance'], ['Electrodes', 'Printed stretchable silver ink'], ['Substrate', 'TPU'], ['Dielectric', 'Silicone spacer'], ['Readout', 'FocalTech-based touch controller'], ['Target application', 'Prosthetics']],
+    overview: [
+      "reSkin is an iteration of Marc Teyssier's Skin-On, an artificial skin that senses touch through mutual capacitance. The goal is pressure sensing combined with discrimination between human and inanimate contact, for prosthetics.",
+      "The previous version used conductive yarn electrodes assembled by hand. Even with the same nominal thickness and electrode spacing, samples measured differently, and each iteration took too long to build. reSkin replaces the yarn with stretchable silver ink printed on TPU, with a silicone spacer as dielectric, for reproducible samples and fast iterations.",
+      "Current phase: validate one printed architecture, its reproducibility and a rigorous characterization bench. Raw readout through a FocalTech-based touch controller already works."
+    ]
+  },
+  {
+    id: 'espin', num: '03', dwg: 'AC-03-ESP', title: 'E-Spin', short: 'E-SPIN', tag: 'EMBEDDED HW', period: '2026', status: 'LAUNCHED',
+    desc: 'ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing.', linkText: 'Check out the E-Spin project on Kickstarter.',
+    overview: ['E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.', 'I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.'],
+    img: 'img/Exploded_details.png',
+    link: 'https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp', linkLabel: 'VIEW ON KICKSTARTER'
+  },
+  {
+    id: 'am6', num: '04', dwg: 'AC-04-AM6', title: 'AM6 3D Printer', short: 'AM6', tag: 'ADDITIVE MFG', period: '2018 — PRESENT', status: 'ONGOING',
     desc: 'Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware.',
     img: 'img/am6_exploded.svg', photo: 'img/AM6.jpg',
     details: [{ k: 'STARTED', v: '2018' }, { k: 'CATEGORY', v: 'Additive Manufacturing' }, { k: 'TYPE', v: 'Personal Project' }],
@@ -413,35 +447,15 @@ const PROJECTS = [
     gallery: [{ cap: 'FIG. 2 — ORIGINAL KIT', src: 'img/stock_a6.jpg', alt: 'Original Anet A6 Kit' }, { cap: 'FIG. 3 — AM6 UPGRADE', src: 'img/am6_kit.jpg', alt: 'AM6 Extrusion Upgrade' }, { cap: 'FIG. 4 — CURRENT', src: 'img/AM6.jpg', alt: 'Current Configuration' }]
   },
   {
-    id: 'minifab', num: '02', dwg: 'AC-02-MNF', title: 'Minifab', short: 'MINIFAB', tag: 'MICROFAB', period: '2024 — PRESENT', status: 'ONGOING',
-    desc: 'Highly customisable open source hybrid manufacturing machine capable of 3D printing and CNC milling.',
-    img: 'img/minifab_exploded.svg', photo: 'img/minifab.jpg',
-    details: [{ k: 'DATE', v: '2023 — 2025' }, { k: 'CATEGORY', v: 'Micromanufacturing' }, { k: 'TEAM SIZE', v: '8 members' }],
-    tech: ['CNC Milling', '3D Printing', 'CAD/CAM', 'Motion Control'],
-    thirdLabel: 'ACHIEVEMENTS', third: ['Aluminum Milling', 'Open Source Design', 'Hybrid Manufacturing'],
-    table: [['Total Size', '800 × 700 × 650 mm'], ['Maximum Speed', '70 mm/s'], ['Aluminum DOC', 'TBD'], ['Work Envelope', 'TBD']],
-    overview: [
-      'Minifab is a highly customisable open source hybrid manufacturing machine capable of both 3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities to makers and small workshops.',
-      'The project focuses on creating a versatile platform that can switch between additive and subtractive manufacturing processes, enabling complex workflows that would typically require multiple machines.'
-    ]
-  },
-  {
-    id: 'espin', num: '03', dwg: 'AC-03-ESP', title: 'E-Spin', short: 'E-SPIN', tag: 'EMBEDDED HW', period: 'KICKSTARTER', status: 'LAUNCHED',
-    desc: 'ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing.', linkText: 'Check out the E-Spin project on Kickstarter.',
-    overview: ['E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.', 'I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.'],
-    img: 'img/Exploded_details.png',
-    link: 'https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp', linkLabel: 'VIEW ON KICKSTARTER'
-  },
-  {
-    id: 'fusion', num: '04', dwg: 'AC-04-F360', title: 'Fusion 360 Toolkit', short: 'FUSION', tag: 'CAD / CAM', period: '2025 — PRESENT', status: 'ONGOING',
-    desc: 'Four Fusion 360 add-ins for CAD and CAM.',
+    id: 'fusion', num: '05', dwg: 'AC-05-F360', title: 'Fusion 360 Add-ins', short: 'FUSION', tag: 'CAD/CAM PLUGINS', period: '2025 — PRESENT', status: 'ONGOING',
+    desc: 'Four plugins I wrote in Python for Autodesk Fusion 360: cutting forces, tool inventory, extrusion profiles and 1:1 scale.',
     img: 'img/fusion-toolkit.svg',
     details: [{ k: 'STARTED', v: '2025' }, { k: 'CATEGORY', v: 'CAD / CAM Automation' }, { k: 'TYPE', v: '4 Fusion 360 Add-ins' }],
     tech: ['Python (Fusion API)', 'adsk.cam / adsk.fusion', 'HTML/JS palettes', 'JSON data files'],
     thirdLabel: 'SKILLS', third: ['Machining mechanics', 'CAM programming', 'Shop tooling logistics', 'Tool development'],
     table: [['Cutting Force Estimator', 'Manufacture — force & deflection before cutting'], ['Tool Inventory', 'Manufacture — tool library and stock counts in sync'], ['Aluminium Extrusions', 'Design — slot profiles in one command'], ['1:1 Scale', 'Design — true physical size on screen']],
     overview: [
-      'Fusion 360 is my daily tool for design and CNC programming. Where it leaves a gap in my workflow, I write an add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website.'
+      'Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website.'
     ],
     notesTitle: 'Add-ins', prose: [
       'CUTTING FORCE ESTIMATOR (FusionCuttingForce). Fusion CAM gives feeds and speeds, but no forces. The add-in reads tool and cut parameters from each toolpath, applies the Kienzle specific cutting force model and writes an HTML report with spindle power, torque and tool deflection. Fusion does not store rake or helix angles, so forces are shown as a range over the typical rake range of the material (e.g. Ft: 220–240 N). Material data covers 13 materials, from 6061 to Inconel; kc1.1 serves as a calibration value against measured spindle load.',
@@ -450,20 +464,6 @@ const PROJECTS = [
       '1:1 SCALE (FusionScale). Sets the viewport to true physical size, so a ruler on the screen measures the design. Operating systems often report the wrong DPI, so the first run asks for the measured length of a 50 mm reference line and saves the correction factor. The button then uses an orthographic camera and Camera.setExtents() to show the visible area at physical size.'
     ],
     link: 'https://github.com/alex-crr?tab=repositories', linkLabel: 'VIEW ON GITHUB'
-  },
-  {
-    id: 'reskin', num: '05', dwg: 'AC-05-RSK', title: 'reSkin', short: 'RESKIN', tag: 'E-SKIN / HCI', period: '2025 — PRESENT', status: 'ONGOING',
-    desc: 'Printed stretchable artificial skin that senses pressure and tells human touch from objects.',
-    img: 'img/reskin_exploded.svg',
-    details: [{ k: 'STARTED', v: '2025' }, { k: 'CATEGORY', v: 'Soft sensors / HCI' }, { k: 'TYPE', v: 'ESILV research project' }],
-    tech: ['Mutual capacitance (MUCA)', 'Stretchable silver ink (ACI SS1109)', 'TPU substrate, silicone spacer', 'FocalTech touch controller'],
-    thirdLabel: 'FOCUS', third: ['Reproducible printed fabrication', 'Characterization test bench', 'Pressure sensing', 'Human vs. object contact'],
-    table: [['Sensing principle', 'Mutual capacitance'], ['Electrodes', 'Printed stretchable silver ink'], ['Substrate', 'TPU'], ['Dielectric', 'Silicone spacer'], ['Readout', 'FocalTech-based touch controller'], ['Target application', 'Prosthetics']],
-    overview: [
-      "reSkin is an iteration of Marc Teyssier's Skin-On, an artificial skin that senses touch through mutual capacitance. The goal is pressure sensing combined with discrimination between human and inanimate contact, for prosthetics.",
-      "The previous version used conductive yarn electrodes assembled by hand. Even with the same nominal thickness and electrode spacing, samples measured differently, and each iteration took too long to build. reSkin replaces the yarn with stretchable silver ink printed on TPU, with a silicone spacer as dielectric, for reproducible samples and fast iterations.",
-      "Current phase: validate one printed architecture, its reproducibility and a rigorous characterization bench. Raw readout through a FocalTech-based touch controller already works."
-    ]
   }
 ];
 const SKILLS = [{ name: '3D Printing', lvl: 4, tier: 'EXPERT', note: 'SINCE 2018 · AM6, MINIFAB' }, { name: 'CAD Design', lvl: 3, tier: 'ADVANCED', note: 'MACHINE & PART DESIGN' }, { name: 'CNC Machining', lvl: 2, tier: 'PROFICIENT', note: 'ALUMINIUM MILLING · MINIFAB' }, { name: 'Programming', lvl: 2, tier: 'PROFICIENT', note: 'FIRMWARE · KLIPPER, MARLIN' }];
@@ -527,6 +527,7 @@ class Component extends DCLogic {
   go(dc, dr) {
     this.setState(s => {
       const col = Math.max(0, Math.min(COLS.length - 1, s.col + dc));
+      if (col !== s.col) return { col, row: 0 }; // horizontal move always lands on the first sheet
       let row = Math.min(s.row, this.rowsOf(s.col) - 1);
       if (dr) row = Math.max(0, Math.min(this.rowsOf(col) - 1, row + dr));
       return { col, row };
