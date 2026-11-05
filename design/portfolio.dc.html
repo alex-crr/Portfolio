@@ -347,7 +347,7 @@ a:hover{color:var(--acc)}
             <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
               <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 40px;padding:4px 0 6px;opacity:{{ voidHead.o }};transform:{{ voidHead.t }};transition:opacity .5s ease .15s,transform .7s cubic-bezier(.2,.7,0,1) .15s">
                 <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">Things I stopped building</h2>
-                <p style="margin:0;max-width:44ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Each of these ended on a decision, not by drifting. What they taught is still running in the live set.</p>
+                <p style="margin:0;max-width:44ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Each of these stopped on a decision, not by drifting. Paused ones may come back; the rest taught something still running in the live set.</p>
               </div>
               <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));grid-auto-rows:minmax(300px,1fr);gap:var(--gap)">
                 <sc-for list="{{ voids }}" as="v" hint-placeholder-count="0">
@@ -546,8 +546,8 @@ const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX'] }]
   .concat(PROJECTS.map(p => ({ label: p.short, num: p.num, rows: sheetsFor(p).map(s => s.title) })))
   .concat([{ label: 'ABOUT', num: '06', rows: ['ABOUT', 'CONTACT'] }, { label: 'VOID', num: '07', rows: ['VOID'] }]);
 const ABOUT_C = PROJECTS.length + 1, VOID_C = ABOUT_C + 1;
-// VOID page: withdrawn projects, newest first. status: FAILED | ABANDONED | SUPERSEDED | HANDED OVER | PAUSED
-// cause: SCOPE | TECH LIMITS | MARKET | BETTER OPTION | TIME | COST. Optional: img 'img/…', href (source), to (id of the live project it fed).
+// VOID page: withdrawn projects, newest first, PAUSED ones last. status: FAILED | ABANDONED | SUPERSEDED | HANDED OVER | PAUSED
+// cause: SCOPE | TECH LIMITS | MARKET | BETTER OPTION | PRIORITIES | TIME | COST. Optional: img 'img/…', href (source), to (id of the live project it fed).
 const VOID = [
   { id: 'AC-V05', title: 'Cleo', years: '2024 — 2025', status: 'ABANDONED', cause: 'TECH LIMITS',
     why: 'Jarvis-style assistant on local LLMs, using tool calls into an SQL project database instead of RAG. Local French speech models were not usable, English ones failed on my accent, and upkeep outweighed the benefit.',
@@ -555,7 +555,7 @@ const VOID = [
   { id: 'AC-V04', title: 'Distilium', years: '2024', status: 'HANDED OVER', cause: 'MARKET',
     why: 'Point-of-sale system for bars: cheaper beers for students, rewards for loyalty. The bars we pitched wanted a proven product, not a pilot. I left when I changed school.',
     fw: 'Relaunched by the three co-founders' },
-  { id: 'AC-V03', title: '[Unity game name]', years: '2023', status: 'FAILED', cause: 'SCOPE',
+  { id: 'AC-V03', title: 'MoG: Multiverse of Geekiness', years: '2023', status: 'FAILED', cause: 'SCOPE',
     why: 'End-of-year game where every level drops you into a different era and gameplay genre. Delivered for the defence, but barely working: each era was effectively a new game. Stopped right after.',
     fw: 'Scope one mechanic, then polish it' },
   { id: 'AC-V02', title: 'GCODE Generator', years: '2023', status: 'SUPERSEDED', cause: 'BETTER OPTION',
@@ -563,7 +563,16 @@ const VOID = [
     fw: 'Printer firmware know-how → AM6', to: 'am6', img: 'img/void_ammon.jpg', href: 'https://github.com/alex-crr/ammon-prints' },
   { id: 'AC-V01', title: 'Une histoire de blocs', years: '2020', status: 'ABANDONED', cause: 'SCOPE',
     why: '2D p5.js game made in one week at TUMO Paris, in middle school: my first object-oriented code. I wanted to keep going until I saw how far it was from the best projects in polish and story.',
-    fw: 'The first code I wrote', img: 'img/void_blocs.jpg', href: 'https://github.com/alex-crr/Une-histoire-de-blocs' }
+    fw: 'The first code I wrote', img: 'img/void_blocs.jpg', href: 'https://github.com/alex-crr/Une-histoire-de-blocs' },
+  { id: 'AC-V08', title: 'Talon', years: '2026', status: 'PAUSED', cause: 'PRIORITIES',
+    why: '[One line: what Talon is and what you architected.]',
+    fw: 'One of three REXUS/BEXUS candidates' },
+  { id: 'AC-V07', title: 'SPREAD', years: '2026', status: 'PAUSED', cause: 'PRIORITIES',
+    why: 'Resin printing in microgravity for REXUS Cycle 19: a static thin resin film on FEP, about 0.1 mm layers, printing test specimens within the ~2 min of microgravity.',
+    fw: 'One of three REXUS/BEXUS candidates' },
+  { id: 'AC-V06', title: 'ATLAS', years: '2026', status: 'PAUSED', cause: 'PRIORITIES',
+    why: 'Modular automated microfluidic lab platform, scoped as a REXUS/BEXUS proposal. I worked on the system architecture.',
+    fw: 'One of three REXUS/BEXUS candidates' }
 ];
 const pad2 = n => String(n).padStart(2, '0');
 
