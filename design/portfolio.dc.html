@@ -341,7 +341,7 @@ a:hover{color:var(--acc)}
       </div>
 
       <div style="flex:0 0 100%;height:100%;min-width:0;overflow:hidden">
-        <section data-screen-label="07 Void" style="height:100%;padding:var(--pad);display:flex">
+        <section data-screen-label="07 Void" style="--bg:#141516;--panel:#1f2022;--panel2:#252628;--ink:#e6e6e2;--steel:#9a9c9f;--sep:1px solid #323437;--void:#ff8a80;--acc:oklch(0.72 0.13 250);height:100%;padding:var(--pad);display:flex;background:var(--bg);color:var(--ink)">
           <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
             <div style="display:flex;justify-content:space-between;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span>AC-07-VOID — SUPERSEDED DRAWINGS</span><span><span style="color:var(--void)">{{ voidCount }}</span> WITHDRAWN</span></div>
             <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
@@ -372,12 +372,17 @@ a:hover{color:var(--acc)}
                         <span style="padding:8px 12px;color:var(--steel)">{{ v.cause }}</span>
                       </div>
                     </div>
-                    <sc-if value="{{ v.hasGo }}" hint-placeholder-val="{{ false }}">
-                      <button onClick="{{ v.go }}" style="all:unset;cursor:pointer;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px;color:var(--acc)">→ {{ v.fw }}</button>
-                    </sc-if>
-                    <sc-if value="{{ v.noGo }}" hint-placeholder-val="{{ true }}">
-                      <span style="padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px;color:var(--steel)">→ {{ v.fw }}</span>
-                    </sc-if>
+                    <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px">
+                      <sc-if value="{{ v.hasGo }}" hint-placeholder-val="{{ false }}">
+                        <button onClick="{{ v.go }}" style="all:unset;cursor:pointer;color:var(--acc)">→ {{ v.fw }}</button>
+                      </sc-if>
+                      <sc-if value="{{ v.noGo }}" hint-placeholder-val="{{ true }}">
+                        <span style="color:var(--steel)">→ {{ v.fw }}</span>
+                      </sc-if>
+                      <sc-if value="{{ v.hasHref }}" hint-placeholder-val="{{ false }}">
+                        <a href="{{ v.href }}" target="_blank" rel="noopener" style="flex:none;letter-spacing:.1em;color:var(--steel)">SOURCE ↗</a>
+                      </sc-if>
+                    </div>
                   </article>
                 </sc-for>
               </div>
@@ -541,13 +546,24 @@ const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX'] }]
   .concat(PROJECTS.map(p => ({ label: p.short, num: p.num, rows: sheetsFor(p).map(s => s.title) })))
   .concat([{ label: 'ABOUT', num: '06', rows: ['ABOUT', 'CONTACT'] }, { label: 'VOID', num: '07', rows: ['VOID'] }]);
 const ABOUT_C = PROJECTS.length + 1, VOID_C = ABOUT_C + 1;
-// VOID page: withdrawn projects, newest first. status: FAILED | ABANDONED | SUPERSEDED | PAUSED
-// cause: PHYSICS | COST | SCOPE | TIME | BETTER OPTION. img (optional): 'img/…'. to (optional): id of the live project it fed.
+// VOID page: withdrawn projects, newest first. status: FAILED | ABANDONED | SUPERSEDED | HANDED OVER | PAUSED
+// cause: SCOPE | TECH LIMITS | MARKET | BETTER OPTION | TIME | COST. Optional: img 'img/…', href (source), to (id of the live project it fed).
 const VOID = [
-  { id: 'AC-V04', title: '[Project name]', years: '[YYYY—YYYY]', status: 'PAUSED', cause: 'TIME', why: '[One line: the wall you hit, with the number that proved it.]', fw: '[What survived]', to: 'espin' },
-  { id: 'AC-V03', title: '[Project name]', years: '[YYYY—YYYY]', status: 'SUPERSEDED', cause: 'BETTER OPTION', why: '[One line: the wall you hit, with the number that proved it.]', fw: '[What survived]', to: 'minifab' },
-  { id: 'AC-V02', title: '[Project name]', years: '[YYYY—YYYY]', status: 'ABANDONED', cause: 'SCOPE', why: '[One line: the wall you hit, with the number that proved it.]', fw: '[What survived]', to: 'am6' },
-  { id: 'AC-V01', title: '[Project name]', years: '[YYYY—YYYY]', status: 'FAILED', cause: 'PHYSICS', why: '[One line: the wall you hit, with the number that proved it.]', fw: '[What I learned]' }
+  { id: 'AC-V05', title: 'Cleo', years: '2024 — 2025', status: 'ABANDONED', cause: 'TECH LIMITS',
+    why: 'Jarvis-style assistant on local LLMs, using tool calls into an SQL project database instead of RAG. Local French speech models were not usable, English ones failed on my accent, and upkeep outweighed the benefit.',
+    fw: 'Project tracking moved to a plain Obsidian vault', href: 'https://github.com/alex-crr/Cleo' },
+  { id: 'AC-V04', title: 'Distilium', years: '2024', status: 'HANDED OVER', cause: 'MARKET',
+    why: 'Point-of-sale system for bars: cheaper beers for students, rewards for loyalty. The bars we pitched wanted a proven product, not a pilot. I left when I changed school.',
+    fw: 'Relaunched by the three co-founders' },
+  { id: 'AC-V03', title: '[Unity game name]', years: '2023', status: 'FAILED', cause: 'SCOPE',
+    why: 'End-of-year game where every level drops you into a different era and gameplay genre. Delivered for the defence, but barely working: each era was effectively a new game. Stopped right after.',
+    fw: 'Scope one mechanic, then polish it' },
+  { id: 'AC-V02', title: 'GCODE Generator', years: '2023', status: 'SUPERSEDED', cause: 'BETTER OPTION',
+    why: 'Web tool to build custom Marlin start and end G-code, because existing generators lacked features I needed. By the time the base worked, a better tool covering them was out.',
+    fw: 'Printer firmware know-how → AM6', to: 'am6', img: 'img/void_ammon.jpg', href: 'https://github.com/alex-crr/ammon-prints' },
+  { id: 'AC-V01', title: 'Une histoire de blocs', years: '2020', status: 'ABANDONED', cause: 'SCOPE',
+    why: '2D p5.js game made in one week at TUMO Paris, in middle school: my first object-oriented code. I wanted to keep going until I saw how far it was from the best projects in polish and story.',
+    fw: 'The first code I wrote', img: 'img/void_blocs.jpg', href: 'https://github.com/alex-crr/Une-histoire-de-blocs' }
 ];
 const pad2 = n => String(n).padStart(2, '0');
 
@@ -754,7 +770,7 @@ class Component extends DCLogic {
       voidHead: reveal(voidOn), voidCount: pad2(VOID.length),
       voids: VOID.map((v, i) => {
         const pc = PROJECTS.findIndex(p => p.id === v.to) + 1;
-        return { ...v, hasImg: !!v.img, noImg: !v.img, hasGo: pc > 0, noGo: pc < 1, go: () => this.jump(pc), ...reveal(voidOn), d: voidOn ? (250 + i * 90) + 'ms' : '0ms' };
+        return { ...v, hasImg: !!v.img, noImg: !v.img, hasHref: !!v.href, hasGo: pc > 0, noGo: pc < 1, go: () => this.jump(pc), ...reveal(voidOn), d: voidOn ? (250 + i * 90) + 'ms' : '0ms' };
       }),
       tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? (i === VOID_C ? 'var(--void)' : 'var(--acc)') : 'transparent' })),
       styleOpts: Object.keys(STYLES).map(k => ({ label: this.state.vw < 720 ? STYLES[k].label[0] : STYLES[k].label, go: () => this.setStyle(k), color: k === sk ? 'var(--bg)' : 'var(--steel)', bg: k === sk ? 'var(--ink)' : 'transparent' })),
