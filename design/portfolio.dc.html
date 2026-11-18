@@ -289,6 +289,23 @@ a:hover{color:var(--acc)}
                         </sc-for>
                       </div>
                       </sc-if>
+                      <sc-if value="{{ s.hasCards }}" hint-placeholder-val="{{ false }}">
+                        <div style="grid-column:1/-1;display:grid;grid-template-columns:{{ cardCols }};gap:var(--gap)">
+                          <sc-for list="{{ s.cards }}" as="cd" hint-placeholder-count="4">
+                            <div style="display:flex;flex-direction:column;justify-content:space-between;gap:32px;background:var(--panel);border-radius:var(--r);padding:clamp(20px,2.4vw,32px);container-type:inline-size;opacity:{{ cd.o }};transform:{{ cd.t }};transition:opacity .5s ease {{ cd.d }},transform .7s cubic-bezier(.2,.7,0,1) {{ cd.d }}">
+                              <div>
+                                <div style="display:flex;justify-content:space-between;gap:12px;font-family:var(--fM);font-size:10px;letter-spacing:.1em"><span style="color:var(--acc)">{{ cd.ws }}</span></div>
+                                <div style="margin-top:16px;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);font-size:min(clamp(56px,14vh,150px),calc(100cqi / 2.6));line-height:.8;letter-spacing:-.02em;color:var(--line)">{{ cd.n }}</div>
+                              </div>
+                              <div>
+                                <h3 style="margin:0 0 8px;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS2);font-size:min(clamp(22px,3.6vh,34px),calc(100cqi / 8.5));line-height:.95">{{ cd.name }}</h3>
+                                <div style="font-family:var(--fM);font-size:11px;letter-spacing:.06em;color:var(--steel);margin-bottom:18px">{{ cd.repo }}</div>
+                                <p style="margin:0;font-size:15px;line-height:1.6;text-wrap:pretty">{{ cd.body }}</p>
+                              </div>
+                            </div>
+                          </sc-for>
+                        </div>
+                      </sc-if>
                       <sc-if value="{{ p.hasLearnings }}" hint-placeholder-val="{{ false }}">
                         <div style="background:var(--panel2);border-radius:var(--r);padding:clamp(20px,3vw,40px)">
                           <div style="font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--acc);margin-bottom:12px">[N03] KEY LEARNINGS</div>
@@ -448,13 +465,13 @@ const PROJECTS = [
     overview: [
       'Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website.'
     ],
-    notesTitle: 'Add-ins', prose: [
-      'CUTTING FORCE ESTIMATOR (FusionCuttingForce). Fusion CAM gives feeds and speeds, but no forces. The add-in reads tool and cut parameters from each toolpath, applies the Kienzle specific cutting force model and writes an HTML report with spindle power, torque and tool deflection. Fusion does not store rake or helix angles, so forces are shown as a range over the typical rake range of the material (e.g. Ft: 220–240 N). Material data covers 13 materials, from 6061 to Inconel; kc1.1 serves as a calibration value against measured spindle load.',
-      'TOOL INVENTORY. Tool definitions lived in the Fusion tool library and physical counts in an Excel file. This palette in the Manufacture workspace reads the library live through the Fusion API, stores counts and per-tool minimum stock in a JSON sidecar on the shared network drive (30 s lock file for multi-user writes, lock-free reads), and shows OK / LOW / UNSTOCKED status with CSV export. Phase 1 is complete; phase 2 moves to a cloud backend. Source not public yet.',
-      'ALUMINIUM EXTRUSIONS (ExtrusionsGenerator). Adds an Aluminum Extrusion command next to Pipe in the Create panel. Select a series, profile and length: the add-in imports the DXF section, repairs small gaps so the sketch closes, extrudes the body in its own component, applies aluminium material and collapses the steps into one timeline group. Library: 2020, 2040, 2060, 2080, 4040, C-beam 4080.',
-      '1:1 SCALE (FusionScale). Sets the viewport to true physical size, so a ruler on the screen measures the design. Operating systems often report the wrong DPI, so the first run asks for the measured length of a 50 mm reference line and saves the correction factor. The button then uses an orthographic camera and Camera.setExtents() to show the visible area at physical size.'
+    notesTitle: 'Add-ins', cards: [
+      { name: 'Cutting Force Estimator', repo: 'FusionCuttingForce', ws: 'MANUFACTURE', body: 'Fusion CAM gives feeds and speeds, but no forces. Reads each toolpath, applies the Kienzle model and reports spindle power, torque and tool deflection, as a range since Fusion stores no rake angle. 13 materials, 6061 to Inconel.' },
+      { name: 'Tool Inventory', repo: 'SOURCE NOT PUBLIC YET', ws: 'MANUFACTURE', body: 'Physical tool counts lived in an Excel file, apart from the Fusion tool library. This palette reads the library live, keeps counts and minimum stock in a shared JSON file with multi-user locking, and flags OK / LOW / UNSTOCKED.' },
+      { name: 'Aluminium Extrusions', repo: 'ExtrusionsGenerator', ws: 'DESIGN', body: 'An Aluminum Extrusion command next to Pipe. Pick series, profile and length: it imports the section, closes small sketch gaps and builds the part in its own component, as one timeline group. 2020 to C-beam 4080.' },
+      { name: '1:1 Scale', repo: 'FusionScale', ws: 'DESIGN', body: 'Shows the design at true physical size, so a ruler held on the screen measures it. A one-time measurement of a 50 mm reference line corrects the wrong DPI most operating systems report.' }
     ],
-    link: 'https://github.com/alex-crr?tab=repositories', linkLabel: 'VIEW ON GITHUB'
+    linkText: 'View them on GitHub.', link: 'https://github.com/alex-crr?tab=repositories', linkLabel: 'GITHUB.COM/ALEX-CRR'
   }
 ];
 const SKILLS = [{ name: '3D Printing', lvl: 4, tier: 'EXPERT', note: 'SINCE 2018 · AM6, MINIFAB' }, { name: 'CAD Design', lvl: 3, tier: 'ADVANCED', note: 'MACHINE & PART DESIGN' }, { name: 'CNC Machining', lvl: 2, tier: 'PROFICIENT', note: 'ALUMINIUM MILLING · MINIFAB' }, { name: 'Programming', lvl: 2, tier: 'PROFICIENT', note: 'FIRMWARE · KLIPPER, MARLIN' }];
@@ -477,7 +494,7 @@ const FONTS = {
 function sheetsFor(p) {
   const s = [{ kind: 'drawing', title: 'GENERAL ARRANGEMENT' }];
   if (p.table) s.push({ kind: 'spec', title: 'SPECIFICATIONS' });
-  if (p.prose || p.learnings) s.push({ kind: 'notes', title: p.prose ? (p.notesTitle || 'Notes').toUpperCase() : 'KEY LEARNINGS' });
+  if (p.prose || p.cards || p.learnings) s.push({ kind: 'notes', title: p.prose || p.cards ? (p.notesTitle || 'Notes').toUpperCase() : 'KEY LEARNINGS' });
   if (p.gallery) s.push({ kind: 'gallery', title: 'DOCUMENTATION' });
   if (p.link) s.push({ kind: 'link', title: 'REFERENCE' });
   return s;
@@ -683,6 +700,7 @@ class Component extends DCLogic {
           });
         }
         if (s.isSpec) s.rows = p.table.map((r, j) => ({ ref: 'P' + pad2(j + 1), k: r[0], v: r[1], ...reveal(on), d: on ? (350 + j * 60) + 'ms' : '0ms' }));
+        if (s.isNotes && p.cards) Object.assign(s, { hasCards: true, cards: p.cards.map((x, j) => ({ ...x, n: pad2(j + 1), ...reveal(on), d: on ? (300 + j * 90) + 'ms' : '0ms' })) });
         if (s.isGallery) s.figs = p.gallery.map((f, j) => ({ ...f, ...reveal(on), d: on ? (200 + j * 120) + 'ms' : '0ms' }));
         return s;
       });
@@ -700,6 +718,7 @@ class Component extends DCLogic {
       nav: mob
         ? { h: '83px', wrap: 'wrap', rowH: '46px', brandFlex: '1', brandFs: 'clamp(13px,4.4vw,17px)', tabsFlex: '0 0 100%', tabsOrd: 2, tabsH: '36px', tabsBt: 'var(--sep)', tabFlex: '1 0 auto', tabPad: '0 6px', tabFs: '11px' }
         : { h: '64px', wrap: 'nowrap', rowH: 'auto', brandFlex: 'none', brandFs: '20px', tabsFlex: '1', tabsOrd: 0, tabsH: 'auto', tabsBt: 'none', tabFlex: 'none', tabPad: '0 clamp(10px,1.4vw,20px)', tabFs: '13px' },
+      cardCols: this.state.vw >= 1400 ? 'repeat(4,minmax(0,1fr))' : mob ? 'minmax(0,1fr)' : 'repeat(2,minmax(0,1fr))', // 4 / 2x2 / stacked, never 3+1
       periodDisp: this.state.vw < 380 ? 'none' : 'inline', bootCols: mob ? 'minmax(0,1fr)' : 'minmax(0,1fr) auto',
       home: () => this.jump(0), toggleStyle: () => this.setStyle(other), toggleLabel: STYLES[other].label, toggleBg: STYLES[other].v['--bg'], toggleInk: STYLES[other].v['--ink'], // button previews the theme it switches to
       isControl: sk === 'control', isPlate: sk === 'plate' || sk === 'plateDark', isSwiss: sk === 'swiss',
