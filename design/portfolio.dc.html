@@ -40,8 +40,8 @@ a:hover{color:var(--acc)}
     <div style="display:flex;height:100%;transform:{{ trackT }};transition:{{ moveTr }};will-change:transform">
 
       <div style="flex:0 0 100%;height:100%;min-width:0;overflow:hidden">
-        <div style="height:100%;transform:{{ aboutT }};transition:{{ moveTr }};will-change:transform">
-        <section data-screen-label="00 Index" style="height:100%;padding:var(--pad);display:flex">
+        <div style="height:100%;overflow-y:{{ colOv }};transform:{{ aboutT }};transition:{{ moveTr }};will-change:transform">
+        <section data-screen-label="00 Index" style="height:var(--secH);padding:var(--pad);display:flex">
           <div style="flex:1;min-width:0;border:var(--frame);border-top:var(--frameTop);display:grid;grid-template-columns:var(--idxCols);grid-template-rows:var(--idxRows);gap:var(--gap);min-height:0;overflow:hidden;overflow-y:var(--idxOv)">
             <div style="position:relative;background:var(--panel);border-radius:var(--r);border-right:var(--innerSep);padding:clamp(20px,min(5vw,5vh),64px);display:flex;flex-direction:column;justify-content:space-between;gap:24px;min-height:0;overflow:hidden">
               <sc-for list="{{ register }}" as="r" hint-placeholder-count="0">
@@ -89,7 +89,7 @@ a:hover{color:var(--acc)}
             </div>
           </div>
         </section>
-          <section data-screen-label="00 About" style="height:100%;padding:var(--pad);display:flex">
+          <section data-screen-label="00 About" style="height:var(--secH);padding:var(--pad);display:flex">
             <div style="flex:1;min-width:0;border:var(--frame);border-top:var(--frameTop);display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
               <div style="display:flex;justify-content:space-between;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span>AC-00-ABT — ABOUT</span><span>SHEET <span style="color:var(--acc)">02</span> / 03</span></div>
               <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));gap:var(--gap);opacity:{{ about.o }};transform:{{ about.t }};transition:opacity .5s ease .2s,transform .7s cubic-bezier(.2,.7,0,1) .2s">
@@ -128,7 +128,7 @@ a:hover{color:var(--acc)}
             </div>
           </section>
 
-          <section data-screen-label="00 Contact" style="height:100%;padding:var(--pad);display:flex">
+          <section data-screen-label="00 Contact" style="height:var(--secH);padding:var(--pad);display:flex">
             <div style="flex:1;min-width:0;border-radius:var(--r);display:flex;flex-direction:column;min-height:0;background:var(--acc);color:var(--accInk)">
               <div style="display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid currentColor;font-family:var(--fM);font-size:10px;letter-spacing:.1em"><span>AC-00-ABT — CONTACT</span><span>SHEET 03 / 03</span></div>
               <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;padding:clamp(24px,5vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:36px;opacity:{{ contact.o }};transform:{{ contact.t }};transition:opacity .5s ease .2s,transform .7s cubic-bezier(.2,.7,0,1) .2s">
@@ -140,12 +140,12 @@ a:hover{color:var(--acc)}
                   <sc-for list="{{ contacts }}" as="ct" hint-placeholder-count="3">
                     <a href="{{ ct.href }}" target="_blank" style="display:flex;flex-direction:column;gap:6px;padding:18px 18px 18px 0" style-hover="{opacity:.65}">
                       <span style="font-family:var(--fM);font-size:10px;letter-spacing:.1em">{{ ct.label }} ↗</span>
-                      <span style="font-size:16px;word-break:break-all">{{ ct.value }}</span>
+                      <span style="font-size:16px;overflow-wrap:anywhere">{{ ct.value }}</span>
                     </a>
                   </sc-for>
                 </div>
                 <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-family:var(--fM);font-size:10px;letter-spacing:.1em">
-                  <span>© 2025 Alexandre COURRIEU. All rights reserved.</span><span>BUILT WITH PRECISION</span>
+                  <span>© 2026 Alexandre COURRIEU. All rights reserved.</span><span>BUILT WITH PRECISION</span>
                 </div>
               </div>
             </div>
@@ -155,9 +155,9 @@ a:hover{color:var(--acc)}
 
       <sc-for list="{{ projects }}" as="p" hint-placeholder-count="3">
         <div style="flex:0 0 100%;height:100%;position:relative;min-width:0;overflow:hidden">
-          <div style="height:100%;transform:{{ p.colT }};transition:{{ moveTr }};will-change:transform">
+          <div style="height:100%;overflow-y:{{ colOv }};transform:{{ p.colT }};transition:{{ moveTr }};will-change:transform">
             <sc-for list="{{ p.sheets }}" as="s" hint-placeholder-count="1">
-              <section data-screen-label="{{ s.screen }}" style="height:100%;padding:var(--pad);display:flex">
+              <section data-screen-label="{{ s.screen }}" style="height:var(--secH);padding:var(--pad);display:flex">
                 <div style="flex:1;min-width:0;border:var(--frame);border-top:var(--frameTop);display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
                   <div style="flex:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">
                     <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ p.dwg }} — {{ s.title }}</span>
@@ -202,7 +202,7 @@ a:hover{color:var(--acc)}
                               <p style="margin:0;font-size:14px;line-height:1.6;text-wrap:pretty">{{ para }}</p>
                             </sc-for>
                           </div>
-                          <div style="display:flex;flex-direction:column;font-family:var(--fM);font-size:10px;letter-spacing:.08em">
+                          <div style="display:{{ listDisp }};flex-direction:column;font-family:var(--fM);font-size:10px;letter-spacing:.08em">
                             <sc-for list="{{ p.sheetList }}" as="sl" hint-placeholder-count="4">
                               <button onClick="{{ sl.go }}" style="all:unset;cursor:pointer;display:flex;justify-content:space-between;padding:9px 0;border-top:var(--sep);opacity:{{ sl.o }}"><span>{{ sl.n }} {{ sl.title }}</span><span style="color:var(--acc)">{{ sl.mark }}</span></button>
                             </sc-for>
@@ -220,7 +220,7 @@ a:hover{color:var(--acc)}
 
                       </div>
 
-                      <div onPointerDown="{{ s.onDrag }}" style="position:relative;min-height:0;min-width:0;overflow:hidden;background:var(--drawBg);border-radius:var(--r);cursor:{{ s.cursor }};touch-action:pan-y;user-select:none">
+                      <div onPointerDown="{{ s.onDrag }}" style="height:var(--drawH);position:relative;min-height:0;min-width:0;overflow:hidden;background:var(--drawBg);border-radius:var(--r);cursor:{{ s.cursor }};touch-action:pan-y;user-select:none">
                         <sc-if value="{{ s.hasPhoto }}" hint-placeholder-val="{{ false }}">
                           <img src="{{ p.photo }}" loading="lazy" decoding="async" alt="{{ p.title }} photo" draggable="false" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:var(--photoF)"></img>
                         </sc-if>
@@ -478,7 +478,7 @@ const SKILLS = [{ name: '3D Printing', lvl: 4, tier: 'EXPERT', note: 'SINCE 2018
 const EDU = [{ date: '2023 — 2027', title: 'ESILV', sub: 'Engineering Degree' }, { date: '2022 — 2023', title: 'EPITA', sub: 'Computer Science Engineering' }, { date: '2019 — 2022', title: 'Lycée Stanislas', sub: 'STEM Program' }];
 const CONTACTS = [
   { label: 'EMAIL', value: 'alexandre.courrieu@edu.devinci.fr', href: 'mailto:alexandre.courrieu@edu.devinci.fr' },
-  { label: 'LINKEDIN', value: 'linkedin.com/in/alexandre-courrieu', href: 'https://linkedin.com/in/alexandre-courrieu' },
+  { label: 'LINKEDIN', value: 'linkedin.com/in/alexandre-courrieu-bb039927a', href: 'https://www.linkedin.com/in/alexandre-courrieu-bb039927a' },
   { label: 'GITHUB', value: 'github.com/alex-crr', href: 'https://github.com/alex-crr' }
 ];
 const BOOT = ['LOAD DRAWING REGISTER', 'MOUNT AC-01-AM6', 'MOUNT AC-02-MNF', 'MOUNT AC-03-ESP', 'MOUNT AC-04-F360', 'MOUNT AC-05-RSK', 'CALIBRATE GRID 6 × 4', 'RESOLVE TITLE BLOCKS', 'SYNC SHEET INDEX', 'READY'];
@@ -518,9 +518,9 @@ class Component extends DCLogic {
   }
   applyStyle() {
     const el = this.rootRef.current; if (!el) return;
-    const v = { ...STYLES[this.styleKey()].v, '--idxCols': 'minmax(0,1.4fr) minmax(300px,1fr)', '--idxRows': 'minmax(0,1fr)', '--rows': 'minmax(0,1fr)', '--idxOv': 'hidden' };
+    const v = { ...STYLES[this.styleKey()].v, '--idxCols': 'minmax(0,1.4fr) minmax(300px,1fr)', '--idxRows': 'minmax(0,1fr)', '--rows': 'minmax(0,1fr)', '--idxOv': 'hidden', '--secH': '100%', '--drawH': 'auto' };
     const f = FONTS[this.props.font] ; if (f && f.v) Object.assign(v, f.v);
-    if (window.innerWidth < 720) Object.assign(v, { '--pad': '8px', '--cols': 'minmax(0,1fr)', '--rows': 'minmax(0,46%) minmax(0,1fr)', '--infoOrd': '2', '--infoPad': '14px', '--innerSep': '0px solid transparent', '--idxCols': 'minmax(0,1fr)', '--idxRows': 'max-content max-content', '--idxOv': 'auto' });
+    if (window.innerWidth < 720) Object.assign(v, { '--pad': '8px', '--cols': 'minmax(0,1fr)', '--rows': 'auto auto', '--secH': 'auto', '--drawH': 'max(300px,50vh)', '--infoOrd': '2', '--infoPad': '14px', '--innerSep': '0px solid transparent', '--idxCols': 'minmax(0,1fr)', '--idxRows': 'max-content max-content', '--idxOv': 'auto' });
     for (const k in v) el.style.setProperty(k, v[k]);
     document.body.style.background = v['--bg'];
     document.documentElement.style.overscrollBehavior = 'none';
@@ -632,7 +632,7 @@ class Component extends DCLogic {
       if (!this.t0 || this.drag) { this.t0 = null; return; } const t = e.changedTouches[0];
       const dx = t.clientX - this.t0.x, dy = t.clientY - this.t0.y, can = this.t0; this.t0 = null;
       if (Math.max(Math.abs(dx), Math.abs(dy)) < 40) return;
-      if (Math.abs(dx) > Math.abs(dy)) this.go(dx < 0 ? 1 : -1, 0); else if (dy < 0 ? can.down : can.up) this.go(0, dy < 0 ? 1 : -1);
+      if (Math.abs(dx) > Math.abs(dy)) this.go(dx < 0 ? 1 : -1, 0); else if (this.state.vw >= 720 && (dy < 0 ? can.down : can.up)) this.go(0, dy < 0 ? 1 : -1);
     };
     this.onMove = e => {
       const m = this.mainRef.current; if (!m) return;
@@ -679,7 +679,7 @@ class Component extends DCLogic {
     const moveTr = EASE[this.props.easing] || EASE.mechanical;
     const reveal = on => ({ o: on ? 1 : 0, t: on ? 'translate3d(0,0,0)' : 'translate3d(0,18px,0)' });
     const ready = boot !== 'run';
-    const active = (c, r) => ready && col === c && this.rowIn(c) === r;
+    const active = (c, r) => ready && col === c && (mob || this.rowIn(c) === r);
 
     const projects = PROJECTS.map((p, pi) => {
       const c = pi + 1, defs = sheetsFor(p), total = pad2(defs.length), cr = this.rowIn(c);
@@ -706,17 +706,17 @@ class Component extends DCLogic {
         if (s.isGallery) s.figs = p.gallery.map((f, j) => ({ ...f, ...reveal(on), d: on ? (200 + j * 120) + 'ms' : '0ms' }));
         return s;
       });
-      return { ...p, total, sheets, drawF: p.raw ? 'none' : 'var(--drawF)', drawB: p.raw ? 'normal' : 'var(--drawB)', colT: `translate3d(0,${-cr * 100}%,0)`,
+      return { ...p, total, sheets, drawF: p.raw ? 'none' : 'var(--drawF)', drawB: p.raw ? 'normal' : 'var(--drawB)', colT: mob ? 'none' : `translate3d(0,${-cr * 100}%,0)`,
         sheetList: defs.map((d, i) => ({ n: pad2(i + 1), title: d.title, o: i === cr ? 1 : .5, mark: i === cr ? '●' : '', go: () => this.jump(c, i) })),
         linkText: p.linkText || p.desc, hasProse: !!p.prose, notesTitle: p.notesTitle || 'Notes', hasLearnings: !!p.learnings, learnings: (p.learnings || []).map((t, j) => ({ n: pad2(j + 1), t })) };
     });
 
-    const aboutC = 0, ar = this.rowIn(aboutC), aboutOn = ready && col === aboutC && ar === 1;
-    const cur = COLS[col], curRow = this.rowIn(col), coverOn = ready && col === 0 && ar === 0;
+    const aboutC = 0, ar = this.rowIn(aboutC), aboutOn = ready && col === aboutC && (mob || ar === 1);
+    const cur = COLS[col], curRow = this.rowIn(col), coverOn = ready && col === 0 && (mob || ar === 0);
     const wipeMap = { idle: ['translateX(-101%)', 'none'], in: ['translateX(0)', 'transform .38s cubic-bezier(.77,0,.18,1)'], out: ['translateX(101%)', 'transform .42s cubic-bezier(.77,0,.18,1)'], reset: ['translateX(-101%)', 'none'] };
     return {
       rootRef: this.rootRef, mainRef: this.mainRef, crossX: this.crossX, crossY: this.crossY, bootPct: this.bootPct, bootBar: this.bootBar, arrowL: this.arrowL, arrowR: this.arrowR, arrowD: this.arrowD,
-      numDisp: this.state.vw < 1000 ? 'none' : 'flex', descDisp: this.state.vh < 640 ? 'none' : 'block',
+      numDisp: this.state.vw < 1000 ? 'none' : 'flex', listDisp: mob ? 'none' : 'flex', descDisp: this.state.vh < 640 ? 'none' : 'block',
       nav: mob
         ? { h: '83px', wrap: 'wrap', rowH: '46px', brandFlex: '1', brandFs: 'clamp(13px,4.4vw,17px)', tabsFlex: '0 0 100%', tabsOrd: 2, tabsH: '36px', tabsBt: 'var(--sep)', tabFlex: '1 0 auto', tabPad: '0 6px', tabFs: '11px' }
         : { h: '64px', wrap: 'nowrap', rowH: 'auto', brandFlex: 'none', brandFs: '20px', tabsFlex: '1', tabsOrd: 0, tabsH: 'auto', tabsBt: 'none', tabFlex: 'none', tabPad: '0 clamp(10px,1.4vw,20px)', tabFs: '13px' },
@@ -725,7 +725,7 @@ class Component extends DCLogic {
       home: () => this.jump(0), toggleStyle: () => this.setStyle(other), toggleLabel: STYLES[other].label, toggleBg: STYLES[other].v['--bg'], toggleInk: STYLES[other].v['--ink'], // button previews the theme it switches to
       isControl: sk === 'control', isPlate: sk === 'plate' || sk === 'plateDark', isSwiss: sk === 'swiss',
       moveTr,
-      trackT: `translate3d(${-col * 100}%,0,0)`, aboutT: `translate3d(0,${-ar * 100}%,0)`,
+      trackT: `translate3d(${-col * 100}%,0,0)`, aboutT: mob ? 'none' : `translate3d(0,${-ar * 100}%,0)`, colOv: mob ? 'auto' : 'visible',
       cover: { o: coverOn ? 1 : 0, t: coverOn ? 'translateY(0)' : 'translateY(40%)' },
       projectCount: pad2(PROJECTS.length),
       register: PROJECTS.map((p, i) => ({ num: p.num, title: p.title, dwg: p.dwg, tag: p.tag, period: p.period, desc: p.desc, go: () => this.jump(i + 1),
@@ -734,12 +734,12 @@ class Component extends DCLogic {
         pv: p.photo || p.img, pvFit: p.photo ? 'cover' : 'contain', pvF: p.photo ? 'var(--photoF)' : p.raw ? 'none' : 'var(--drawF)', pvB: p.photo || p.raw ? 'normal' : 'var(--drawB)',
         pvBg: p.photo ? 'var(--panel)' : 'var(--drawBg)', pvInset: p.photo ? '0' : '4% 4% 34% 4%', pvT: this.state.hov === i ? 'scale(1)' : 'scale(1.04)', ...reveal(coverOn), d: coverOn ? (300 + i * 90) + 'ms' : '0ms' })),
       projects,
-      about: reveal(aboutOn), contact: reveal(ready && col === aboutC && ar === 2),
+      about: reveal(aboutOn), contact: reveal(ready && col === aboutC && (mob || ar === 2)),
       skills: SKILLS.map((k, i) => ({ ...k, segs: [0, 1, 2, 3].map(j => ({ bg: aboutOn && j < k.lvl ? 'var(--acc)' : 'transparent', bd: j < k.lvl ? 'var(--acc)' : 'var(--line)', d: aboutOn ? (400 + i * 120 + j * 90) + 'ms' : '0ms' })) })),
       education: EDU, contacts: CONTACTS,
       tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? 'var(--acc)' : 'transparent' })).slice(1), // index is reached through the name
-      up: () => this.go(0, -1), upD: curRow > 0 ? 'flex' : 'none',
-      downD: curRow < cur.rows.length - 1 ? 'flex' : 'none',
+      up: () => this.go(0, -1), upD: !mob && curRow > 0 ? 'flex' : 'none',
+      downD: !mob && curRow < cur.rows.length - 1 ? 'flex' : 'none',
       nextLabel: curRow < cur.rows.length - 1 ? `${pad2(curRow + 2)} / ${pad2(cur.rows.length)}  ${cur.rows[curRow + 1]}` : '',
       left: () => this.go(-1, 0), right: () => this.go(1, 0), down: () => this.go(0, 1),
       leftO: hint && col > 0 ? 1 : 0, leftPE: hint && col > 0 ? 'auto' : 'none',
