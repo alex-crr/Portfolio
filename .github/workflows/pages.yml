@@ -1,0 +1,41 @@
+# Deploys main to alex.courri.eu/ and dev to alex.courri.eu/beta/ on every push to either.
+# Needs: Settings > Pages > Source = "GitHub Actions",
+#        Settings > Environments > github-pages > deployment branches include dev.
+name: Deploy Pages (main + beta)
+
+on:
+  push:
+    branches: [main, dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: _site
+      - uses: actions/checkout@v4
+        with:
+          ref: dev
+          path: _site/beta
+      # ponytail: keeps the beta out of search results; drop this step if beta goes away
+      - run: sed -i '0,/<head>/s//<head><meta name="robots" content="noindex">/' _site/beta/index.html
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
