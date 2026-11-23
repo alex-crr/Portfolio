@@ -366,6 +366,11 @@ a:hover{color:var(--acc)}
                         <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="all:unset;cursor:pointer;box-sizing:border-box;min-height:{{ look.chipH }};display:inline-flex;align-items:center;gap:8px;padding:0 12px;border:{{ c.bd }};border-radius:3px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:{{ c.ink }};background:{{ c.bg }}">{{ c.label }}<span style="opacity:.7">{{ c.n }}</span></button>
                       </sc-for>
                     </div>
+                    <div role="group" aria-label="View" style="display:flex;gap:6px;flex:none">
+                      <sc-for list="{{ look.views }}" as="w" hint-placeholder-count="2">
+                        <button onClick="{{ w.pick }}" aria-pressed="{{ w.on }}" style="all:unset;cursor:pointer;box-sizing:border-box;min-height:{{ look.chipH }};display:inline-flex;align-items:center;padding:0 12px;border:{{ w.bd }};border-radius:3px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:{{ w.ink }};background:{{ w.bg }}">{{ w.label }}</button>
+                      </sc-for>
+                    </div>
                     <label style="display:flex;align-items:center;gap:10px;box-sizing:border-box;flex:1 1 240px;max-width:380px;min-height:{{ look.chipH }};padding:0 10px;border:var(--sep);border-radius:3px;background:var(--bg)">
                       <span style="font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">SEARCH</span>
                       <input type="search" value="{{ look.q }}" onChange="{{ look.setQ }}" placeholder="name, field or number" style="all:unset;flex:1;min-width:0;font-family:var(--fM);font-size:12px;color:var(--ink)"></input>
@@ -425,10 +430,10 @@ a:hover{color:var(--acc)}
                   </div>
                 </sc-if>
 
-                <sc-if value="{{ look.list }}" hint-placeholder-val="{{ false }}">
-                  <div style="flex:none;display:flex;flex-direction:column;border-top:var(--sep)">
+                <sc-if value="{{ look.stack }}" hint-placeholder-val="{{ false }}">
+                  <div style="flex:none;{{ look.stackStyle }}">
                     <sc-for list="{{ look.rows }}" as="r" hint-placeholder-count="6">
-                      <article style="display:flex;flex-direction:column;gap:8px;padding:16px 4px;border-bottom:var(--sep)">
+                      <article style="display:flex;flex-direction:column;gap:8px;{{ look.itemStyle }}">
                         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
                           <span style="font-family:var(--fM);font-size:11px;letter-spacing:.06em;color:{{ r.idInk }}">{{ r.dwg }}</span>
                           <span style="display:inline-block;padding:3px 9px;font-family:var(--fM);font-size:11px;font-weight:500;letter-spacing:.12em;white-space:nowrap;{{ r.stamp }}">{{ r.st }}</span>
@@ -631,7 +636,8 @@ const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX', 'ABOUT', 'CONTACT'] }
 const GROUPS = [['all', 'ALL'], ['active', 'ACTIVE'], ['released', 'RELEASED'], ['void', 'VOID']];
 const TONE = { active: 'var(--acc)', released: 'var(--ink)', void: 'var(--void)' };
 const TAGS = [...new Set(ENTRIES.flatMap(e => e.tags))].sort((a, b) => (a === 'vibecoded') - (b === 'vibecoded') || a.localeCompare(b)); // method tag last
-const LK0 = { g: 'all', tags: [], q: '', partners: false };
+const LK0 = { g: 'all', tags: [], q: '', partners: false }; // filters only: CLEAR keeps the chosen view
+const VIEW_KEY = 'ac-lookup-view';
 
 class Component extends DCLogic {
   state = { vw: window.innerWidth, vh: window.innerHeight, col: 0, row: 0, style: null, reveal: { am6: 64, minifab: 64 }, lk: LK0, wipe: 'idle', hov: -1, boot: 'run', bootGo: false, hint: true };
@@ -699,6 +705,7 @@ class Component extends DCLogic {
     document.documentElement.classList.add('dc-up');
     try { if (sessionStorage.getItem('ac-boot')) this.setState({ boot: 'done' }); sessionStorage.setItem('ac-boot', '1'); } catch (e) {}
     try { const s = localStorage.getItem(LS_KEY); if (s && STYLES[s]) this.setState({ style: s }); } catch (e) {}
+    try { const v = localStorage.getItem(VIEW_KEY); if (v === 'cards') this.setState(s => ({ lk: { ...s.lk, view: v } })); } catch (e) {}
     const q = new URLSearchParams(location.search);
     if (STYLES[q.get('style')]) this.setState({ style: q.get('style') });
     if (q.get('col')) this.setState({ col: Math.min(COLS.length - 1, +q.get('col') || 0), row: +q.get('row') || 0 });
@@ -847,7 +854,7 @@ class Component extends DCLogic {
       && (!lk.partners || e.partners) && (!q || [e.dwg, e.title, e.desc].concat(e.tags).join(' ').toLowerCase().includes(q)));
     const chip = (on, tone, dashed) => ({ bg: on ? tone : 'transparent', ink: on ? 'var(--accInk)' : tone === 'var(--void)' ? 'var(--void)' : 'var(--ink)', bd: `1px ${dashed ? 'dashed' : 'solid'} ${on ? tone : 'var(--line)'}` });
     const colOf = id => PROJECTS.findIndex(p => p.id === id) + 1; // 0 = no column of its own
-    const voids = ENTRIES.filter(e => e.group === 'void'), list = mob || this.state.vw < 1000;
+    const voids = ENTRIES.filter(e => e.group === 'void'), narrow = mob || this.state.vw < 1000, view = lk.view || 'list', cards = view === 'cards';
     const cur = COLS[col], curRow = this.rowIn(col), coverOn = ready && col === 0 && (mob || ar === 0);
     const wipeMap = { idle: ['translateX(-101%)', 'none'], in: ['translateX(0)', 'transform .38s cubic-bezier(.77,0,.18,1)'], out: ['translateX(101%)', 'transform .42s cubic-bezier(.77,0,.18,1)'], reset: ['translateX(-101%)', 'none'] };
     return {
@@ -872,7 +879,11 @@ class Component extends DCLogic {
       projects,
       lookT: mob ? 'none' : `translate3d(0,${-lr * 100}%,0)`,
       look: { ...reveal(lookOn), dwg: `AC-${LOOKUP_N}-LKP`, screen: `${LOOKUP_N}.1 LOOKUP`, shown: pad2(shown.length), total: pad2(ENTRIES.length),
-        chipH: mob ? '44px' : '34px', labelW: mob ? '100%' : '56px', table: !list, list, none: !shown.length,
+        chipH: mob ? '44px' : '34px', labelW: mob ? '100%' : '56px', none: !shown.length,
+        table: !narrow && !cards, stack: narrow || cards, // narrow screens have no table: LIST stacks rows there
+        stackStyle: cards ? 'display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:var(--gap)' : 'display:flex;flex-direction:column;border-top:var(--sep)',
+        itemStyle: cards ? 'background:var(--panel);border-radius:var(--r);padding:14px 16px 4px' : 'padding:16px 4px;border-bottom:var(--sep)',
+        views: [['list', 'LIST'], ['cards', 'CARDS']].map(([k, label]) => ({ label, on: view === k, pick: () => { setLk({ view: k }); try { localStorage.setItem(VIEW_KEY, k); } catch (e) {} }, ...chip(view === k, 'var(--acc)') })),
         groups: GROUPS.map(([k, label]) => ({ label, n: k === 'all' ? ENTRIES.length : ENTRIES.filter(e => e.group === k).length, on: lk.g === k, pick: () => setLk({ g: k }), ...chip(lk.g === k, k === 'void' ? 'var(--void)' : 'var(--acc)') })),
         tags: TAGS.map(t => { const on = lk.tags.includes(t); return { label: t.toUpperCase(), n: ENTRIES.filter(e => e.tags.includes(t)).length, on, pick: () => setLk({ tags: on ? lk.tags.filter(x => x !== t) : lk.tags.concat(t) }), ...chip(on, 'var(--acc)', t === 'vibecoded') }; }),
         q: lk.q, setQ: e => setLk({ q: e.target.value }), partners: lk.partners, togglePartners: () => setLk({ partners: !lk.partners }),
