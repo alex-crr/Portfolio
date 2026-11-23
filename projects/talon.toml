@@ -1,0 +1,10 @@
+draft = true  # needs its one-line description before going public
+title = "Talon"
+dwg = "AC-V08"
+period = "2026"
+status = "PAUSED"
+desc = "[One line: what Talon is.]"
+tags = ["space"]
+why = "[One line: what Talon is and what you architected.]"
+cause = "PRIORITIES"
+carried = "One of three REXUS/BEXUS candidates"

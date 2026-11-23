@@ -1,0 +1,32 @@
+title = "reSkin"
+dwg = "AC-02-RSK"
+period = "2025 — PRESENT"
+status = "ACTIVE"
+desc = "Printed stretchable artificial skin that senses pressure and tells human touch from objects."
+tags = ["hci", "electronics"]
+
+num = "02"
+short = "RESKIN"
+field = "E-SKIN / HCI"
+img = "img/reskin_exploded.svg"
+details = [
+  { k = "STARTED", v = "2025" },
+  { k = "CATEGORY", v = "Soft sensors / HCI" },
+  { k = "TYPE", v = "ESILV research project" },
+]
+tech = ["Mutual capacitance (MUCA)", "Stretchable silver ink (ACI SS1109)", "TPU substrate, silicone spacer", "FocalTech touch controller"]
+thirdLabel = "FOCUS"
+third = ["Reproducible printed fabrication", "Characterization test bench", "Pressure sensing", "Human vs. object contact"]
+table = [
+  ["Sensing principle", "Mutual capacitance"],
+  ["Electrodes", "Printed stretchable silver ink"],
+  ["Substrate", "TPU"],
+  ["Dielectric", "Silicone spacer"],
+  ["Readout", "FocalTech-based touch controller"],
+  ["Target application", "Prosthetics"],
+]
+overview = [
+  "reSkin is an iteration of Marc Teyssier's Skin-On, an artificial skin that senses touch through mutual capacitance. The goal is pressure sensing combined with discrimination between human and inanimate contact, for prosthetics.",
+  "The previous version used conductive yarn electrodes assembled by hand. Even with the same nominal thickness and electrode spacing, samples measured differently, and each iteration took too long to build. reSkin replaces the yarn with stretchable silver ink printed on TPU, with a silicone spacer as dielectric, for reproducible samples and fast iterations.",
+  "Current phase: validate one printed architecture, its reproducibility and a rigorous characterization bench. Raw readout through a FocalTech-based touch controller already works.",
+]

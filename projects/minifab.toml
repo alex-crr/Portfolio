@@ -1,0 +1,30 @@
+title = "Minifab"
+dwg = "AC-01-MNF"
+period = "2024 — PRESENT"
+status = "ACTIVE"
+desc = "Highly customisable open source hybrid manufacturing machine capable of 3D printing and CNC milling."
+tags = ["industrial", "fabrication"]
+
+num = "01"
+short = "MINIFAB"
+field = "MICROFAB"
+img = "img/minifab_exploded.svg"
+photo = "img/minifab.jpg"
+details = [
+  { k = "DATE", v = "2023 — 2025" },
+  { k = "CATEGORY", v = "Micromanufacturing" },
+  { k = "TEAM SIZE", v = "8 members" },
+]
+tech = ["CNC Milling", "3D Printing", "CAD/CAM", "Motion Control"]
+thirdLabel = "ACHIEVEMENTS"
+third = ["Aluminum Milling", "Open Source Design", "Hybrid Manufacturing"]
+table = [
+  ["Total Size", "800 × 700 × 650 mm"],
+  ["Maximum Speed", "70 mm/s"],
+  ["Aluminum DOC", "TBD"],
+  ["Work Envelope", "TBD"],
+]
+overview = [
+  "Minifab is a highly customisable open source hybrid manufacturing machine capable of both 3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities to makers and small workshops.",
+  "The project focuses on creating a versatile platform that can switch between additive and subtractive manufacturing processes, enabling complex workflows that would typically require multiple machines.",
+]

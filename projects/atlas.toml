@@ -1,0 +1,9 @@
+title = "ATLAS"
+dwg = "AC-V06"
+period = "2026"
+status = "PAUSED"
+desc = "Modular automated microfluidic lab platform."
+tags = ["space"]
+why = "Modular automated microfluidic lab platform, scoped as a REXUS/BEXUS proposal. I worked on the system architecture."
+cause = "PRIORITIES"
+carried = "One of three REXUS/BEXUS candidates"

@@ -1,0 +1,42 @@
+# One file per project. Copy this file and rename it: the file name becomes the
+# project's id (hologram-clock.toml -> hologram-clock). Fill it in, uncomment
+# what you need, then run:  python3 design/build.py   (Python 3.11+)
+# Files starting with "_" are ignored. A push to dev or main also rebuilds the site.
+
+# ---- Required -------------------------------------------------------------
+title = "Project name"
+dwg = "AC-L00"            # drawing number, unique. AC-NN-XXX featured, AC-Lnn log, AC-Vnn void
+period = "2026 — PRESENT" # free text; its last year (or PRESENT) sorts the list
+status = "ACTIVE"         # ACTIVE | LAUNCHED | DONE | PAUSED | ABANDONED | FAILED | SUPERSEDED | HANDED OVER
+                          # PAUSED and after: on the void sheet, red stamp
+desc = "One line for the lookup table."
+
+# ---- Optional -------------------------------------------------------------
+tags = ["electronics"]    # lower case; every distinct tag becomes a filter; "vibecoded" is drawn dashed
+# link = "https://github.com/alex-crr/..."   # source or live page, opened from the lookup
+# partners = true         # "partners wanted" + link to the contact sheet
+# draft = true            # keeps the project off the site
+
+# ---- Void sheet only (status PAUSED and after) ----------------------------
+# why = "What it was, and why it stopped."   # card text; defaults to desc
+# cause = "SCOPE"         # SCOPE | TECH LIMITS | MARKET | BETTER OPTION | PRIORITIES | TIME | COST
+# carried = "What it fed into"
+# feeds = "am6"           # id of the live project it fed; turns `carried` into a link
+# img = "img/void_x.jpg"  # card photo, shown grey
+
+# ---- Featured only: num gives the project its own column ------------------
+# num = "06"              # column order
+# short = "NAME"          # nav label
+# field = "FIELD LABEL"   # on the sheets and the index
+# img = "img/x_exploded.svg"   # exploded drawing; photo = "img/x.jpg" adds the photo slider
+# raw = true              # keep the drawing's own colours in both themes
+# overview = ["Paragraph.", "Paragraph."]
+# details = [{ k = "STARTED", v = "2025" }]
+# tech = ["..."]
+# thirdLabel = "SKILLS"
+# third = ["..."]
+# table = [["Spec", "Value"]]                  # adds a SPECIFICATIONS sheet
+# learnIntro, learnings = ["..."], learnOutro  # adds a KEY LEARNINGS sheet
+# notesTitle = "Add-ins" and [[cards]] name/repo/ws/body   # adds a notes sheet with cards
+# [[gallery]] cap/src/alt                      # adds a DOCUMENTATION sheet
+# linkText, linkLabel (with link)              # adds a REFERENCE sheet

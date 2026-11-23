@@ -347,6 +347,181 @@ a:hover{color:var(--acc)}
         </div>
       </sc-for>
 
+      <div style="flex:0 0 100%;height:100%;min-width:0;overflow:hidden">
+        <div style="height:100%;overflow-y:{{ colOv }};transform:{{ lookT }};transition:{{ moveTr }};will-change:transform">
+          <section data-screen-label="{{ look.screen }}" style="height:var(--secH);padding:var(--pad);display:flex">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
+              <div style="flex:none;display:flex;justify-content:space-between;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ look.dwg }} — PROJECT LOOKUP</span><span style="white-space:nowrap"><span style="color:var(--acc)">{{ look.shown }}</span> / {{ look.total }} ON FILE</span></div>
+              <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 40px;padding:4px 0 6px;opacity:{{ look.o }};transform:{{ look.t }};transition:opacity .5s ease .15s,transform .7s cubic-bezier(.2,.7,0,1) .15s">
+                  <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">Everything on file</h2>
+                  <p style="margin:0;max-width:46ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Featured work, side projects, quick experiments and the void, in one register. Red stamps are on the void sheet below.</p>
+                </div>
+
+                <div style="flex:none;background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column">
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 14px;border-bottom:var(--sep)">
+                    <span style="flex:0 0 {{ look.labelW }};font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">STATUS</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1 1 320px">
+                      <sc-for list="{{ look.groups }}" as="c" hint-placeholder-count="4">
+                        <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="all:unset;cursor:pointer;box-sizing:border-box;min-height:{{ look.chipH }};display:inline-flex;align-items:center;gap:8px;padding:0 12px;border:{{ c.bd }};border-radius:3px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:{{ c.ink }};background:{{ c.bg }}">{{ c.label }}<span style="opacity:.7">{{ c.n }}</span></button>
+                      </sc-for>
+                    </div>
+                    <label style="display:flex;align-items:center;gap:10px;box-sizing:border-box;flex:1 1 240px;max-width:380px;min-height:{{ look.chipH }};padding:0 10px;border:var(--sep);border-radius:3px;background:var(--bg)">
+                      <span style="font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">SEARCH</span>
+                      <input type="search" value="{{ look.q }}" onChange="{{ look.setQ }}" placeholder="name, field or number" style="all:unset;flex:1;min-width:0;font-family:var(--fM);font-size:12px;color:var(--ink)"></input>
+                    </label>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 14px">
+                    <span style="flex:0 0 {{ look.labelW }};font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">FIELD</span>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1 1 320px">
+                      <sc-for list="{{ look.tags }}" as="c" hint-placeholder-count="8">
+                        <button onClick="{{ c.pick }}" aria-pressed="{{ c.on }}" style="all:unset;cursor:pointer;box-sizing:border-box;min-height:{{ look.chipH }};display:inline-flex;align-items:center;gap:8px;padding:0 12px;border:{{ c.bd }};border-radius:3px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:{{ c.ink }};background:{{ c.bg }}">{{ c.label }}<span style="opacity:.7">{{ c.n }}</span></button>
+                      </sc-for>
+                    </div>
+                    <label style="display:flex;align-items:center;gap:8px;cursor:pointer;min-height:{{ look.chipH }};font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:var(--acc)"><input type="checkbox" checked="{{ look.partners }}" onChange="{{ look.togglePartners }}" style="width:16px;height:16px;margin:0;accent-color:var(--acc)"></input>PARTNERS WANTED ONLY</label>
+                    <sc-if value="{{ look.filtered }}" hint-placeholder-val="{{ false }}">
+                      <button onClick="{{ look.clear }}" style="all:unset;cursor:pointer;min-height:{{ look.chipH }};display:inline-flex;align-items:center;padding:0 4px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;color:var(--steel);text-decoration:underline">CLEAR FILTERS</button>
+                    </sc-if>
+                  </div>
+                </div>
+
+                <sc-if value="{{ look.table }}" hint-placeholder-val="{{ true }}">
+                  <div role="table" aria-label="Project lookup" style="flex:none;display:flex;flex-direction:column;opacity:{{ look.o }};transition:opacity .5s ease .3s">
+                    <div role="row" style="display:grid;grid-template-columns:112px minmax(0,1fr) 150px minmax(0,.7fr) 150px 96px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">
+                      <span role="columnheader" style="padding:10px 14px">DWG NO.</span>
+                      <span role="columnheader" style="padding:10px 14px">PROJECT</span>
+                      <span role="columnheader" style="padding:10px 14px">PERIOD</span>
+                      <span role="columnheader" style="padding:10px 14px">FIELD</span>
+                      <span role="columnheader" style="padding:10px 14px">STATUS</span>
+                      <span role="columnheader" style="padding:10px 14px">OPEN</span>
+                    </div>
+                    <sc-for list="{{ look.rows }}" as="r" hint-placeholder-count="8">
+                      <div role="row" style="display:grid;grid-template-columns:112px minmax(0,1fr) 150px minmax(0,.7fr) 150px 96px;align-items:start;border-bottom:var(--sep)">
+                        <span role="cell" style="padding:16px 14px;font-family:var(--fM);font-size:11px;letter-spacing:.06em;color:{{ r.idInk }}">{{ r.dwg }}</span>
+                        <div role="cell" style="padding:13px 14px;min-width:0">
+                          <div style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:18px;line-height:1.05">{{ r.title }}</div>
+                          <div style="margin-top:4px;font-size:13px;line-height:1.45;color:var(--steel);text-wrap:pretty">{{ r.desc }}</div>
+                          <sc-if value="{{ r.partners }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ r.contact }}" style="all:unset;cursor:pointer;display:inline-block;margin-top:8px;padding:3px 8px;border:1px solid var(--acc);border-radius:3px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--acc)">PARTNERS WANTED → GET IN TOUCH</button>
+                          </sc-if>
+                        </div>
+                        <span role="cell" style="padding:16px 14px;font-family:var(--fM);font-size:11px;letter-spacing:.06em;white-space:nowrap;color:var(--steel)">{{ r.period }}</span>
+                        <div role="cell" style="padding:13px 14px;display:flex;flex-wrap:wrap;gap:5px">
+                          <sc-for list="{{ r.chips }}" as="g" hint-placeholder-count="2">
+                            <span style="padding:2px 7px;border-radius:3px;font-family:var(--fM);font-size:10px;letter-spacing:.08em;{{ g.style }}">{{ g.label }}</span>
+                          </sc-for>
+                        </div>
+                        <div role="cell" style="padding:12px 14px"><span style="display:inline-block;padding:3px 9px;font-family:var(--fM);font-size:11px;font-weight:500;letter-spacing:.12em;white-space:nowrap;{{ r.stamp }}">{{ r.st }}</span></div>
+                        <div role="cell" style="padding:13px 14px;font-family:var(--fM);font-size:11px;letter-spacing:.08em;white-space:nowrap">
+                          <sc-if value="{{ r.isJump }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ r.go }}" style="all:unset;cursor:pointer;color:{{ r.goInk }}">{{ r.goLabel }}</button>
+                          </sc-if>
+                          <sc-if value="{{ r.isLink }}" hint-placeholder-val="{{ false }}">
+                            <a href="{{ r.link }}" target="_blank" rel="noopener" style="color:var(--acc)">SOURCE ↗</a>
+                          </sc-if>
+                        </div>
+                      </div>
+                    </sc-for>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ look.list }}" hint-placeholder-val="{{ false }}">
+                  <div style="flex:none;display:flex;flex-direction:column;border-top:var(--sep)">
+                    <sc-for list="{{ look.rows }}" as="r" hint-placeholder-count="6">
+                      <article style="display:flex;flex-direction:column;gap:8px;padding:16px 4px;border-bottom:var(--sep)">
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+                          <span style="font-family:var(--fM);font-size:11px;letter-spacing:.06em;color:{{ r.idInk }}">{{ r.dwg }}</span>
+                          <span style="display:inline-block;padding:3px 9px;font-family:var(--fM);font-size:11px;font-weight:500;letter-spacing:.12em;white-space:nowrap;{{ r.stamp }}">{{ r.st }}</span>
+                        </div>
+                        <div style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:20px;line-height:1.05">{{ r.title }}</div>
+                        <div style="font-size:14px;line-height:1.45;color:var(--steel);text-wrap:pretty">{{ r.desc }}</div>
+                        <sc-if value="{{ r.partners }}" hint-placeholder-val="{{ false }}">
+                          <button onClick="{{ r.contact }}" style="all:unset;cursor:pointer;align-self:flex-start;padding:6px 10px;border:1px solid var(--acc);border-radius:3px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--acc)">PARTNERS WANTED → GET IN TOUCH</button>
+                        </sc-if>
+                        <div style="display:flex;flex-wrap:wrap;gap:5px">
+                          <sc-for list="{{ r.chips }}" as="g" hint-placeholder-count="2">
+                            <span style="padding:2px 7px;border-radius:3px;font-family:var(--fM);font-size:10px;letter-spacing:.08em;{{ g.style }}">{{ g.label }}</span>
+                          </sc-for>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--fM);font-size:11px;letter-spacing:.06em">
+                          <span style="color:var(--steel)">{{ r.period }}</span>
+                          <sc-if value="{{ r.isJump }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ r.go }}" style="all:unset;cursor:pointer;display:inline-flex;align-items:center;min-height:44px;color:{{ r.goInk }}">{{ r.goLabel }}</button>
+                          </sc-if>
+                          <sc-if value="{{ r.isLink }}" hint-placeholder-val="{{ false }}">
+                            <a href="{{ r.link }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;min-height:44px;color:var(--acc)">SOURCE ↗</a>
+                          </sc-if>
+                        </div>
+                      </article>
+                    </sc-for>
+                  </div>
+                </sc-if>
+
+                <sc-if value="{{ look.none }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:40px 14px;font-family:var(--fM);font-size:11px;letter-spacing:.1em;color:var(--steel)">
+                    <span>NO DRAWINGS MATCH THESE FILTERS</span>
+                    <button onClick="{{ look.clear }}" style="all:unset;cursor:pointer;min-height:36px;color:var(--acc);text-decoration:underline">CLEAR FILTERS</button>
+                  </div>
+                </sc-if>
+
+                <div style="flex:none;display:flex;flex-wrap:wrap;gap:8px 24px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">
+                  <span>AC-NN FEATURED SHEET</span><span>AC-L LOG ENTRY</span><span style="color:var(--void)">AC-V ON THE VOID SHEET</span><span>DASHED TAG = HOW IT WAS MADE, NOT THE FIELD</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section data-screen-label="{{ voidScreen }}" style="--bg:#141516;--panel:#1f2022;--panel2:#252628;--ink:#e6e6e2;--steel:#9a9c9f;--line:#323437;--sep:1px solid #323437;--void:#ff8a80;--acc:oklch(0.72 0.13 250);--accInk:#0e0f10;height:var(--secH);padding:var(--pad);display:flex;background:var(--bg);color:var(--ink)">
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
+              <div style="flex:none;display:flex;justify-content:space-between;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ voidDwg }} — SUPERSEDED DRAWINGS</span><span style="white-space:nowrap"><span style="color:var(--void)">{{ voidCount }}</span> WITHDRAWN</span></div>
+              <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 40px;padding:4px 0 6px;opacity:{{ voidHead.o }};transform:{{ voidHead.t }};transition:opacity .5s ease .15s,transform .7s cubic-bezier(.2,.7,0,1) .15s">
+                  <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">Things I stopped building</h2>
+                  <p style="margin:0;max-width:44ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Each of these stopped on a decision, not by drifting. Paused ones may come back; the rest taught something still running in the live set.</p>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));grid-auto-rows:minmax(300px,1fr);gap:var(--gap)">
+                  <sc-for list="{{ voids }}" as="v" hint-placeholder-count="0">
+                    <article style="background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;opacity:{{ v.o }};transform:{{ v.t }};transition:opacity .5s ease {{ v.d }},transform .7s cubic-bezier(.2,.7,0,1) {{ v.d }}">
+                      <div style="position:relative;flex:1;min-height:140px;background:repeating-linear-gradient(45deg,var(--panel) 0 1px,var(--panel2) 1px 10px)">
+                        <sc-if value="{{ v.hasImg }}" hint-placeholder-val="{{ false }}">
+                          <img src="{{ v.img }}" alt="{{ v.title }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)"></img>
+                        </sc-if>
+                        <sc-if value="{{ v.noImg }}" hint-placeholder-val="{{ true }}">
+                          <span style="position:absolute;left:14px;bottom:12px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">NO PHOTO ON RECORD</span>
+                        </sc-if>
+                        <span style="position:absolute;top:14px;right:14px;transform:rotate(-8deg);border:3px double var(--void);color:var(--void);background:var(--panel);padding:3px 10px;font-family:var(--fM);font-size:12px;font-weight:500;letter-spacing:.14em">{{ v.status }}</span>
+                      </div>
+                      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;border-top:var(--sep)">
+                        <div style="padding:12px 14px;border-right:var(--sep)">
+                          <div style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:22px;line-height:1;margin-bottom:6px">{{ v.title }}</div>
+                          <div style="font-size:13px;line-height:1.45;color:var(--steel);text-wrap:pretty">{{ v.why }}</div>
+                        </div>
+                        <div style="display:flex;flex-direction:column;font-family:var(--fM);font-size:10px;letter-spacing:.08em;min-width:118px">
+                          <span style="padding:8px 12px;border-bottom:var(--sep);color:var(--void)">{{ v.dwg }}</span>
+                          <span style="padding:8px 12px;border-bottom:var(--sep);color:var(--steel)">{{ v.period }}</span>
+                          <span style="padding:8px 12px;color:var(--steel)">{{ v.cause }}</span>
+                        </div>
+                      </div>
+                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:40px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px">
+                        <sc-if value="{{ v.hasGo }}" hint-placeholder-val="{{ false }}">
+                          <button onClick="{{ v.go }}" style="all:unset;cursor:pointer;color:var(--acc)">→ {{ v.carried }}</button>
+                        </sc-if>
+                        <sc-if value="{{ v.noGo }}" hint-placeholder-val="{{ true }}">
+                          <span style="color:var(--steel)">→ {{ v.carried }}</span>
+                        </sc-if>
+                        <sc-if value="{{ v.hasLink }}" hint-placeholder-val="{{ false }}">
+                          <a href="{{ v.link }}" target="_blank" rel="noopener" style="flex:none;margin-left:auto;letter-spacing:.1em;color:var(--steel)">SOURCE ↗</a>
+                        </sc-if>
+                      </div>
+                    </article>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+
     </div>
 
     <div ref="{{ crossX }}" style="position:absolute;top:0;bottom:0;left:0;width:1px;background:var(--acc);opacity:0;pointer-events:none;z-index:7;transition:opacity .3s ease"></div>
@@ -388,7 +563,7 @@ const STYLES = {
     '--cols': 'minmax(0,1fr) minmax(300px,36%)', '--infoOrd': '2', '--infoPad': '18px',
     '--fD': "'Archivo',sans-serif", '--fB': "'Archivo',sans-serif", '--fM': "'IBM Plex Mono',monospace",
     '--dW': '800', '--dTr': 'uppercase', '--dLS': '0', '--dLS2': '0', '--dSt': '125%', '--navLS': '0',
-    '--drawBg': '#e4e5e1', '--drawF': 'invert(1)', '--drawB': 'multiply', '--photoF': 'none', '--plate': '#1a1b1c', '--plateInk': '#e8e8e4'
+    '--drawBg': '#e4e5e1', '--drawF': 'invert(1)', '--drawB': 'multiply', '--photoF': 'none', '--void': '#b3261e', '--plate': '#1a1b1c', '--plateInk': '#e8e8e4'
   }},
   plateDark: { label: 'DARK', v: {
     '--bg': '#141516', '--bg2': '#1c1d1f', '--ink': '#e6e6e2', '--steel': '#9a9c9f', '--acc': 'oklch(0.72 0.13 250)', '--accInk': '#0e0f10', '--line': '#323437',
@@ -397,83 +572,31 @@ const STYLES = {
     '--cols': 'minmax(0,1fr) minmax(300px,36%)', '--infoOrd': '2', '--infoPad': '18px',
     '--fD': "'Archivo',sans-serif", '--fB': "'Archivo',sans-serif", '--fM': "'IBM Plex Mono',monospace",
     '--dW': '800', '--dTr': 'uppercase', '--dLS': '0', '--dLS2': '0', '--dSt': '125%', '--navLS': '0',
-    '--drawBg': '#1a1b1d', '--drawF': 'none', '--drawB': 'normal', '--photoF': 'brightness(.85)', '--plate': '#2c2e31', '--plateInk': '#ececE8'
+    '--drawBg': '#1a1b1d', '--drawF': 'none', '--drawB': 'normal', '--photoF': 'brightness(.85)', '--void': '#ff8a80', '--plate': '#2c2e31', '--plateInk': '#ececE8'
   }}
 };
 const EASE = { mechanical: 'transform 760ms cubic-bezier(.77,0,.18,1)', smooth: 'transform 1000ms cubic-bezier(.22,1,.36,1)' };
-const PROJECTS = [
-  {
-    id: 'minifab', num: '01', dwg: 'AC-01-MNF', title: 'Minifab', short: 'MINIFAB', tag: 'MICROFAB', period: '2024 — PRESENT', status: 'ONGOING',
-    desc: 'Highly customisable open source hybrid manufacturing machine capable of 3D printing and CNC milling.',
-    img: 'img/minifab_exploded.svg', photo: 'img/minifab.jpg',
-    details: [{ k: 'DATE', v: '2023 — 2025' }, { k: 'CATEGORY', v: 'Micromanufacturing' }, { k: 'TEAM SIZE', v: '8 members' }],
-    tech: ['CNC Milling', '3D Printing', 'CAD/CAM', 'Motion Control'],
-    thirdLabel: 'ACHIEVEMENTS', third: ['Aluminum Milling', 'Open Source Design', 'Hybrid Manufacturing'],
-    table: [['Total Size', '800 × 700 × 650 mm'], ['Maximum Speed', '70 mm/s'], ['Aluminum DOC', 'TBD'], ['Work Envelope', 'TBD']],
-    overview: [
-      'Minifab is a highly customisable open source hybrid manufacturing machine capable of both 3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities to makers and small workshops.',
-      'The project focuses on creating a versatile platform that can switch between additive and subtractive manufacturing processes, enabling complex workflows that would typically require multiple machines.'
-    ]
-  },
-  {
-    id: 'reskin', num: '02', dwg: 'AC-02-RSK', title: 'reSkin', short: 'RESKIN', tag: 'E-SKIN / HCI', period: '2025 — PRESENT', status: 'ONGOING',
-    desc: 'Printed stretchable artificial skin that senses pressure and tells human touch from objects.',
-    img: 'img/reskin_exploded.svg',
-    details: [{ k: 'STARTED', v: '2025' }, { k: 'CATEGORY', v: 'Soft sensors / HCI' }, { k: 'TYPE', v: 'ESILV research project' }],
-    tech: ['Mutual capacitance (MUCA)', 'Stretchable silver ink (ACI SS1109)', 'TPU substrate, silicone spacer', 'FocalTech touch controller'],
-    thirdLabel: 'FOCUS', third: ['Reproducible printed fabrication', 'Characterization test bench', 'Pressure sensing', 'Human vs. object contact'],
-    table: [['Sensing principle', 'Mutual capacitance'], ['Electrodes', 'Printed stretchable silver ink'], ['Substrate', 'TPU'], ['Dielectric', 'Silicone spacer'], ['Readout', 'FocalTech-based touch controller'], ['Target application', 'Prosthetics']],
-    overview: [
-      "reSkin is an iteration of Marc Teyssier's Skin-On, an artificial skin that senses touch through mutual capacitance. The goal is pressure sensing combined with discrimination between human and inanimate contact, for prosthetics.",
-      "The previous version used conductive yarn electrodes assembled by hand. Even with the same nominal thickness and electrode spacing, samples measured differently, and each iteration took too long to build. reSkin replaces the yarn with stretchable silver ink printed on TPU, with a silicone spacer as dielectric, for reproducible samples and fast iterations.",
-      "Current phase: validate one printed architecture, its reproducibility and a rigorous characterization bench. Raw readout through a FocalTech-based touch controller already works."
-    ]
-  },
-  {
-    id: 'espin', num: '03', dwg: 'AC-03-ESP', title: 'E-Spin', short: 'E-SPIN', tag: 'EMBEDDED HW', period: '2026', status: 'LAUNCHED',
-    desc: 'ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing.', linkText: 'Check out the E-Spin project on Kickstarter.',
-    overview: ['E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.', 'I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.'],
-    img: 'img/Exploded_details.png', raw: true, // dark render, shown as shared in both themes
-    link: 'https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp', linkLabel: 'VIEW ON KICKSTARTER'
-  },
-  {
-    id: 'am6', num: '04', dwg: 'AC-04-AM6', title: 'AM6 3D Printer', short: 'AM6', tag: 'ADDITIVE MFG', period: '2018 — PRESENT', status: 'ONGOING',
-    desc: 'Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware.',
-    img: 'img/am6_exploded.svg', photo: 'img/AM6.jpg',
-    details: [{ k: 'STARTED', v: '2018' }, { k: 'CATEGORY', v: 'Additive Manufacturing' }, { k: 'TYPE', v: 'Personal Project' }],
-    tech: ['Klipper Firmware', 'Additive Manufacturing', 'CAD Modeling', 'Mechanical Engineering'],
-    thirdLabel: 'SKILLS', third: ['Mechanical Assembly', 'Electronics Safety', 'Firmware Programming', '3D Modeling'],
-    table: [['Build Volume', '220 × 220 × 220 mm'], ['Maximum Print Speed', '300 mm/s'], ['Layer Resolution', '0.07 — 0.35 mm'], ['Max Hotend Temperature', '280°C'], ['Max Bed Temperature', '90°C'], ['Firmware', 'Klipper']],
-    overview: [
-      'My journey into the world of 3D printing began in 2018 when my parents bought me an Anet A6 kit. What started as a simple assembly project sparked a deep passion for additive manufacturing and ultimately helped shape my path toward engineering. This printer has been continually evolving as my knowledge and skills have grown.',
-      'The original Anet A6 has undergone significant modifications over the years. I upgraded the frame with an AM6 extrusion kit for improved stability and precision. I also transitioned from the stock firmware to Marlin firmware, and then to Klipper, allowing for more advanced features and better print quality.',
-      'While not the fastest or most advanced printer by today\'s standards, this machine has immense personal value. It represents my growth as a maker and engineer, showing how continuous iteration and learning can transform both a project and the person behind it.'
-    ],
-    learnIntro: 'This project has been instrumental in my development as an engineer:',
-    learnings: ['How to safely work with electronics, including power supplies, stepper motors, and heating elements', 'The fundamentals of mechanical design and how different components interact in a system', 'Programming and firmware customization to optimize machine performance', '3D modeling skills for both creating printable objects and designing machine upgrades', 'Problem-solving through numerous iterations and improvements'],
-    learnOutro: 'This printer was one of the key inspirations that led me to pursue engineering as a career path.',
-    gallery: [{ cap: 'FIG. 2 — ORIGINAL KIT', src: 'img/stock_a6.jpg', alt: 'Original Anet A6 Kit' }, { cap: 'FIG. 3 — AM6 UPGRADE', src: 'img/am6_kit.jpg', alt: 'AM6 Extrusion Upgrade' }, { cap: 'FIG. 4 — CURRENT', src: 'img/AM6.jpg', alt: 'Current Configuration' }]
-  },
-  {
-    id: 'fusion', num: '05', dwg: 'AC-05-F360', title: 'Fusion 360 Add-ins', short: 'FUSION', tag: 'CAD/CAM PLUGINS', period: '2025 — PRESENT', status: 'ONGOING',
-    desc: 'Four plugins I wrote in Python for Autodesk Fusion 360: cutting forces, tool inventory, extrusion profiles and 1:1 scale.',
-    img: 'img/fusion-toolkit.svg',
-    details: [{ k: 'STARTED', v: '2025' }, { k: 'CATEGORY', v: 'CAD / CAM Automation' }, { k: 'TYPE', v: '4 Fusion 360 Add-ins' }],
-    tech: ['Python (Fusion API)', 'adsk.cam / adsk.fusion', 'HTML/JS palettes', 'JSON data files'],
-    thirdLabel: 'SKILLS', third: ['Machining mechanics', 'CAM programming', 'Shop tooling logistics', 'Tool development'],
-    table: [['Cutting Force Estimator', 'Manufacture — force & deflection before cutting'], ['Tool Inventory', 'Manufacture — tool library and stock counts in sync'], ['Aluminium Extrusions', 'Design — slot profiles in one command'], ['1:1 Scale', 'Design — true physical size on screen']],
-    overview: [
-      'Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website.'
-    ],
-    notesTitle: 'Add-ins', cards: [
-      { name: 'Cutting Force Estimator', repo: 'FusionCuttingForce', ws: 'MANUFACTURE', body: 'Fusion CAM gives feeds and speeds, but no forces. Reads each toolpath, applies the Kienzle model and reports spindle power, torque and tool deflection, as a range since Fusion stores no rake angle. 13 materials, 6061 to Inconel.' },
-      { name: 'Tool Inventory', repo: 'SOURCE NOT PUBLIC YET', ws: 'MANUFACTURE', body: 'Physical tool counts lived in an Excel file, apart from the Fusion tool library. This palette reads the library live, keeps counts and minimum stock in a shared JSON file with multi-user locking, and flags OK / LOW / UNSTOCKED.' },
-      { name: 'Aluminium Extrusions', repo: 'ExtrusionsGenerator', ws: 'DESIGN', body: 'An Aluminum Extrusion command next to Pipe. Pick series, profile and length: it imports the section, closes small sketch gaps and builds the part in its own component, as one timeline group. 2020 to C-beam 4080.' },
-      { name: '1:1 Scale', repo: 'FusionScale', ws: 'DESIGN', body: 'Shows the design at true physical size, so a ruler held on the screen measures it. A one-time measurement of a 50 mm reference line corrects the wrong DPI most operating systems report.' }
-    ],
-    linkText: 'View them on GitHub.', link: 'https://github.com/alex-crr?tab=repositories', linkLabel: 'GITHUB.COM/ALEX-CRR'
-  }
+// @entries:start — generated by design/build.py from projects/*.toml; edit those files, not this block
+const ENTRIES = [
+  {"title": "Minifab", "dwg": "AC-01-MNF", "period": "2024 — PRESENT", "status": "ACTIVE", "desc": "Highly customisable open source hybrid manufacturing machine capable of 3D printing and CNC milling.", "tags": ["industrial", "fabrication"], "num": "01", "short": "MINIFAB", "field": "MICROFAB", "img": "img/minifab_exploded.svg", "photo": "img/minifab.jpg", "details": [{"k": "DATE", "v": "2023 — 2025"}, {"k": "CATEGORY", "v": "Micromanufacturing"}, {"k": "TEAM SIZE", "v": "8 members"}], "tech": ["CNC Milling", "3D Printing", "CAD/CAM", "Motion Control"], "thirdLabel": "ACHIEVEMENTS", "third": ["Aluminum Milling", "Open Source Design", "Hybrid Manufacturing"], "table": [["Total Size", "800 × 700 × 650 mm"], ["Maximum Speed", "70 mm/s"], ["Aluminum DOC", "TBD"], ["Work Envelope", "TBD"]], "overview": ["Minifab is a highly customisable open source hybrid manufacturing machine capable of both 3D printing and CNC milling. Designed to bring professional-grade microfabrication capabilities to makers and small workshops.", "The project focuses on creating a versatile platform that can switch between additive and subtractive manufacturing processes, enabling complex workflows that would typically require multiple machines."], "id": "minifab", "group": "active"},
+  {"title": "reSkin", "dwg": "AC-02-RSK", "period": "2025 — PRESENT", "status": "ACTIVE", "desc": "Printed stretchable artificial skin that senses pressure and tells human touch from objects.", "tags": ["hci", "electronics"], "num": "02", "short": "RESKIN", "field": "E-SKIN / HCI", "img": "img/reskin_exploded.svg", "details": [{"k": "STARTED", "v": "2025"}, {"k": "CATEGORY", "v": "Soft sensors / HCI"}, {"k": "TYPE", "v": "ESILV research project"}], "tech": ["Mutual capacitance (MUCA)", "Stretchable silver ink (ACI SS1109)", "TPU substrate, silicone spacer", "FocalTech touch controller"], "thirdLabel": "FOCUS", "third": ["Reproducible printed fabrication", "Characterization test bench", "Pressure sensing", "Human vs. object contact"], "table": [["Sensing principle", "Mutual capacitance"], ["Electrodes", "Printed stretchable silver ink"], ["Substrate", "TPU"], ["Dielectric", "Silicone spacer"], ["Readout", "FocalTech-based touch controller"], ["Target application", "Prosthetics"]], "overview": ["reSkin is an iteration of Marc Teyssier's Skin-On, an artificial skin that senses touch through mutual capacitance. The goal is pressure sensing combined with discrimination between human and inanimate contact, for prosthetics.", "The previous version used conductive yarn electrodes assembled by hand. Even with the same nominal thickness and electrode spacing, samples measured differently, and each iteration took too long to build. reSkin replaces the yarn with stretchable silver ink printed on TPU, with a silicone spacer as dielectric, for reproducible samples and fast iterations.", "Current phase: validate one printed architecture, its reproducibility and a rigorous characterization bench. Raw readout through a FocalTech-based touch controller already works."], "id": "reskin", "group": "active"},
+  {"title": "AM6 3D Printer", "dwg": "AC-04-AM6", "period": "2018 — PRESENT", "status": "ACTIVE", "desc": "Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware.", "tags": ["fabrication"], "num": "04", "short": "AM6", "field": "ADDITIVE MFG", "img": "img/am6_exploded.svg", "photo": "img/AM6.jpg", "details": [{"k": "STARTED", "v": "2018"}, {"k": "CATEGORY", "v": "Additive Manufacturing"}, {"k": "TYPE", "v": "Personal Project"}], "tech": ["Klipper Firmware", "Additive Manufacturing", "CAD Modeling", "Mechanical Engineering"], "thirdLabel": "SKILLS", "third": ["Mechanical Assembly", "Electronics Safety", "Firmware Programming", "3D Modeling"], "table": [["Build Volume", "220 × 220 × 220 mm"], ["Maximum Print Speed", "300 mm/s"], ["Layer Resolution", "0.07 — 0.35 mm"], ["Max Hotend Temperature", "280°C"], ["Max Bed Temperature", "90°C"], ["Firmware", "Klipper"]], "overview": ["My journey into the world of 3D printing began in 2018 when my parents bought me an Anet A6 kit. What started as a simple assembly project sparked a deep passion for additive manufacturing and ultimately helped shape my path toward engineering. This printer has been continually evolving as my knowledge and skills have grown.", "The original Anet A6 has undergone significant modifications over the years. I upgraded the frame with an AM6 extrusion kit for improved stability and precision. I also transitioned from the stock firmware to Marlin firmware, and then to Klipper, allowing for more advanced features and better print quality.", "While not the fastest or most advanced printer by today's standards, this machine has immense personal value. It represents my growth as a maker and engineer, showing how continuous iteration and learning can transform both a project and the person behind it."], "learnIntro": "This project has been instrumental in my development as an engineer:", "learnings": ["How to safely work with electronics, including power supplies, stepper motors, and heating elements", "The fundamentals of mechanical design and how different components interact in a system", "Programming and firmware customization to optimize machine performance", "3D modeling skills for both creating printable objects and designing machine upgrades", "Problem-solving through numerous iterations and improvements"], "learnOutro": "This printer was one of the key inspirations that led me to pursue engineering as a career path.", "gallery": [{"cap": "FIG. 2 — ORIGINAL KIT", "src": "img/stock_a6.jpg", "alt": "Original Anet A6 Kit"}, {"cap": "FIG. 3 — AM6 UPGRADE", "src": "img/am6_kit.jpg", "alt": "AM6 Extrusion Upgrade"}, {"cap": "FIG. 4 — CURRENT", "src": "img/AM6.jpg", "alt": "Current Configuration"}], "id": "am6", "group": "active"},
+  {"title": "Fusion 360 Add-ins", "dwg": "AC-05-F360", "period": "2025 — PRESENT", "status": "ACTIVE", "desc": "Four plugins I wrote in Python for Autodesk Fusion 360: cutting forces, tool inventory, extrusion profiles and 1:1 scale.", "tags": ["software", "industrial"], "link": "https://github.com/alex-crr?tab=repositories", "num": "05", "short": "FUSION", "field": "CAD/CAM PLUGINS", "img": "img/fusion-toolkit.svg", "details": [{"k": "STARTED", "v": "2025"}, {"k": "CATEGORY", "v": "CAD / CAM Automation"}, {"k": "TYPE", "v": "4 Fusion 360 Add-ins"}], "tech": ["Python (Fusion API)", "adsk.cam / adsk.fusion", "HTML/JS palettes", "JSON data files"], "thirdLabel": "SKILLS", "third": ["Machining mechanics", "CAM programming", "Shop tooling logistics", "Tool development"], "table": [["Cutting Force Estimator", "Manufacture — force & deflection before cutting"], ["Tool Inventory", "Manufacture — tool library and stock counts in sync"], ["Aluminium Extrusions", "Design — slot profiles in one command"], ["1:1 Scale", "Design — true physical size on screen"]], "overview": ["Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website."], "notesTitle": "Add-ins", "linkText": "View them on GitHub.", "linkLabel": "GITHUB.COM/ALEX-CRR", "cards": [{"name": "Cutting Force Estimator", "repo": "FusionCuttingForce", "ws": "MANUFACTURE", "body": "Fusion CAM gives feeds and speeds, but no forces. Reads each toolpath, applies the Kienzle model and reports spindle power, torque and tool deflection, as a range since Fusion stores no rake angle. 13 materials, 6061 to Inconel."}, {"name": "Tool Inventory", "repo": "SOURCE NOT PUBLIC YET", "ws": "MANUFACTURE", "body": "Physical tool counts lived in an Excel file, apart from the Fusion tool library. This palette reads the library live, keeps counts and minimum stock in a shared JSON file with multi-user locking, and flags OK / LOW / UNSTOCKED."}, {"name": "Aluminium Extrusions", "repo": "ExtrusionsGenerator", "ws": "DESIGN", "body": "An Aluminum Extrusion command next to Pipe. Pick series, profile and length: it imports the section, closes small sketch gaps and builds the part in its own component, as one timeline group. 2020 to C-beam 4080."}, {"name": "1:1 Scale", "repo": "FusionScale", "ws": "DESIGN", "body": "Shows the design at true physical size, so a ruler held on the screen measures it. A one-time measurement of a 50 mm reference line corrects the wrong DPI most operating systems report."}], "id": "fusion", "group": "active"},
+  {"title": "Hologram clock", "dwg": "AC-L02", "period": "2026 — PRESENT", "status": "ACTIVE", "desc": "Desk clock on an ESP32-C3 Super Mini with a BME680 sensor and a Pepper's ghost display.", "tags": ["electronics"], "id": "hologram-clock", "group": "active"},
+  {"title": "LoRa RF explorer", "dwg": "AC-L03", "period": "2026 — PRESENT", "status": "ACTIVE", "desc": "Radio exploration on a Heltec LoRa 32 board.", "tags": ["electronics"], "id": "lora-rf-explorer", "group": "active"},
+  {"title": "E-Spin", "dwg": "AC-03-ESP", "period": "2026", "status": "LAUNCHED", "desc": "ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing.", "tags": ["electronics", "entrepreneurship"], "link": "https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp", "num": "03", "short": "E-SPIN", "field": "EMBEDDED HW", "img": "img/Exploded_details.png", "raw": true, "overview": ["E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.", "I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production."], "linkText": "Check out the E-Spin project on Kickstarter.", "linkLabel": "VIEW ON KICKSTARTER", "id": "espin", "group": "released"},
+  {"title": "Deezer visualization", "dwg": "AC-L01", "period": "2026", "status": "DONE", "desc": "What your music looks like: Last.fm listening history enriched with the Deezer API, drawn as an album transition graph.", "tags": ["software", "creative"], "id": "deezer-visualization", "group": "released"},
+  {"title": "Cleo", "dwg": "AC-V05", "period": "2024 — 2025", "status": "ABANDONED", "desc": "Local-LLM assistant with tool calls into a project database.", "tags": ["software"], "link": "https://github.com/alex-crr/Cleo", "why": "Jarvis-style assistant on local LLMs, using tool calls into an SQL project database instead of RAG. Local French speech models were not usable, English ones failed on my accent, and upkeep outweighed the benefit.", "cause": "TECH LIMITS", "carried": "Project tracking moved to a plain Obsidian vault", "id": "cleo", "group": "void"},
+  {"title": "Distilium", "dwg": "AC-V04", "period": "2024", "status": "HANDED OVER", "desc": "Point-of-sale system for student bars.", "tags": ["entrepreneurship", "software"], "why": "Point-of-sale system for bars: cheaper beers for students, rewards for loyalty. The bars we pitched wanted a proven product, not a pilot. I left when I changed school.", "cause": "MARKET", "carried": "Relaunched by the three co-founders", "id": "distilium", "group": "void"},
+  {"title": "GCODE Generator", "dwg": "AC-V02", "period": "2023", "status": "SUPERSEDED", "desc": "Custom Marlin start and end G-code builder.", "tags": ["software", "fabrication"], "link": "https://github.com/alex-crr/ammon-prints", "why": "Web tool to build custom Marlin start and end G-code, because existing generators lacked features I needed. By the time the base worked, a better tool covering them was out.", "cause": "BETTER OPTION", "carried": "Printer firmware know-how → AM6", "feeds": "am6", "img": "img/void_ammon.jpg", "id": "gcode-generator", "group": "void"},
+  {"title": "MoG: Multiverse of Geekiness", "dwg": "AC-V03", "period": "2023", "status": "FAILED", "desc": "Game where every level is a new era and a new genre.", "tags": ["software"], "why": "End-of-year game where every level drops you into a different era and gameplay genre. Delivered for the defence, but barely working: each era was effectively a new game. Stopped right after.", "cause": "SCOPE", "carried": "Scope one mechanic, then polish it", "id": "mog", "group": "void"},
+  {"title": "Une histoire de blocs", "dwg": "AC-V01", "period": "2020", "status": "ABANDONED", "desc": "2D p5.js game made in one week at TUMO Paris.", "tags": ["software"], "link": "https://github.com/alex-crr/Une-histoire-de-blocs", "why": "2D p5.js game made in one week at TUMO Paris, in middle school: my first object-oriented code. I wanted to keep going until I saw how far it was from the best projects in polish and story.", "cause": "SCOPE", "carried": "The first code I wrote", "img": "img/void_blocs.jpg", "id": "une-histoire-de-blocs", "group": "void"},
+  {"title": "ATLAS", "dwg": "AC-V06", "period": "2026", "status": "PAUSED", "desc": "Modular automated microfluidic lab platform.", "tags": ["space"], "why": "Modular automated microfluidic lab platform, scoped as a REXUS/BEXUS proposal. I worked on the system architecture.", "cause": "PRIORITIES", "carried": "One of three REXUS/BEXUS candidates", "id": "atlas", "group": "void"},
+  {"title": "SPREAD", "dwg": "AC-V07", "period": "2026", "status": "PAUSED", "desc": "Resin printing in microgravity for REXUS Cycle 19.", "tags": ["space", "fabrication"], "why": "Resin printing in microgravity for REXUS Cycle 19: a static thin resin film on FEP, about 0.1 mm layers, printing test specimens within the ~2 min of microgravity.", "cause": "PRIORITIES", "carried": "One of three REXUS/BEXUS candidates", "id": "spread", "group": "void"}
 ];
+// @entries:end
+// featured projects (the ones with num) get their own column
+const PROJECTS = ENTRIES.filter(e => e.num).sort((a, b) => a.num.localeCompare(b.num));
 const SKILLS = [{ name: '3D Printing', lvl: 4, tier: 'EXPERT', note: 'SINCE 2018 · AM6, MINIFAB' }, { name: 'CAD Design', lvl: 3, tier: 'ADVANCED', note: 'MACHINE & PART DESIGN' }, { name: 'CNC Machining', lvl: 2, tier: 'PROFICIENT', note: 'ALUMINIUM MILLING · MINIFAB' }, { name: 'Programming', lvl: 2, tier: 'PROFICIENT', note: 'FIRMWARE · KLIPPER, MARLIN' }];
 const EDU = [{ date: '2023 — 2027', title: 'ESILV', sub: 'Engineering Degree' }, { date: '2022 — 2023', title: 'EPITA', sub: 'Computer Science Engineering' }, { date: '2019 — 2022', title: 'Lycée Stanislas', sub: 'STEM Program' }];
 const CONTACTS = [
@@ -499,13 +622,19 @@ function sheetsFor(p) {
   if (p.link) s.push({ kind: 'link', title: 'REFERENCE' });
   return s;
 }
-// about and contact are sheets below the index, not a column of their own
-const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX', 'ABOUT', 'CONTACT'] }]
-  .concat(PROJECTS.map(p => ({ label: p.short, num: p.num, rows: sheetsFor(p).map(s => s.title) })));
 const pad2 = n => String(n).padStart(2, '0');
+// about and contact are sheets below the index, not a column of their own; the void is the sheet below the lookup
+const LOOKUP_C = PROJECTS.length + 1, LOOKUP_N = pad2(LOOKUP_C);
+const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX', 'ABOUT', 'CONTACT'] }]
+  .concat(PROJECTS.map(p => ({ label: p.short, num: p.num, rows: sheetsFor(p).map(s => s.title) })))
+  .concat([{ label: 'LOOKUP', num: LOOKUP_N, rows: ['LOOKUP', 'VOID'] }]);
+const GROUPS = [['all', 'ALL'], ['active', 'ACTIVE'], ['released', 'RELEASED'], ['void', 'VOID']];
+const TONE = { active: 'var(--acc)', released: 'var(--ink)', void: 'var(--void)' };
+const TAGS = [...new Set(ENTRIES.flatMap(e => e.tags))].sort((a, b) => (a === 'vibecoded') - (b === 'vibecoded') || a.localeCompare(b)); // method tag last
+const LK0 = { g: 'all', tags: [], q: '', partners: false };
 
 class Component extends DCLogic {
-  state = { vw: window.innerWidth, vh: window.innerHeight, col: 0, row: 0, style: null, reveal: { am6: 64, minifab: 64 }, wipe: 'idle', hov: -1, boot: 'run', bootGo: false, hint: true };
+  state = { vw: window.innerWidth, vh: window.innerHeight, col: 0, row: 0, style: null, reveal: { am6: 64, minifab: 64 }, lk: LK0, wipe: 'idle', hov: -1, boot: 'run', bootGo: false, hint: true };
   rootRef = React.createRef(); mainRef = React.createRef();
   crossX = React.createRef(); crossY = React.createRef();
   bootPct = React.createRef(); bootBar = React.createRef();
@@ -697,7 +826,7 @@ class Component extends DCLogic {
             numT: on ? 'translateY(0)' : 'translateY(100%)', plateT: on ? 'translateX(0)' : 'translateX(48px)', bigT: on ? 'translateX(0)' : 'translateX(-40%)',
             sweepTop: on ? '100%' : '0%', sweepO: on ? 0 : 1,
             sweepTr: on ? 'top 1.1s cubic-bezier(.6,0,.4,1) .25s, opacity .3s ease 1.3s' : 'none',
-            cells: [['STATUS', p.status], ['PERIOD', p.period], ['FIELD', p.tag]]
+            cells: [['STATUS', p.status], ['PERIOD', p.period], ['FIELD', p.field]]
               .map((x, j) => ({ k: x[0], ks: x[0].charAt(0) + x[0].slice(1).toLowerCase(), v: x[1], o: on ? 1 : 0, d: on ? (450 + j * 70) + 'ms' : '0ms' }))
           });
         }
@@ -712,11 +841,18 @@ class Component extends DCLogic {
     });
 
     const aboutC = 0, ar = this.rowIn(aboutC), aboutOn = ready && col === aboutC && (mob || ar === 1);
+    const lr = this.rowIn(LOOKUP_C), lookOn = ready && col === LOOKUP_C && (mob || lr === 0), voidOn = ready && col === LOOKUP_C && (mob || lr === 1);
+    const lk = this.state.lk, q = lk.q.trim().toLowerCase(), setLk = o => this.setState(s => ({ lk: { ...s.lk, ...o } }));
+    const shown = ENTRIES.filter(e => (lk.g === 'all' || e.group === lk.g) && (!lk.tags.length || e.tags.some(t => lk.tags.includes(t)))
+      && (!lk.partners || e.partners) && (!q || [e.dwg, e.title, e.desc].concat(e.tags).join(' ').toLowerCase().includes(q)));
+    const chip = (on, tone, dashed) => ({ bg: on ? tone : 'transparent', ink: on ? 'var(--accInk)' : tone === 'var(--void)' ? 'var(--void)' : 'var(--ink)', bd: `1px ${dashed ? 'dashed' : 'solid'} ${on ? tone : 'var(--line)'}` });
+    const colOf = id => PROJECTS.findIndex(p => p.id === id) + 1; // 0 = no column of its own
+    const voids = ENTRIES.filter(e => e.group === 'void'), list = mob || this.state.vw < 1000;
     const cur = COLS[col], curRow = this.rowIn(col), coverOn = ready && col === 0 && (mob || ar === 0);
     const wipeMap = { idle: ['translateX(-101%)', 'none'], in: ['translateX(0)', 'transform .38s cubic-bezier(.77,0,.18,1)'], out: ['translateX(101%)', 'transform .42s cubic-bezier(.77,0,.18,1)'], reset: ['translateX(-101%)', 'none'] };
     return {
       rootRef: this.rootRef, mainRef: this.mainRef, crossX: this.crossX, crossY: this.crossY, bootPct: this.bootPct, bootBar: this.bootBar, arrowL: this.arrowL, arrowR: this.arrowR, arrowD: this.arrowD,
-      numDisp: this.state.vw < 1000 ? 'none' : 'flex', listDisp: mob ? 'none' : 'flex', descDisp: this.state.vh < 640 ? 'none' : 'block',
+      numDisp: this.state.vw < 1240 ? 'none' : 'flex', listDisp: mob ? 'none' : 'flex', descDisp: this.state.vh < 640 ? 'none' : 'block',
       nav: mob
         ? { h: '83px', wrap: 'wrap', rowH: '46px', brandFlex: '1', brandFs: 'clamp(13px,4.4vw,17px)', tabsFlex: '0 0 100%', tabsOrd: 2, tabsH: '36px', tabsBt: 'var(--sep)', tabFlex: '1 0 auto', tabPad: '0 6px', tabFs: '11px' }
         : { h: '64px', wrap: 'nowrap', rowH: 'auto', brandFlex: 'none', brandFs: '20px', tabsFlex: '1', tabsOrd: 0, tabsH: 'auto', tabsBt: 'none', tabFlex: 'none', tabPad: '0 clamp(10px,1.4vw,20px)', tabFs: '13px' },
@@ -728,16 +864,40 @@ class Component extends DCLogic {
       trackT: `translate3d(${-col * 100}%,0,0)`, aboutT: mob ? 'none' : `translate3d(0,${-ar * 100}%,0)`, colOv: mob ? 'auto' : 'visible',
       cover: { o: coverOn ? 1 : 0, t: coverOn ? 'translateY(0)' : 'translateY(40%)' },
       projectCount: pad2(PROJECTS.length),
-      register: PROJECTS.map((p, i) => ({ num: p.num, title: p.title, dwg: p.dwg, tag: p.tag, period: p.period, desc: p.desc, go: () => this.jump(i + 1),
+      register: PROJECTS.map((p, i) => ({ num: p.num, title: p.title, dwg: p.dwg, tag: p.field, period: p.period, desc: p.desc, go: () => this.jump(i + 1),
         enter: e => { if (e.pointerType === 'mouse') this.setState({ hov: i }); }, leave: () => this.setState(s => s.hov === i ? { hov: -1 } : null),
         po: coverOn && this.state.hov === i ? 1 : 0, ao: this.state.hov === i ? 1 : 0, at: this.state.hov === i ? 'translateX(0)' : 'translateX(-6px)',
         pv: p.photo || p.img, pvFit: p.photo ? 'cover' : 'contain', pvF: p.photo ? 'var(--photoF)' : p.raw ? 'none' : 'var(--drawF)', pvB: p.photo || p.raw ? 'normal' : 'var(--drawB)',
         pvBg: p.photo ? 'var(--panel)' : 'var(--drawBg)', pvInset: p.photo ? '0' : '4% 4% 34% 4%', pvT: this.state.hov === i ? 'scale(1)' : 'scale(1.04)', ...reveal(coverOn), d: coverOn ? (300 + i * 90) + 'ms' : '0ms' })),
       projects,
+      lookT: mob ? 'none' : `translate3d(0,${-lr * 100}%,0)`,
+      look: { ...reveal(lookOn), dwg: `AC-${LOOKUP_N}-LKP`, screen: `${LOOKUP_N}.1 LOOKUP`, shown: pad2(shown.length), total: pad2(ENTRIES.length),
+        chipH: mob ? '44px' : '34px', labelW: mob ? '100%' : '56px', table: !list, list, none: !shown.length,
+        groups: GROUPS.map(([k, label]) => ({ label, n: k === 'all' ? ENTRIES.length : ENTRIES.filter(e => e.group === k).length, on: lk.g === k, pick: () => setLk({ g: k }), ...chip(lk.g === k, k === 'void' ? 'var(--void)' : 'var(--acc)') })),
+        tags: TAGS.map(t => { const on = lk.tags.includes(t); return { label: t.toUpperCase(), n: ENTRIES.filter(e => e.tags.includes(t)).length, on, pick: () => setLk({ tags: on ? lk.tags.filter(x => x !== t) : lk.tags.concat(t) }), ...chip(on, 'var(--acc)', t === 'vibecoded') }; }),
+        q: lk.q, setQ: e => setLk({ q: e.target.value }), partners: lk.partners, togglePartners: () => setLk({ partners: !lk.partners }),
+        filtered: lk.g !== 'all' || lk.tags.length > 0 || !!q || lk.partners, clear: () => setLk(LK0),
+        rows: shown.map(e => {
+          const pc = colOf(e.id), isVoid = e.group === 'void';
+          return { dwg: e.dwg, title: e.title, desc: e.desc, period: e.period, st: e.status, partners: !!e.partners, contact: () => this.jump(0, 2),
+            idInk: isVoid ? 'var(--void)' : 'var(--steel)',
+            stamp: isVoid ? 'border:3px double var(--void);color:var(--void);transform:rotate(-4deg)' : `border:1px solid ${TONE[e.group]};color:${TONE[e.group]}`,
+            chips: e.tags.map(t => ({ label: t.toUpperCase(), style: `border:1px ${t === 'vibecoded' ? 'dashed' : 'solid'} ${lk.tags.includes(t) ? 'var(--acc);color:var(--acc)' : 'var(--line);color:var(--steel)'}` })),
+            isJump: pc > 0 || isVoid, isLink: !pc && !isVoid && !!e.link, link: e.link,
+            goLabel: pc ? 'SHEET →' : 'VOID ↓', goInk: isVoid ? 'var(--void)' : 'var(--acc)', go: () => pc ? this.jump(pc) : this.jump(LOOKUP_C, 1) };
+        })
+      },
+      voidHead: reveal(voidOn), voidCount: pad2(voids.length), voidDwg: `AC-${LOOKUP_N}-VOID`, voidScreen: `${LOOKUP_N}.2 VOID`,
+      voids: voids.map((v, i) => {
+        const pc = colOf(v.feeds);
+        return { title: v.title, why: v.why || v.desc, dwg: v.dwg, period: v.period, status: v.status, cause: v.cause || '—', img: v.img, link: v.link, carried: v.carried,
+          hasImg: !!v.img, noImg: !v.img, hasLink: !!v.link, hasGo: !!v.carried && pc > 0, noGo: !!v.carried && !pc, go: () => this.jump(pc),
+          ...reveal(voidOn), d: voidOn ? (250 + i * 90) + 'ms' : '0ms' };
+      }),
       about: reveal(aboutOn), contact: reveal(ready && col === aboutC && (mob || ar === 2)),
       skills: SKILLS.map((k, i) => ({ ...k, segs: [0, 1, 2, 3].map(j => ({ bg: aboutOn && j < k.lvl ? 'var(--acc)' : 'transparent', bd: j < k.lvl ? 'var(--acc)' : 'var(--line)', d: aboutOn ? (400 + i * 120 + j * 90) + 'ms' : '0ms' })) })),
       education: EDU, contacts: CONTACTS,
-      tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? 'var(--acc)' : 'transparent' })).slice(1), // index is reached through the name
+      tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? (i === LOOKUP_C && !mob && lr === 1 ? 'var(--void)' : 'var(--acc)') : 'transparent' })).slice(1), // index is reached through the name
       up: () => this.go(0, -1), upD: !mob && curRow > 0 ? 'flex' : 'none',
       downD: !mob && curRow < cur.rows.length - 1 ? 'flex' : 'none',
       nextLabel: curRow < cur.rows.length - 1 ? `${pad2(curRow + 2)} / ${pad2(cur.rows.length)}  ${cur.rows[curRow + 1]}` : '',

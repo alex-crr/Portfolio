@@ -1,0 +1,10 @@
+title = "Cleo"
+dwg = "AC-V05"
+period = "2024 — 2025"
+status = "ABANDONED"
+desc = "Local-LLM assistant with tool calls into a project database."
+tags = ["software"]
+link = "https://github.com/alex-crr/Cleo"
+why = "Jarvis-style assistant on local LLMs, using tool calls into an SQL project database instead of RAG. Local French speech models were not usable, English ones failed on my accent, and upkeep outweighed the benefit."
+cause = "TECH LIMITS"
+carried = "Project tracking moved to a plain Obsidian vault"

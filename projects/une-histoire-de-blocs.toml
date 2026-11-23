@@ -1,0 +1,11 @@
+title = "Une histoire de blocs"
+dwg = "AC-V01"
+period = "2020"
+status = "ABANDONED"
+desc = "2D p5.js game made in one week at TUMO Paris."
+tags = ["software"]
+link = "https://github.com/alex-crr/Une-histoire-de-blocs"
+why = "2D p5.js game made in one week at TUMO Paris, in middle school: my first object-oriented code. I wanted to keep going until I saw how far it was from the best projects in polish and story."
+cause = "SCOPE"
+carried = "The first code I wrote"
+img = "img/void_blocs.jpg"

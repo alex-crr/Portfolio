@@ -32,6 +32,8 @@ jobs:
         with:
           ref: dev
           path: _site/beta
+      # rebuild from projects/*.toml, so a pushed project file shows up without a local build
+      - run: python3 _site/design/build.py && python3 _site/beta/design/build.py
       # ponytail: keeps the beta out of search results; drop this step if beta goes away
       - run: sed -i '0,/<head>/s//<head><meta name="robots" content="noindex">/' _site/beta/index.html
       - uses: actions/upload-pages-artifact@v4

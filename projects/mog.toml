@@ -1,0 +1,9 @@
+title = "MoG: Multiverse of Geekiness"
+dwg = "AC-V03"
+period = "2023"
+status = "FAILED"
+desc = "Game where every level is a new era and a new genre."
+tags = ["software"]
+why = "End-of-year game where every level drops you into a different era and gameplay genre. Delivered for the defence, but barely working: each era was effectively a new game. Stopped right after."
+cause = "SCOPE"
+carried = "Scope one mechanic, then polish it"

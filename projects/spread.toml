@@ -1,0 +1,9 @@
+title = "SPREAD"
+dwg = "AC-V07"
+period = "2026"
+status = "PAUSED"
+desc = "Resin printing in microgravity for REXUS Cycle 19."
+tags = ["space", "fabrication"]
+why = "Resin printing in microgravity for REXUS Cycle 19: a static thin resin film on FEP, about 0.1 mm layers, printing test specimens within the ~2 min of microgravity."
+cause = "PRIORITIES"
+carried = "One of three REXUS/BEXUS candidates"
