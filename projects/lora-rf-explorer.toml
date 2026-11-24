@@ -1,6 +1,0 @@
-title = "LoRa RF explorer"
-dwg = "AC-L03"
-period = "2026 — PRESENT"
-status = "ACTIVE"
-desc = "Radio exploration on a Heltec LoRa 32 board."
-tags = ["electronics"]

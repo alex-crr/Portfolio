@@ -1,6 +1,0 @@
-title = "Hologram clock"
-dwg = "AC-L02"
-period = "2026 — PRESENT"
-status = "ACTIVE"
-desc = "Desk clock on an ESP32-C3 Super Mini with a BME680 sensor and a Pepper's ghost display."
-tags = ["electronics"]
