@@ -1,19 +1,27 @@
-title = "E-Spin"
-dwg = "AC-03-ESP"
-period = "2026"
-status = "LAUNCHED"
-desc = "ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing."
-tags = ["electronics", "entrepreneurship"]
-link = "https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp"
+title      = "E-Spin"
+drawing_no = "AC-03-ESP"
+period     = "2026"
+status     = "LAUNCHED"
+summary    = "ESP32-C3 dev board with a 9 cm PCB ruler that spins on a bearing."
+tags       = ["electronics", "entrepreneurship"]
+link       = "https://www.kickstarter.com/projects/322093471/e-spin?ref=ebfenp"
 
-num = "03"
-short = "E-SPIN"
-field = "EMBEDDED HW"
-img = "img/Exploded_details.png"
-raw = true  # dark render, shown as is in both themes
-overview = [
-  "E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a LiPo battery with protection circuit, USB-C and 12 GPIO.",
-  "I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first two weeks and moved to pre-production.",
-]
-linkText = "Check out the E-Spin project on Kickstarter."
-linkLabel = "VIEW ON KICKSTARTER"
+# ── featured column ──
+[featured]
+nav                  = "E-SPIN"
+field                = "EMBEDDED HW"
+drawing              = "img/Exploded_details.png"
+keep_drawing_colours = true  # dark render, shown as is in both themes
+overview             = """
+E-Spin is an ESP32-C3 development board made of two stacked boards: a 9 cm PCB ruler on top spins on
+a 698ZZ bearing above the electronics board, which carries a 6-axis IMU, 8 addressable RGB LEDs, a
+LiPo battery with protection circuit, USB-C and 12 GPIO.
+
+I co-founded the project and launched it on Kickstarter, where it passed 125 pre-orders in its first
+two weeks and moved to pre-production.
+"""
+
+# ── reference sheet ──
+[reference]
+text   = "Check out the E-Spin project on Kickstarter."
+button = "VIEW ON KICKSTARTER"

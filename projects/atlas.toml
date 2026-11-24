@@ -1,9 +1,12 @@
-title = "ATLAS"
-dwg = "AC-V06"
-period = "2026"
-status = "PAUSED"
-desc = "Modular automated microfluidic lab platform."
-tags = ["space"]
-why = "Modular automated microfluidic lab platform, scoped as a REXUS/BEXUS proposal. I worked on the system architecture."
-cause = "PRIORITIES"
-carried = "One of three REXUS/BEXUS candidates"
+title      = "ATLAS"
+drawing_no = "AC-V06"
+period     = "2026"
+status     = "PAUSED"
+summary    = "Modular automated microfluidic lab platform."
+tags       = ["space"]
+
+# ── void card ──
+[void]
+why          = "Modular automated microfluidic lab platform, scoped as a REXUS/BEXUS proposal. I worked on the system architecture."
+cause        = "PRIORITIES"
+carried_into = "One of three REXUS/BEXUS candidates"

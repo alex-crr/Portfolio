@@ -1,56 +1,78 @@
-title = "Fusion 360 Add-ins"
-dwg = "AC-05-F360"
-period = "2025 — PRESENT"
-status = "ACTIVE"
-desc = "Four plugins I wrote in Python for Autodesk Fusion 360: cutting forces, tool inventory, extrusion profiles and 1:1 scale."
-tags = ["software", "industrial"]
-link = "https://github.com/alex-crr?tab=repositories"
+title      = "Fusion 360 Add-ins"
+drawing_no = "AC-05-F360"
+period     = "2025 — PRESENT"
+status     = "ACTIVE"
+summary    = "Four plugins I wrote in Python for Autodesk Fusion 360: cutting forces, tool inventory, extrusion profiles and 1:1 scale."
+tags       = ["software", "industrial"]
+link       = "https://github.com/alex-crr?tab=repositories"
 
-num = "05"
-short = "FUSION"
-field = "CAD/CAM PLUGINS"
-img = "img/fusion-toolkit.svg"
-details = [
-  { k = "STARTED", v = "2025" },
-  { k = "CATEGORY", v = "CAD / CAM Automation" },
-  { k = "TYPE", v = "4 Fusion 360 Add-ins" },
+# ── featured column ──
+[featured]
+nav      = "FUSION"
+field    = "CAD/CAM PLUGINS"
+drawing  = "img/fusion-toolkit.svg"
+overview = """
+Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it
+leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real
+problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate
+spreadsheet or website.
+"""
+
+# ── specifications sheet ──
+[specs]
+technologies     = [
+  "Python (Fusion API)",
+  "adsk.cam / adsk.fusion",
+  "HTML/JS palettes",
+  "JSON data files",
 ]
-tech = ["Python (Fusion API)", "adsk.cam / adsk.fusion", "HTML/JS palettes", "JSON data files"]
-thirdLabel = "SKILLS"
-third = ["Machining mechanics", "CAM programming", "Shop tooling logistics", "Tool development"]
-table = [
-  ["Cutting Force Estimator", "Manufacture — force & deflection before cutting"],
-  ["Tool Inventory", "Manufacture — tool library and stock counts in sync"],
-  ["Aluminium Extrusions", "Design — slot profiles in one command"],
-  ["1:1 Scale", "Design — true physical size on screen"],
+highlights_label = "SKILLS"
+highlights       = [
+  "Machining mechanics",
+  "CAM programming",
+  "Shop tooling logistics",
+  "Tool development",
 ]
-overview = [
-  "Autodesk Fusion 360 is the CAD/CAM software I use daily for design and CNC programming. Where it leaves a gap in my workflow, I write a Python add-in to close it. Each add-in started from a real problem in the workshop or on the machine, and each one runs inside Fusion instead of a separate spreadsheet or website.",
-]
-notesTitle = "Add-ins"
-linkText = "View them on GitHub."
-linkLabel = "GITHUB.COM/ALEX-CRR"
 
-[[cards]]
-name = "Cutting Force Estimator"
-repo = "FusionCuttingForce"
-ws = "MANUFACTURE"
-body = "Fusion CAM gives feeds and speeds, but no forces. Reads each toolpath, applies the Kienzle model and reports spindle power, torque and tool deflection, as a range since Fusion stores no rake angle. 13 materials, 6061 to Inconel."
+[specs.details]
+CATEGORY = "CAD / CAM Automation"
+TYPE     = "4 Fusion 360 Add-ins"
 
-[[cards]]
-name = "Tool Inventory"
-repo = "SOURCE NOT PUBLIC YET"
-ws = "MANUFACTURE"
-body = "Physical tool counts lived in an Excel file, apart from the Fusion tool library. This palette reads the library live, keeps counts and minimum stock in a shared JSON file with multi-user locking, and flags OK / LOW / UNSTOCKED."
+[specs.table]
+"Cutting Force Estimator" = "Manufacture — force & deflection before cutting"
+"Tool Inventory"          = "Manufacture — tool library and stock counts in sync"
+"Aluminium Extrusions"    = "Design — slot profiles in one command"
+"1:1 Scale"               = "Design — true physical size on screen"
 
-[[cards]]
-name = "Aluminium Extrusions"
-repo = "ExtrusionsGenerator"
-ws = "DESIGN"
-body = "An Aluminum Extrusion command next to Pipe. Pick series, profile and length: it imports the section, closes small sketch gaps and builds the part in its own component, as one timeline group. 2020 to C-beam 4080."
+# ── notes sheet ──
+[notes]
+title = "Add-ins"
 
-[[cards]]
-name = "1:1 Scale"
-repo = "FusionScale"
-ws = "DESIGN"
-body = "Shows the design at true physical size, so a ruler held on the screen measures it. A one-time measurement of a 50 mm reference line corrects the wrong DPI most operating systems report."
+[[notes.cards]]
+name      = "Cutting Force Estimator"
+repo      = "FusionCuttingForce"
+workspace = "MANUFACTURE"
+text      = "Fusion CAM gives feeds and speeds, but no forces. Reads each toolpath, applies the Kienzle model and reports spindle power, torque and tool deflection, as a range since Fusion stores no rake angle. 13 materials, 6061 to Inconel."
+
+[[notes.cards]]
+name      = "Tool Inventory"
+repo      = "SOURCE NOT PUBLIC YET"
+workspace = "MANUFACTURE"
+text      = "Physical tool counts lived in an Excel file, apart from the Fusion tool library. This palette reads the library live, keeps counts and minimum stock in a shared JSON file with multi-user locking, and flags OK / LOW / UNSTOCKED."
+
+[[notes.cards]]
+name      = "Aluminium Extrusions"
+repo      = "ExtrusionsGenerator"
+workspace = "DESIGN"
+text      = "An Aluminum Extrusion command next to Pipe. Pick series, profile and length: it imports the section, closes small sketch gaps and builds the part in its own component, as one timeline group. 2020 to C-beam 4080."
+
+[[notes.cards]]
+name      = "1:1 Scale"
+repo      = "FusionScale"
+workspace = "DESIGN"
+text      = "Shows the design at true physical size, so a ruler held on the screen measures it. A one-time measurement of a 50 mm reference line corrects the wrong DPI most operating systems report."
+
+# ── reference sheet ──
+[reference]
+text   = "View them on GitHub."
+button = "GITHUB.COM/ALEX-CRR"

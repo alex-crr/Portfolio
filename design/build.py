@@ -1,13 +1,18 @@
 """Rebuild ../index.html from portfolio.dc.html (the editable design source).
 
-1. Reads ../projects/*.toml (one file per project, see _template.toml), checks
-   them and writes them into the ENTRIES block of portfolio.dc.html.
-2. The bundle in index.html holds a compiled copy of the dc page as a JSON
+1. Reads ../projects/*.toml (schema v2, one file per project, see _template.toml),
+   checks them and translates them into the ENTRIES block of portfolio.dc.html,
+   with the old keys the page reads. The build derives the column number (from
+   drawing_no), the PERIOD details row, the FIG. numbers and the paragraphs.
+   Any error stops the build, with every error listed.
+2. Rewrites the page's <meta name="ext-resource-dependency"> tags from the
+   project images (featured drawing/photo, gallery, void photos).
+3. The bundle in index.html holds a compiled copy of the dc page as a JSON
    string. Only the part after </helmet> is replaced; the bundle's own head
    (inlined fonts, runtime) is kept.
 Run: python3 design/build.py   (Python 3.11+ for tomllib)
 """
-import json, re, sys, pathlib, tomllib
+import html, json, re, sys, pathlib, tomllib
 
 here = pathlib.Path(__file__).parent
 root = here.parent
@@ -15,42 +20,148 @@ root = here.parent
 # status -> lookup group. PAUSED and after go to the void sheet.
 STATUS = {'ACTIVE': 'active', 'LAUNCHED': 'released', 'DONE': 'released',
           'PAUSED': 'void', 'ABANDONED': 'void', 'FAILED': 'void', 'SUPERSEDED': 'void', 'HANDED OVER': 'void'}
-REQUIRED = ('title', 'dwg', 'period', 'status', 'desc')
-KNOWN = set(REQUIRED) | {
-    'tags', 'link', 'partners', 'draft', 'why', 'cause', 'carried', 'feeds', 'img',
-    'num', 'short', 'field', 'photo', 'raw', 'overview', 'details', 'tech', 'thirdLabel', 'third', 'table',
-    'prose', 'notesTitle', 'cards', 'learnIntro', 'learnings', 'learnOutro', 'gallery', 'linkText', 'linkLabel'}
+REQUIRED = ('title', 'drawing_no', 'period', 'status', 'summary')
+# allowed keys: None = a value, {} = a table with free keys, {...} = a table, [{...}] = [[array of tables]]
+KEYS = {k: None for k in REQUIRED + ('tags', 'link', 'partners_wanted', 'draft')} | {
+    'featured': dict.fromkeys(('nav', 'field', 'drawing', 'photo', 'keep_drawing_colours', 'overview')),
+    'specs': {'technologies': None, 'highlights_label': None, 'highlights': None, 'details': {}, 'table': {}},
+    'learnings': dict.fromkeys(('intro', 'points', 'outro')),
+    'notes': {'title': None, 'text': None, 'cards': [dict.fromkeys(('name', 'repo', 'workspace', 'text'))]},
+    'gallery': [dict.fromkeys(('caption', 'image', 'alt'))],
+    'reference': dict.fromkeys(('text', 'button')),
+    'void': dict.fromkeys(('why', 'cause', 'carried_into', 'feeds', 'photo'))}
+FEATURED = r'AC-\d\d-[A-Z0-9]+'
+SHOWN = {'STARTED', 'DATE', 'PERIOD', 'STATUS', 'FIELD', 'TITLE'}  # already on the drawing sheet
+
+
+def key_errors(d, known, path=''):
+    out = []
+    for k, v in d.items():
+        sub, at = known.get(k, False), path + k
+        if sub is False:
+            out.append(f'unknown key "{at}"')
+        elif isinstance(sub, list):
+            if not (isinstance(v, list) and all(isinstance(x, dict) for x in v)):
+                out.append(f'"{at}" must be [[{at}]] blocks')
+            else:
+                for i, x in enumerate(v, 1):
+                    out += key_errors(x, sub[0], f'{at}[{i}].')
+        elif sub is not None:
+            if not isinstance(v, dict):
+                out.append(f'"{at}" must be a [{at}] table')
+            elif sub:
+                out += key_errors(v, sub, at + '.')
+    return out
+
+
+def pick(src, names):  # copy present keys, renamed old -> new
+    return {new: src[old] for old, new in names.items() if old in src}
+
+
+def paras(text):  # blank line = new paragraph, other line breaks = one space
+    return [re.sub(r'[ \t]*\n[ \t]*', ' ', p).strip() for p in re.split(r'\n[ \t]*\n', text) if p.strip()]
+
+
+def images(e):
+    return [x for x in (e.get('img'), e.get('photo'), *(g['src'] for g in e.get('gallery', []))) if x]
+
+
+def to_entry(f, stem, base, bad):
+    """One v2 file -> one ENTRIES object (old keys); problems go to bad."""
+    status, dwg, fe, vo = f['status'], f['drawing_no'], f.get('featured'), f.get('void')
+    group = STATUS.get(status)
+    if group is None:
+        bad.append(f'status "{status}" is not one of {", ".join(STATUS)}')
+    tags = f.get('tags', [])
+    if not isinstance(tags, list):
+        bad.append('tags must be a list, like tags = ["hci"]')
+        tags = []
+    fmt, pat, why = (('AC-NN-XXX', FEATURED, 'it has [featured]') if fe is not None else
+                     ('AC-Vnn', r'AC-V\d\d', f'no [featured] and status {status}') if group == 'void' else
+                     ('AC-Lnn', r'AC-L\d\d', f'no [featured] and status {status}'))
+    if not re.fullmatch(pat, dwg):
+        bad.append(f'drawing_no "{dwg}" must look like {fmt} ({why})')
+
+    e = {'title': f['title'], 'dwg': dwg, 'period': f['period'], 'status': status, 'desc': f['summary'],
+         'tags': [str(t).lower() for t in tags]} | pick(f, {'link': 'link', 'partners_wanted': 'partners'})
+    if fe is None:
+        bad += [f'[{k}] only works with [featured]' for k in ('specs', 'learnings', 'notes', 'gallery', 'reference') if k in f]
+    else:
+        e['num'] = dwg[3:5]
+        e |= pick(fe, {'nav': 'short', 'field': 'field', 'drawing': 'img', 'photo': 'photo', 'keep_drawing_colours': 'raw'})
+        if 'overview' in fe:
+            e['overview'] = paras(fe['overview'])
+        if (sp := f.get('specs')) is not None:
+            if 'table' not in sp:
+                bad.append('[specs] needs a [specs.table]')
+            details = sp.get('details', {})
+            bad += [f'specs.details "{k}" is already shown from period/status/field, remove it' for k in details if k.upper() in SHOWN]
+            e['details'] = [{'k': 'PERIOD', 'v': f['period']}] + [{'k': k, 'v': v} for k, v in details.items()]
+            e |= pick(sp, {'technologies': 'tech', 'highlights_label': 'thirdLabel', 'highlights': 'third'})
+            if 'table' in sp:
+                e['table'] = [[k, v] for k, v in sp['table'].items()]
+        if (le := f.get('learnings')) is not None:
+            if 'notes' in f:
+                bad.append('[learnings] and [notes] cannot be used together')
+            e |= pick(le, {'intro': 'learnIntro', 'points': 'learnings', 'outro': 'learnOutro'})
+        if (no := f.get('notes')) is not None:
+            if 'text' not in no and 'cards' not in no:
+                bad.append('[notes] needs text or [[notes.cards]], or the sheet is not shown')
+            e |= pick(no, {'title': 'notesTitle'})
+            if 'text' in no:
+                e['prose'] = paras(no['text'])
+            if 'cards' in no:
+                e['cards'] = [pick(c, {'name': 'name', 'repo': 'repo', 'workspace': 'ws', 'text': 'body'}) for c in no['cards']]
+        if 'gallery' in f:
+            e['gallery'] = [{'cap': f'FIG. {i} — {g["caption"]}', 'src': g['image'], 'alt': g['alt']} for i, g in enumerate(f['gallery'], 2)]
+        if (rf := f.get('reference')) is not None:
+            if 'link' not in f:
+                bad.append('[reference] needs a top-level link')
+            if 'button' not in rf:
+                bad.append('[reference] needs a button label, or the page shows an empty button')
+            e |= pick(rf, {'text': 'linkText', 'button': 'linkLabel'})
+        elif 'link' in f:
+            bad.append('a featured project with a link needs a [reference] (text, button)')
+    if vo is not None:
+        if group != 'void':
+            bad.append(f'[void] is only for PAUSED and later, not {status}')
+        if fe is not None and 'photo' in vo:
+            bad.append('void.photo cannot be used with [featured] (both are the page\'s img)')  # ponytail: spec gap, the page has one img key
+        e |= pick(vo, {'why': 'why', 'cause': 'cause', 'carried_into': 'carried', 'feeds': 'feeds', 'photo': 'img'})
+    top = base.resolve()
+    bad += [f'image "{p}" is not a file in the repo' for p in images(e)
+            if not ((q := (base / p).resolve()).is_file() and q.is_relative_to(top))]
+    return e | {'id': stem, 'group': group}
 
 
 def load_entries(folder):
+    folder = pathlib.Path(folder)
     entries, errors = [], []
-    for f in sorted(pathlib.Path(folder).glob('*.toml')):
-        if f.name.startswith('_'):
+    for path in sorted(folder.glob('*.toml')):
+        if path.name.startswith('_'):
             continue
         try:
-            e = tomllib.loads(f.read_text(encoding='utf-8'))
+            f = tomllib.loads(path.read_text(encoding='utf-8'))
         except tomllib.TOMLDecodeError as x:
-            errors.append(f'{f.name}: {x}')
+            errors.append(f'{path.name}: {x}')
             continue
-        if e.pop('draft', False):
+        if f.get('draft'):
             continue
-        errors += [f'{f.name}: missing "{k}"' for k in REQUIRED if k not in e]
-        if e.get('status') not in STATUS:
-            errors.append(f'{f.name}: status "{e.get("status")}" is not one of {", ".join(STATUS)}')
-        if not isinstance(e.get('tags', []), list):
-            errors.append(f'{f.name}: tags must be a list, like tags = ["hci"]')
-        for k in sorted(set(e) - KNOWN):
-            print(f'warning: {f.name}: unknown field "{k}" is ignored by the page')
-        e['id'] = f.stem
-        e['group'] = STATUS.get(e.get('status'))
-        e['tags'] = [str(t).lower() for t in e.get('tags', [])] if isinstance(e.get('tags', []), list) else []
-        entries.append(e)
-    for key in ('dwg', 'num'):
+        bad = [f'missing "{k}"' for k in REQUIRED if k not in f] + key_errors(f, KEYS)
+        if not bad:
+            try:
+                entries.append(to_entry(f, path.stem, folder.parent, bad))
+            except KeyError as x:
+                bad.append(f'missing {x} in a [[...]] block')
+            except (TypeError, AttributeError) as x:
+                bad.append(f'a value has the wrong type ({x})')
+        errors += [f'{path.name}: {m}' for m in bad]
+    for key, label in (('dwg', 'drawing_no'), ('num', 'column number')):
         seen = {}
         for e in entries:
             if e.get(key):
                 if e[key] in seen:
-                    errors.append(f'{e["id"]}.toml and {seen[e[key]]}.toml share {key} "{e[key]}"')
+                    errors.append(f'{e["id"]}.toml and {seen[e[key]]}.toml share {label} "{e[key]}"')
                 seen[e[key]] = e['id']
     ids = {e['id'] for e in entries}
     errors += [f'{e["id"]}.toml: feeds "{e["feeds"]}" matches no project file' for e in entries if e.get('feeds') and e['feeds'] not in ids]
@@ -82,6 +193,11 @@ def build():
         sys.exit('portfolio.dc.html has lost its // @entries:start and // @entries:end lines')
     data = 'const ENTRIES = [\n' + ',\n'.join('  ' + json.dumps(e, ensure_ascii=False) for e in entries) + '\n];\n'
     src = BLOCK.sub(lambda m: m.group(1) + data.replace('</', '<\\/') + m.group(2), src)
+    # ponytail: every ext-resource-dependency meta is a project image (the portrait is a plain src), so all are regenerated
+    metas = ''.join(f'<meta name="ext-resource-dependency" content="{html.escape(p)}">'
+                    for p in dict.fromkeys(p for e in entries for p in images(e)))
+    META = re.compile(r'(<meta name="ext-resource-dependency" content="[^"]*">)+')
+    src = META.sub(lambda m: metas, src, count=1) if META.search(src) else src.replace('</helmet>', metas + '\n</helmet>', 1)
     src_path.write_text(src, encoding='utf-8')
 
     idx = root / 'index.html'

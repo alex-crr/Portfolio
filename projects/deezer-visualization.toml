@@ -1,6 +1,6 @@
-title = "Deezer visualization"
-dwg = "AC-L01"
-period = "2026"
-status = "DONE"
-desc = "What your music looks like: Last.fm listening history enriched with the Deezer API, drawn as an album transition graph."
-tags = ["software", "creative"]
+title      = "Deezer visualization"
+drawing_no = "AC-L01"
+period     = "2026"
+status     = "DONE"
+summary    = "What your music looks like: Last.fm listening history enriched with the Deezer API, drawn as an album transition graph."
+tags       = ["software", "creative"]

@@ -1,10 +1,13 @@
-draft = true  # needs its one-line description before going public
-title = "Talon"
-dwg = "AC-V08"
-period = "2026"
-status = "PAUSED"
-desc = "[One line: what Talon is.]"
-tags = ["space"]
-why = "[One line: what Talon is and what you architected.]"
-cause = "PRIORITIES"
-carried = "One of three REXUS/BEXUS candidates"
+draft      = true  # needs its one-line description before going public
+title      = "Talon"
+drawing_no = "AC-V08"
+period     = "2026"
+status     = "PAUSED"
+summary    = "[One line: what Talon is.]"
+tags       = ["space"]
+
+# ── void card ──
+[void]
+why          = "[One line: what Talon is and what you architected.]"
+cause        = "PRIORITIES"
+carried_into = "One of three REXUS/BEXUS candidates"

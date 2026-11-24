@@ -1,12 +1,15 @@
-title = "GCODE Generator"
-dwg = "AC-V02"
-period = "2023"
-status = "SUPERSEDED"
-desc = "Custom Marlin start and end G-code builder."
-tags = ["software", "fabrication"]
-link = "https://github.com/alex-crr/ammon-prints"
-why = "Web tool to build custom Marlin start and end G-code, because existing generators lacked features I needed. By the time the base worked, a better tool covering them was out."
-cause = "BETTER OPTION"
-carried = "Printer firmware know-how → AM6"
-feeds = "am6"
-img = "img/void_ammon.jpg"
+title      = "GCODE Generator"
+drawing_no = "AC-V02"
+period     = "2023"
+status     = "SUPERSEDED"
+summary    = "Custom Marlin start and end G-code builder."
+tags       = ["software", "fabrication"]
+link       = "https://github.com/alex-crr/ammon-prints"
+
+# ── void card ──
+[void]
+why          = "Web tool to build custom Marlin start and end G-code, because existing generators lacked features I needed. By the time the base worked, a better tool covering them was out."
+cause        = "BETTER OPTION"
+carried_into = "Printer firmware know-how → AM6"
+feeds        = "am6"
+photo        = "img/void_ammon.jpg"

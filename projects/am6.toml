@@ -1,57 +1,84 @@
-title = "AM6 3D Printer"
-dwg = "AC-04-AM6"
-period = "2018 — PRESENT"
-status = "ACTIVE"
-desc = "Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware."
-tags = ["fabrication"]
+title      = "AM6 3D Printer"
+drawing_no = "AC-04-AM6"
+period     = "2018 — PRESENT"
+status     = "ACTIVE"
+summary    = "Anet A6 kit from 2018, rebuilt on an AM6 aluminium extrusion frame and moved to Klipper firmware."
+tags       = ["fabrication"]
 
-num = "04"
-short = "AM6"
-field = "ADDITIVE MFG"
-img = "img/am6_exploded.svg"
-photo = "img/AM6.jpg"
-details = [
-  { k = "STARTED", v = "2018" },
-  { k = "CATEGORY", v = "Additive Manufacturing" },
-  { k = "TYPE", v = "Personal Project" },
+# ── featured column ──
+[featured]
+nav      = "AM6"
+field    = "ADDITIVE MFG"
+drawing  = "img/am6_exploded.svg"
+photo    = "img/AM6.jpg"
+overview = """
+My journey into the world of 3D printing began in 2018 when my parents bought me an Anet A6 kit.
+What started as a simple assembly project sparked a deep passion for additive manufacturing and
+ultimately helped shape my path toward engineering. This printer has been continually evolving as my
+knowledge and skills have grown.
+
+The original Anet A6 has undergone significant modifications over the years. I upgraded the frame
+with an AM6 extrusion kit for improved stability and precision. I also transitioned from the stock
+firmware to Marlin firmware, and then to Klipper, allowing for more advanced features and better
+print quality.
+
+While not the fastest or most advanced printer by today's standards, this machine has immense
+personal value. It represents my growth as a maker and engineer, showing how continuous iteration
+and learning can transform both a project and the person behind it.
+"""
+
+# ── specifications sheet ──
+[specs]
+technologies     = [
+  "Klipper Firmware",
+  "Additive Manufacturing",
+  "CAD Modeling",
+  "Mechanical Engineering",
 ]
-tech = ["Klipper Firmware", "Additive Manufacturing", "CAD Modeling", "Mechanical Engineering"]
-thirdLabel = "SKILLS"
-third = ["Mechanical Assembly", "Electronics Safety", "Firmware Programming", "3D Modeling"]
-table = [
-  ["Build Volume", "220 × 220 × 220 mm"],
-  ["Maximum Print Speed", "300 mm/s"],
-  ["Layer Resolution", "0.07 — 0.35 mm"],
-  ["Max Hotend Temperature", "280°C"],
-  ["Max Bed Temperature", "90°C"],
-  ["Firmware", "Klipper"],
+highlights_label = "SKILLS"
+highlights       = [
+  "Mechanical Assembly",
+  "Electronics Safety",
+  "Firmware Programming",
+  "3D Modeling",
 ]
-overview = [
-  "My journey into the world of 3D printing began in 2018 when my parents bought me an Anet A6 kit. What started as a simple assembly project sparked a deep passion for additive manufacturing and ultimately helped shape my path toward engineering. This printer has been continually evolving as my knowledge and skills have grown.",
-  "The original Anet A6 has undergone significant modifications over the years. I upgraded the frame with an AM6 extrusion kit for improved stability and precision. I also transitioned from the stock firmware to Marlin firmware, and then to Klipper, allowing for more advanced features and better print quality.",
-  "While not the fastest or most advanced printer by today's standards, this machine has immense personal value. It represents my growth as a maker and engineer, showing how continuous iteration and learning can transform both a project and the person behind it.",
-]
-learnIntro = "This project has been instrumental in my development as an engineer:"
-learnings = [
+
+[specs.details]
+CATEGORY = "Additive Manufacturing"
+TYPE     = "Personal Project"
+
+[specs.table]
+"Build Volume"           = "220 × 220 × 220 mm"
+"Maximum Print Speed"    = "300 mm/s"
+"Layer Resolution"       = "0.07 — 0.35 mm"
+"Max Hotend Temperature" = "280°C"
+"Max Bed Temperature"    = "90°C"
+"Firmware"               = "Klipper"
+
+# ── key learnings sheet ──
+[learnings]
+intro  = "This project has been instrumental in my development as an engineer:"
+points = [
   "How to safely work with electronics, including power supplies, stepper motors, and heating elements",
   "The fundamentals of mechanical design and how different components interact in a system",
   "Programming and firmware customization to optimize machine performance",
   "3D modeling skills for both creating printable objects and designing machine upgrades",
   "Problem-solving through numerous iterations and improvements",
 ]
-learnOutro = "This printer was one of the key inspirations that led me to pursue engineering as a career path."
+outro  = "This printer was one of the key inspirations that led me to pursue engineering as a career path."
+
+# ── documentation sheet ──
+[[gallery]]
+caption = "ORIGINAL KIT"
+image   = "img/stock_a6.jpg"
+alt     = "Original Anet A6 Kit"
 
 [[gallery]]
-cap = "FIG. 2 — ORIGINAL KIT"
-src = "img/stock_a6.jpg"
-alt = "Original Anet A6 Kit"
+caption = "AM6 UPGRADE"
+image   = "img/am6_kit.jpg"
+alt     = "AM6 Extrusion Upgrade"
 
 [[gallery]]
-cap = "FIG. 3 — AM6 UPGRADE"
-src = "img/am6_kit.jpg"
-alt = "AM6 Extrusion Upgrade"
-
-[[gallery]]
-cap = "FIG. 4 — CURRENT"
-src = "img/AM6.jpg"
-alt = "Current Configuration"
+caption = "CURRENT"
+image   = "img/AM6.jpg"
+alt     = "Current Configuration"

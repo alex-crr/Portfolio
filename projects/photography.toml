@@ -1,7 +1,7 @@
-draft = true  # needs a description and a link before going public
-title = "Photography portfolio"
-dwg = "AC-L04"
-period = "2026 — PRESENT"
-status = "ACTIVE"
-desc = "[One line: what you shoot and where it lives.]"
-tags = ["creative"]
+draft      = true  # needs a description and a link before going public
+title      = "Photography portfolio"
+drawing_no = "AC-L04"
+period     = "2026 — PRESENT"
+status     = "ACTIVE"
+summary    = "[One line: what you shoot and where it lives.]"
+tags       = ["creative"]

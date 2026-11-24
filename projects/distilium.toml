@@ -1,9 +1,12 @@
-title = "Distilium"
-dwg = "AC-V04"
-period = "2024"
-status = "HANDED OVER"
-desc = "Point-of-sale system for student bars."
-tags = ["entrepreneurship", "software"]
-why = "Point-of-sale system for bars: cheaper beers for students, rewards for loyalty. The bars we pitched wanted a proven product, not a pilot. I left when I changed school."
-cause = "MARKET"
-carried = "Relaunched by the three co-founders"
+title      = "Distilium"
+drawing_no = "AC-V04"
+period     = "2024"
+status     = "HANDED OVER"
+summary    = "Point-of-sale system for student bars."
+tags       = ["entrepreneurship", "software"]
+
+# ── void card ──
+[void]
+why          = "Point-of-sale system for bars: cheaper beers for students, rewards for loyalty. The bars we pitched wanted a proven product, not a pilot. I left when I changed school."
+cause        = "MARKET"
+carried_into = "Relaunched by the three co-founders"
