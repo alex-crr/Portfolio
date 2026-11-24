@@ -348,17 +348,17 @@ a:hover{color:var(--acc)}
       </sc-for>
 
       <div style="flex:0 0 100%;height:100%;min-width:0;overflow:hidden">
-        <div style="height:100%;overflow-y:{{ colOv }};transform:{{ lookT }};transition:{{ moveTr }};will-change:transform">
-          <section data-screen-label="{{ look.screen }}" style="height:var(--secH);padding:var(--pad);display:flex">
+        <div ref="{{ lookOut }}" style="height:100%;overflow-y:{{ colOv }}">
+          <section data-screen-label="{{ look.screen }}" style="{{ look.theme }}height:var(--secH);padding:var(--pad);display:flex;background:var(--bg);color:var(--ink);transition:background-color .6s ease,color .6s ease">
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
-              <div style="flex:none;display:flex;justify-content:space-between;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ look.dwg }} — PROJECT LOOKUP</span><span style="white-space:nowrap"><span style="color:var(--acc)">{{ look.shown }}</span> / {{ look.total }} ON FILE</span></div>
-              <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
+              <div style="flex:none;display:flex;justify-content:space-between;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ look.dwg }} — {{ look.head }}</span><span style="white-space:nowrap"><span style="color:{{ look.tone }}">{{ look.shown }}</span> {{ look.tail }}</span></div>
+              <div ref="{{ lookIn }}" style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
                 <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 40px;padding:4px 0 6px;opacity:{{ look.o }};transform:{{ look.t }};transition:opacity .5s ease .15s,transform .7s cubic-bezier(.2,.7,0,1) .15s">
-                  <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">Everything on file</h2>
-                  <p style="margin:0;max-width:46ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Featured work, side projects, quick experiments and the void, in one register. Red stamps are on the void sheet below.</p>
+                  <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">{{ look.title }}</h2>
+                  <p style="margin:0;max-width:46ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">{{ look.lede }}</p>
                 </div>
 
-                <div style="flex:none;background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column">
+                <div style="flex:none;background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column;transition:background-color .6s ease">
                   <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding:12px 14px;border-bottom:var(--sep)">
                     <span style="flex:0 0 {{ look.labelW }};font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">STATUS</span>
                     <div style="display:flex;flex-wrap:wrap;gap:6px;flex:1 1 320px">
@@ -430,10 +430,10 @@ a:hover{color:var(--acc)}
                   </div>
                 </sc-if>
 
-                <sc-if value="{{ look.stack }}" hint-placeholder-val="{{ false }}">
-                  <div style="flex:none;{{ look.stackStyle }}">
+                <sc-if value="{{ look.list }}" hint-placeholder-val="{{ false }}">
+                  <div style="flex:none;display:flex;flex-direction:column;border-top:var(--sep)">
                     <sc-for list="{{ look.rows }}" as="r" hint-placeholder-count="6">
-                      <article style="display:flex;flex-direction:column;gap:8px;{{ look.itemStyle }}">
+                      <article style="display:flex;flex-direction:column;gap:8px;padding:16px 4px;border-bottom:var(--sep)">
                         <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
                           <span style="font-family:var(--fM);font-size:11px;letter-spacing:.06em;color:{{ r.idInk }}">{{ r.dwg }}</span>
                           <span style="display:inline-block;padding:3px 9px;font-family:var(--fM);font-size:11px;font-weight:500;letter-spacing:.12em;white-space:nowrap;{{ r.stamp }}">{{ r.st }}</span>
@@ -462,6 +462,65 @@ a:hover{color:var(--acc)}
                   </div>
                 </sc-if>
 
+                <sc-if value="{{ look.cards }}" hint-placeholder-val="{{ false }}">
+                  <div style="flex:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));grid-auto-rows:minmax(300px,1fr);gap:var(--gap)">
+                    <sc-for list="{{ look.rows }}" as="r" hint-placeholder-count="6">
+                      <article style="background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;opacity:{{ r.o }};transform:{{ r.t }};transition:opacity .5s ease {{ r.d }},transform .7s cubic-bezier(.2,.7,0,1) {{ r.d }},background-color .6s ease">
+                        <div style="position:relative;flex:1;min-height:140px;background:repeating-linear-gradient(45deg,var(--panel) 0 1px,var(--panel2) 1px 10px)">
+                          <sc-if value="{{ r.hasImg }}" hint-placeholder-val="{{ false }}">
+                            <div style="position:absolute;inset:0;background:{{ r.pvBg }}">
+                              <div style="position:absolute;inset:{{ r.pvInset }}">
+                                <img src="{{ r.pv }}" alt="{{ r.title }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:{{ r.pvFit }};filter:{{ r.pvF }};mix-blend-mode:{{ r.pvB }}"></img>
+                              </div>
+                            </div>
+                          </sc-if>
+                          <sc-if value="{{ r.noImg }}" hint-placeholder-val="{{ true }}">
+                            <span style="position:absolute;left:14px;bottom:12px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">NO PHOTO ON RECORD</span>
+                          </sc-if>
+                          <span style="position:absolute;top:14px;right:14px;background:var(--panel);padding:3px 10px;font-family:var(--fM);font-size:12px;font-weight:500;letter-spacing:.14em;white-space:nowrap;{{ r.cardStamp }}">{{ r.st }}</span>
+                        </div>
+                        <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;border-top:var(--sep)">
+                          <div style="padding:12px 14px;border-right:var(--sep)">
+                            <div style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:22px;line-height:1;margin-bottom:6px">{{ r.title }}</div>
+                            <div style="font-size:13px;line-height:1.45;color:var(--steel);text-wrap:pretty">{{ r.text }}</div>
+                            <sc-if value="{{ r.partners }}" hint-placeholder-val="{{ false }}">
+                              <button onClick="{{ r.contact }}" style="all:unset;cursor:pointer;display:inline-block;margin-top:8px;padding:3px 8px;border:1px solid var(--acc);border-radius:3px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--acc)">PARTNERS WANTED → GET IN TOUCH</button>
+                            </sc-if>
+                          </div>
+                          <div style="display:flex;flex-direction:column;font-family:var(--fM);font-size:10px;letter-spacing:.08em;min-width:118px">
+                            <span style="padding:8px 12px;border-bottom:var(--sep);color:{{ r.idInk }}">{{ r.dwg }}</span>
+                            <span style="padding:8px 12px;border-bottom:var(--sep);color:var(--steel)">{{ r.period }}</span>
+                            <sc-if value="{{ r.isVoid }}" hint-placeholder-val="{{ false }}">
+                              <span style="padding:8px 12px;color:var(--steel)">{{ r.cause }}</span>
+                            </sc-if>
+                            <sc-if value="{{ r.notVoid }}" hint-placeholder-val="{{ true }}">
+                              <div style="padding:8px 12px;display:flex;flex-direction:column;align-items:flex-start;gap:5px">
+                                <sc-for list="{{ r.chips }}" as="g" hint-placeholder-count="2">
+                                  <span style="padding:2px 7px;border-radius:3px;{{ g.style }}">{{ g.label }}</span>
+                                </sc-for>
+                              </div>
+                            </sc-if>
+                          </div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:40px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px">
+                          <sc-if value="{{ r.carriedGo }}" hint-placeholder-val="{{ false }}">
+                            <button onClick="{{ r.feed }}" style="all:unset;cursor:pointer;color:var(--acc)">→ {{ r.carried }}</button>
+                          </sc-if>
+                          <sc-if value="{{ r.carriedText }}" hint-placeholder-val="{{ false }}">
+                            <span style="color:var(--steel)">→ {{ r.carried }}</span>
+                          </sc-if>
+                          <sc-if value="{{ r.isSheet }}" hint-placeholder-val="{{ true }}">
+                            <button onClick="{{ r.go }}" style="all:unset;cursor:pointer;letter-spacing:.08em;color:var(--acc)">SHEET →</button>
+                          </sc-if>
+                          <sc-if value="{{ r.hasLink }}" hint-placeholder-val="{{ false }}">
+                            <a href="{{ r.link }}" target="_blank" rel="noopener" style="flex:none;margin-left:auto;letter-spacing:.1em;color:{{ r.linkInk }}">SOURCE ↗</a>
+                          </sc-if>
+                        </div>
+                      </article>
+                    </sc-for>
+                  </div>
+                </sc-if>
+
                 <sc-if value="{{ look.none }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:40px 14px;font-family:var(--fM);font-size:11px;letter-spacing:.1em;color:var(--steel)">
                     <span>NO DRAWINGS MATCH THESE FILTERS</span>
@@ -470,56 +529,7 @@ a:hover{color:var(--acc)}
                 </sc-if>
 
                 <div style="flex:none;display:flex;flex-wrap:wrap;gap:8px 24px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">
-                  <span>AC-NN FEATURED SHEET</span><span>AC-L LOG ENTRY</span><span style="color:var(--void)">AC-V ON THE VOID SHEET</span><span>DASHED TAG = HOW IT WAS MADE, NOT THE FIELD</span>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section data-screen-label="{{ voidScreen }}" style="--bg:#141516;--panel:#1f2022;--panel2:#252628;--ink:#e6e6e2;--steel:#9a9c9f;--line:#323437;--sep:1px solid #323437;--void:#ff8a80;--acc:oklch(0.72 0.13 250);--accInk:#0e0f10;height:var(--secH);padding:var(--pad);display:flex;background:var(--bg);color:var(--ink)">
-            <div style="flex:1;min-width:0;display:flex;flex-direction:column;min-height:0;gap:var(--gap)">
-              <div style="flex:none;display:flex;justify-content:space-between;gap:16px;padding:8px 14px;border-bottom:var(--sep);font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)"><span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0">{{ voidDwg }} — SUPERSEDED DRAWINGS</span><span style="white-space:nowrap"><span style="color:var(--void)">{{ voidCount }}</span> WITHDRAWN</span></div>
-              <div style="flex:1;min-height:0;overflow:auto;scrollbar-width:thin;display:flex;flex-direction:column;gap:var(--gap)">
-                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:12px 40px;padding:4px 0 6px;opacity:{{ voidHead.o }};transform:{{ voidHead.t }};transition:opacity .5s ease .15s,transform .7s cubic-bezier(.2,.7,0,1) .15s">
-                  <h2 style="margin:0;font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);letter-spacing:var(--dLS);font-size:clamp(32px,min(4vw,6vh),56px);line-height:.9">Things I stopped building</h2>
-                  <p style="margin:0;max-width:44ch;font-size:14px;line-height:1.6;color:var(--steel);text-wrap:pretty">Each of these stopped on a decision, not by drifting. Paused ones may come back; the rest taught something still running in the live set.</p>
-                </div>
-                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));grid-auto-rows:minmax(300px,1fr);gap:var(--gap)">
-                  <sc-for list="{{ voids }}" as="v" hint-placeholder-count="0">
-                    <article style="background:var(--panel);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;opacity:{{ v.o }};transform:{{ v.t }};transition:opacity .5s ease {{ v.d }},transform .7s cubic-bezier(.2,.7,0,1) {{ v.d }}">
-                      <div style="position:relative;flex:1;min-height:140px;background:repeating-linear-gradient(45deg,var(--panel) 0 1px,var(--panel2) 1px 10px)">
-                        <sc-if value="{{ v.hasImg }}" hint-placeholder-val="{{ false }}">
-                          <img src="{{ v.img }}" alt="{{ v.title }}" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)"></img>
-                        </sc-if>
-                        <sc-if value="{{ v.noImg }}" hint-placeholder-val="{{ true }}">
-                          <span style="position:absolute;left:14px;bottom:12px;font-family:var(--fM);font-size:10px;letter-spacing:.1em;color:var(--steel)">NO PHOTO ON RECORD</span>
-                        </sc-if>
-                        <span style="position:absolute;top:14px;right:14px;transform:rotate(-8deg);border:3px double var(--void);color:var(--void);background:var(--panel);padding:3px 10px;font-family:var(--fM);font-size:12px;font-weight:500;letter-spacing:.14em">{{ v.status }}</span>
-                      </div>
-                      <div style="display:grid;grid-template-columns:minmax(0,1fr) auto;border-top:var(--sep)">
-                        <div style="padding:12px 14px;border-right:var(--sep)">
-                          <div style="font-family:var(--fD);font-weight:var(--dW);font-stretch:var(--dSt);text-transform:var(--dTr);font-size:22px;line-height:1;margin-bottom:6px">{{ v.title }}</div>
-                          <div style="font-size:13px;line-height:1.45;color:var(--steel);text-wrap:pretty">{{ v.why }}</div>
-                        </div>
-                        <div style="display:flex;flex-direction:column;font-family:var(--fM);font-size:10px;letter-spacing:.08em;min-width:118px">
-                          <span style="padding:8px 12px;border-bottom:var(--sep);color:var(--void)">{{ v.dwg }}</span>
-                          <span style="padding:8px 12px;border-bottom:var(--sep);color:var(--steel)">{{ v.period }}</span>
-                          <span style="padding:8px 12px;color:var(--steel)">{{ v.cause }}</span>
-                        </div>
-                      </div>
-                      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:40px;padding:10px 14px;border-top:var(--sep);font-family:var(--fM);font-size:11px">
-                        <sc-if value="{{ v.hasGo }}" hint-placeholder-val="{{ false }}">
-                          <button onClick="{{ v.go }}" style="all:unset;cursor:pointer;color:var(--acc)">→ {{ v.carried }}</button>
-                        </sc-if>
-                        <sc-if value="{{ v.noGo }}" hint-placeholder-val="{{ true }}">
-                          <span style="color:var(--steel)">→ {{ v.carried }}</span>
-                        </sc-if>
-                        <sc-if value="{{ v.hasLink }}" hint-placeholder-val="{{ false }}">
-                          <a href="{{ v.link }}" target="_blank" rel="noopener" style="flex:none;margin-left:auto;letter-spacing:.1em;color:var(--steel)">SOURCE ↗</a>
-                        </sc-if>
-                      </div>
-                    </article>
-                  </sc-for>
+                  <span>AC-NN FEATURED SHEET</span><span>AC-L LOG ENTRY</span><span style="color:var(--void)">AC-V IN THE VOID</span><span>DASHED TAG = HOW IT WAS MADE, NOT THE FIELD</span>
                 </div>
               </div>
             </div>
@@ -625,24 +635,32 @@ function sheetsFor(p) {
   return s;
 }
 const pad2 = n => String(n).padStart(2, '0');
-// about and contact are sheets below the index, not a column of their own; the void is the sheet below the lookup
+// about and contact are sheets below the index, not a column of their own; the void is the lookup filtered to VOID
 const LOOKUP_C = PROJECTS.length + 1, LOOKUP_N = pad2(LOOKUP_C);
 const COLS = [{ label: 'INDEX', num: '00', rows: ['INDEX', 'ABOUT', 'CONTACT'] }]
   .concat(PROJECTS.map(p => ({ label: p.short, num: p.num, rows: sheetsFor(p).map(s => s.title) })))
-  .concat([{ label: 'LOOKUP', num: LOOKUP_N, rows: ['LOOKUP', 'VOID'] }]);
+  .concat([{ label: 'LOOKUP', num: LOOKUP_N, rows: ['LOOKUP'] }]);
 const BOOT = ['LOAD DRAWING REGISTER', ...PROJECTS.map(p => 'MOUNT ' + p.dwg), 'CALIBRATE GRID ' + COLS.length + ' × ' + Math.max(...COLS.map(c => c.rows.length)), 'RESOLVE TITLE BLOCKS', 'SYNC SHEET INDEX', 'READY'];
 const GROUPS = [['all', 'ALL'], ['active', 'ACTIVE'], ['released', 'RELEASED'], ['void', 'VOID']];
 const TONE = { active: 'var(--acc)', released: 'var(--ink)', void: 'var(--void)' };
 const TAGS = [...new Set(ENTRIES.flatMap(e => e.tags))].sort((a, b) => (a === 'vibecoded') - (b === 'vibecoded') || a.localeCompare(b)); // method tag last
 const LK0 = { g: 'all', tags: [], q: '', partners: false }; // filters only: CLEAR keeps the chosen view
 const VIEW_KEY = 'ac-lookup-view';
+// the lookup turns into the void (dark sheet, void cards) while the VOID status is picked
+const VOID_THEME = '--bg:#141516;--panel:#1f2022;--panel2:#252628;--ink:#e6e6e2;--steel:#9a9c9f;--line:#323437;--sep:1px solid #323437;--void:#ff8a80;--acc:oklch(0.72 0.13 250);--accInk:#0e0f10;';
+// card and register picture: the photo, else the drawing (inset by `inset`); void photos go grey
+const thumb = (e, inset) => e.group === 'void'
+  ? { pv: e.img, pvFit: 'cover', pvF: 'grayscale(1) contrast(1.05)', pvB: 'normal', pvBg: 'transparent', pvInset: '0' }
+  : { pv: e.photo || e.img, pvFit: e.photo ? 'cover' : 'contain', pvF: e.photo ? 'var(--photoF)' : e.raw ? 'none' : 'var(--drawF)',
+      pvB: e.photo || e.raw ? 'normal' : 'var(--drawB)', pvBg: e.photo ? 'var(--panel)' : 'var(--drawBg)', pvInset: e.photo ? '0' : inset };
 
 class Component extends DCLogic {
-  state = { vw: window.innerWidth, vh: window.innerHeight, col: 0, row: 0, style: null, reveal: {}, lk: LK0, wipe: 'idle', hov: -1, boot: 'run', bootGo: false, hint: true };
+  state = { vw: window.innerWidth, vh: window.innerHeight, col: 0, row: 0, style: null, reveal: {}, lk: LK0, vf: false, wipe: 'idle', hov: -1, boot: 'run', bootGo: false, hint: true };
   rootRef = React.createRef(); mainRef = React.createRef();
   crossX = React.createRef(); crossY = React.createRef();
   bootPct = React.createRef(); bootBar = React.createRef();
   arrowL = React.createRef(); arrowR = React.createRef(); arrowD = React.createRef(); bounced = {};
+  lookOut = React.createRef(); lookIn = React.createRef(); // lookup scrollers: outer on phones, inner otherwise
   lock = 0;
 
   styleKey() {
@@ -687,6 +705,15 @@ class Component extends DCLogic {
     });
   }
   jump(col, row) { this.setState({ col, row: row ?? 0 }); }
+  // entering or leaving the void fades the cards out, swaps the sheet, then deals them back in
+  group(g) {
+    if ((g === 'void') === (this.state.lk.g === 'void')) return this.setState(s => ({ lk: { ...s.lk, g } }));
+    clearTimeout(this.vfT); this.setState({ vf: true });
+    this.vfT = setTimeout(() => {
+      [this.lookOut, this.lookIn].forEach(r => r.current && (r.current.scrollTop = 0)); // the new sheet starts at its top
+      this.setState(s => ({ lk: { ...s.lk, g }, vf: false }));
+    }, 260);
+  }
   // nav arrows are overlays: shown on arrival (and when the mouse nears an edge), then fade
   flash() {
     clearTimeout(this.hintT);
@@ -797,7 +824,7 @@ class Component extends DCLogic {
     if (k !== this.hintK) { this.hintK = k; if (k) { this.flash(); this.bounce(); } }
   }
   componentWillUnmount() {
-    cancelAnimationFrame(this.raf); clearTimeout(this.hintT);
+    cancelAnimationFrame(this.raf); clearTimeout(this.hintT); clearTimeout(this.vfT);
     window.removeEventListener('resize', this.onResize);
     window.removeEventListener('wheel', this.onWheel);
     window.removeEventListener('keydown', this.onKey);
@@ -846,17 +873,17 @@ class Component extends DCLogic {
     });
 
     const aboutC = 0, ar = this.rowIn(aboutC), aboutOn = ready && col === aboutC && (mob || ar === 1);
-    const lr = this.rowIn(LOOKUP_C), lookOn = ready && col === LOOKUP_C && (mob || lr === 0), voidOn = ready && col === LOOKUP_C && (mob || lr === 1);
-    const lk = this.state.lk, q = lk.q.trim().toLowerCase(), setLk = o => this.setState(s => ({ lk: { ...s.lk, ...o } }));
+    const lk = this.state.lk, inVoid = lk.g === 'void', lookOn = active(LOOKUP_C, 0) && !this.state.vf;
+    const q = lk.q.trim().toLowerCase(), setLk = o => this.setState(s => ({ lk: { ...s.lk, ...o } }));
     const shown = ENTRIES.filter(e => (lk.g === 'all' || e.group === lk.g) && (!lk.tags.length || e.tags.some(t => lk.tags.includes(t)))
       && (!lk.partners || e.partners) && (!q || [e.dwg, e.title, e.desc].concat(e.tags).join(' ').toLowerCase().includes(q)));
     const chip = (on, tone, dashed) => ({ bg: on ? tone : 'transparent', ink: on ? 'var(--accInk)' : tone === 'var(--void)' ? 'var(--void)' : 'var(--ink)', bd: `1px ${dashed ? 'dashed' : 'solid'} ${on ? tone : 'var(--line)'}` });
     const colOf = id => PROJECTS.findIndex(p => p.id === id) + 1; // 0 = no column of its own
-    const voids = ENTRIES.filter(e => e.group === 'void'), narrow = mob || this.state.vw < 1000, view = lk.view || 'list', cards = view === 'cards';
+    const voidN = ENTRIES.filter(e => e.group === 'void').length, narrow = mob || this.state.vw < 1000, cards = inVoid || lk.view === 'cards'; // the void is always cards
     const cur = COLS[col], curRow = this.rowIn(col), coverOn = ready && col === 0 && (mob || ar === 0);
     const wipeMap = { idle: ['translateX(-101%)', 'none'], in: ['translateX(0)', 'transform .38s cubic-bezier(.77,0,.18,1)'], out: ['translateX(101%)', 'transform .42s cubic-bezier(.77,0,.18,1)'], reset: ['translateX(-101%)', 'none'] };
     return {
-      rootRef: this.rootRef, mainRef: this.mainRef, crossX: this.crossX, crossY: this.crossY, bootPct: this.bootPct, bootBar: this.bootBar, arrowL: this.arrowL, arrowR: this.arrowR, arrowD: this.arrowD,
+      rootRef: this.rootRef, mainRef: this.mainRef, lookOut: this.lookOut, lookIn: this.lookIn, crossX: this.crossX, crossY: this.crossY, bootPct: this.bootPct, bootBar: this.bootBar, arrowL: this.arrowL, arrowR: this.arrowR, arrowD: this.arrowD,
       numDisp: this.state.vw < 1240 ? 'none' : 'flex', listDisp: mob ? 'none' : 'flex', descDisp: this.state.vh < 640 ? 'none' : 'block',
       nav: mob
         ? { h: '83px', wrap: 'wrap', rowH: '46px', brandFlex: '1', brandFs: 'clamp(13px,4.4vw,17px)', tabsFlex: '0 0 100%', tabsOrd: 2, tabsH: '36px', tabsBt: 'var(--sep)', tabFlex: '1 0 auto', tabPad: '0 6px', tabFs: '11px' }
@@ -872,41 +899,40 @@ class Component extends DCLogic {
       register: PROJECTS.map((p, i) => ({ num: p.num, title: p.title, dwg: p.dwg, tag: p.field, period: p.period, desc: p.desc, go: () => this.jump(i + 1),
         enter: e => { if (e.pointerType === 'mouse') this.setState({ hov: i }); }, leave: () => this.setState(s => s.hov === i ? { hov: -1 } : null),
         po: coverOn && this.state.hov === i ? 1 : 0, ao: this.state.hov === i ? 1 : 0, at: this.state.hov === i ? 'translateX(0)' : 'translateX(-6px)',
-        pv: p.photo || p.img, pvFit: p.photo ? 'cover' : 'contain', pvF: p.photo ? 'var(--photoF)' : p.raw ? 'none' : 'var(--drawF)', pvB: p.photo || p.raw ? 'normal' : 'var(--drawB)',
-        pvBg: p.photo ? 'var(--panel)' : 'var(--drawBg)', pvInset: p.photo ? '0' : '4% 4% 34% 4%', pvT: this.state.hov === i ? 'scale(1)' : 'scale(1.04)', ...reveal(coverOn), d: coverOn ? (300 + i * 90) + 'ms' : '0ms' })),
+        ...thumb(p, '4% 4% 34% 4%'), pvT: this.state.hov === i ? 'scale(1)' : 'scale(1.04)', ...reveal(coverOn), d: coverOn ? (300 + i * 90) + 'ms' : '0ms' })),
       projects,
-      lookT: mob ? 'none' : `translate3d(0,${-lr * 100}%,0)`,
-      look: { ...reveal(lookOn), dwg: `AC-${LOOKUP_N}-LKP`, screen: `${LOOKUP_N}.1 LOOKUP`, shown: pad2(shown.length), total: pad2(ENTRIES.length),
+      look: { ...reveal(lookOn), screen: `${LOOKUP_N}.1 LOOKUP`, shown: pad2(shown.length), theme: inVoid ? VOID_THEME : '',
+        ...(inVoid
+          ? { dwg: `AC-${LOOKUP_N}-VOID`, head: 'SUPERSEDED DRAWINGS', tone: 'var(--void)', tail: `/ ${pad2(voidN)} WITHDRAWN`, title: 'Things I stopped building',
+              lede: 'Each of these stopped on a decision, not by drifting. Paused ones may come back; the rest taught something still running in the live set.' }
+          : { dwg: `AC-${LOOKUP_N}-LKP`, head: 'PROJECT LOOKUP', tone: 'var(--acc)', tail: `/ ${pad2(ENTRIES.length)} ON FILE`, title: 'Everything on file',
+              lede: 'Featured work, side projects, quick experiments and the void, in one register. Red stamps are in the void: pick VOID to enter it.' }),
         chipH: mob ? '44px' : '34px', labelW: mob ? '100%' : '56px', none: !shown.length,
-        table: !narrow && !cards, stack: narrow || cards, // narrow screens have no table: LIST stacks rows there
-        stackStyle: cards ? 'display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:var(--gap)' : 'display:flex;flex-direction:column;border-top:var(--sep)',
-        itemStyle: cards ? 'background:var(--panel);border-radius:var(--r);padding:14px 16px 4px' : 'padding:16px 4px;border-bottom:var(--sep)',
-        views: [['list', 'LIST'], ['cards', 'CARDS']].map(([k, label]) => ({ label, on: view === k, pick: () => { setLk({ view: k }); try { localStorage.setItem(VIEW_KEY, k); } catch (e) {} }, ...chip(view === k, 'var(--acc)') })),
-        groups: GROUPS.map(([k, label]) => ({ label, n: k === 'all' ? ENTRIES.length : ENTRIES.filter(e => e.group === k).length, on: lk.g === k, pick: () => setLk({ g: k }), ...chip(lk.g === k, k === 'void' ? 'var(--void)' : 'var(--acc)') })),
+        table: !narrow && !cards, list: narrow && !cards, cards, // narrow screens have no table: LIST stacks rows there
+        views: inVoid ? [] : [['list', 'LIST'], ['cards', 'CARDS']].map(([k, label]) => ({ label, on: (lk.view || 'list') === k, pick: () => { setLk({ view: k }); try { localStorage.setItem(VIEW_KEY, k); } catch (e) {} }, ...chip((lk.view || 'list') === k, 'var(--acc)') })),
+        groups: GROUPS.map(([k, label]) => ({ label, n: k === 'all' ? ENTRIES.length : ENTRIES.filter(e => e.group === k).length, on: lk.g === k, pick: () => this.group(k), ...chip(lk.g === k, k === 'void' ? 'var(--void)' : 'var(--acc)') })),
         tags: TAGS.map(t => { const on = lk.tags.includes(t); return { label: t.toUpperCase(), n: ENTRIES.filter(e => e.tags.includes(t)).length, on, pick: () => setLk({ tags: on ? lk.tags.filter(x => x !== t) : lk.tags.concat(t) }), ...chip(on, 'var(--acc)', t === 'vibecoded') }; }),
         q: lk.q, setQ: e => setLk({ q: e.target.value }), partners: lk.partners, togglePartners: () => setLk({ partners: !lk.partners }),
-        filtered: lk.g !== 'all' || lk.tags.length > 0 || !!q || lk.partners, clear: () => setLk(LK0),
-        rows: shown.map(e => {
-          const pc = colOf(e.id), isVoid = e.group === 'void';
+        filtered: lk.g !== 'all' || lk.tags.length > 0 || !!q || lk.partners, clear: () => { setLk({ ...LK0, g: lk.g }); this.group('all'); }, // group last: it animates out of the void
+        rows: shown.map((e, i) => {
+          const pc = colOf(e.id), isVoid = e.group === 'void', fc = colOf(e.feeds), t = thumb(e, '8%'), d = lookOn ? (200 + Math.min(i, 8) * 70) + 'ms' : '0ms';
           return { dwg: e.dwg, title: e.title, desc: e.desc, period: e.period, st: e.status, partners: !!e.partners, contact: () => this.jump(0, 2),
+            ...reveal(lookOn), d, ...t, hasImg: !!t.pv, noImg: !t.pv,
+            text: inVoid ? e.why || e.desc : e.desc, isVoid, notVoid: !isVoid, cause: e.cause || '—', isSheet: pc > 0,
+            carried: e.carried, carriedGo: !!e.carried && fc > 0, carriedText: !!e.carried && !fc, feed: () => this.jump(fc),
+            hasLink: !!e.link && (isVoid || !pc), linkInk: isVoid ? 'var(--steel)' : 'var(--acc)',
+            cardStamp: isVoid ? 'border:3px double var(--void);color:var(--void);transform:rotate(-8deg)' : `border:1px solid ${TONE[e.group]};color:${TONE[e.group]}`,
             idInk: isVoid ? 'var(--void)' : 'var(--steel)',
             stamp: isVoid ? 'border:3px double var(--void);color:var(--void);transform:rotate(-4deg)' : `border:1px solid ${TONE[e.group]};color:${TONE[e.group]}`,
             chips: e.tags.map(t => ({ label: t.toUpperCase(), style: `border:1px ${t === 'vibecoded' ? 'dashed' : 'solid'} ${lk.tags.includes(t) ? 'var(--acc);color:var(--acc)' : 'var(--line);color:var(--steel)'}` })),
             isJump: pc > 0 || isVoid, isLink: !pc && !isVoid && !!e.link, link: e.link,
-            goLabel: pc ? 'SHEET →' : 'VOID ↓', goInk: isVoid ? 'var(--void)' : 'var(--acc)', go: () => pc ? this.jump(pc) : this.jump(LOOKUP_C, 1) };
+            goLabel: pc ? 'SHEET →' : 'VOID →', goInk: isVoid ? 'var(--void)' : 'var(--acc)', go: () => pc ? this.jump(pc) : this.group('void') };
         })
       },
-      voidHead: reveal(voidOn), voidCount: pad2(voids.length), voidDwg: `AC-${LOOKUP_N}-VOID`, voidScreen: `${LOOKUP_N}.2 VOID`,
-      voids: voids.map((v, i) => {
-        const pc = colOf(v.feeds);
-        return { title: v.title, why: v.why || v.desc, dwg: v.dwg, period: v.period, status: v.status, cause: v.cause || '—', img: v.img, link: v.link, carried: v.carried,
-          hasImg: !!v.img, noImg: !v.img, hasLink: !!v.link, hasGo: !!v.carried && pc > 0, noGo: !!v.carried && !pc, go: () => this.jump(pc),
-          ...reveal(voidOn), d: voidOn ? (250 + i * 90) + 'ms' : '0ms' };
-      }),
       about: reveal(aboutOn), contact: reveal(ready && col === aboutC && (mob || ar === 2)),
       skills: SKILLS.map((k, i) => ({ ...k, segs: [0, 1, 2, 3].map(j => ({ bg: aboutOn && j < k.lvl ? 'var(--acc)' : 'transparent', bd: j < k.lvl ? 'var(--acc)' : 'var(--line)', d: aboutOn ? (400 + i * 120 + j * 90) + 'ms' : '0ms' })) })),
       education: EDU, contacts: CONTACTS,
-      tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? (i === LOOKUP_C && !mob && lr === 1 ? 'var(--void)' : 'var(--acc)') : 'transparent' })).slice(1), // index is reached through the name
+      tabs: COLS.map((c, i) => ({ num: c.num, label: c.label, go: () => this.jump(i), color: i === col ? 'var(--accInk)' : 'var(--ink)', bg: i === col ? (i === LOOKUP_C && inVoid ? 'var(--void)' : 'var(--acc)') : 'transparent' })).slice(1), // index is reached through the name
       up: () => this.go(0, -1), upD: !mob && curRow > 0 ? 'flex' : 'none',
       downD: !mob && curRow < cur.rows.length - 1 ? 'flex' : 'none',
       nextLabel: curRow < cur.rows.length - 1 ? `${pad2(curRow + 2)} / ${pad2(cur.rows.length)}  ${cur.rows[curRow + 1]}` : '',
