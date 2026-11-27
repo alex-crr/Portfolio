@@ -55,10 +55,14 @@ tags       = ["electronics"]   # optional; lower case, each tag is a lookup filt
 # workspace = "MANUFACTURE"
 # text      = "..."
 
-# [[gallery]]                         # optional, repeat per figure; DOCUMENTATION sheet, numbered FIG. 2, 3...
-# caption = "ORIGINAL KIT"
-# image   = "img/x_kit.jpg"
-# alt     = "Original kit"
+# [[media]]                           # optional, repeat per item; DOCUMENTATION sheet, last of the column, in file order
+# caption = "BENCH TEST"              # numbered by the build: FIG. 2, 3... (images, videos) and DOC. 1, 2... (the rest)
+# src     = "files/x_bench.mp4"       # repo path or https:// link; the kind comes from it:
+#                                     #   .jpg .jpeg .png .webp .gif .svg .avif  image, opens full size
+#                                     #   .mp4 .webm                             video player (keep repo files < 50 MB)
+#                                     #   youtube.com / youtu.be link            embedded YouTube player
+#                                     #   anything else: .pdf, .step, a web page document card that opens it
+# alt     = "Printer on the bench"    # required for images: what the image shows
 
 # [reference]                         # REFERENCE sheet; required when a featured project has a link
 # text   = "Check out ... on Kickstarter."

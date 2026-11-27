@@ -68,17 +68,17 @@ points = [
 outro  = "This printer was one of the key inspirations that led me to pursue engineering as a career path."
 
 # ── documentation sheet ──
-[[gallery]]
+[[media]]
 caption = "ORIGINAL KIT"
-image   = "img/stock_a6.jpg"
+src     = "img/stock_a6.jpg"
 alt     = "Original Anet A6 Kit"
 
-[[gallery]]
+[[media]]
 caption = "AM6 UPGRADE"
-image   = "img/am6_kit.jpg"
+src     = "img/am6_kit.jpg"
 alt     = "AM6 Extrusion Upgrade"
 
-[[gallery]]
+[[media]]
 caption = "CURRENT"
-image   = "img/AM6.jpg"
+src     = "img/AM6.jpg"
 alt     = "Current Configuration"

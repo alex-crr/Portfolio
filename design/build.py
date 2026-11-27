@@ -6,13 +6,13 @@
    drawing_no), the PERIOD details row, the FIG. numbers and the paragraphs.
    Any error stops the build, with every error listed.
 2. Rewrites the page's <meta name="ext-resource-dependency"> tags from the
-   project images (featured drawing/photo, gallery, void photos).
+   local project images (featured drawing/photo, media images, void photos).
 3. The bundle in index.html holds a compiled copy of the dc page as a JSON
    string. Only the part after </helmet> is replaced; the bundle's own head
    (inlined fonts, runtime) is kept.
 Run: python3 design/build.py   (Python 3.11+ for tomllib)
 """
-import html, json, re, sys, pathlib, tomllib
+import html, json, re, sys, pathlib, tomllib, urllib.parse
 
 here = pathlib.Path(__file__).parent
 root = here.parent
@@ -27,7 +27,7 @@ KEYS = {k: None for k in REQUIRED + ('tags', 'link', 'partners_wanted', 'draft')
     'specs': {'technologies': None, 'highlights_label': None, 'highlights': None, 'details': {}, 'table': {}},
     'learnings': dict.fromkeys(('intro', 'points', 'outro')),
     'notes': {'title': None, 'text': None, 'cards': [dict.fromkeys(('name', 'repo', 'workspace', 'text'))]},
-    'gallery': [dict.fromkeys(('caption', 'image', 'alt'))],
+    'media': [dict.fromkeys(('caption', 'src', 'alt'))],
     'reference': dict.fromkeys(('text', 'button')),
     'void': dict.fromkeys(('why', 'cause', 'carried_into', 'feeds', 'photo'))}
 FEATURED = r'AC-\d\d-[A-Z0-9]+'
@@ -62,8 +62,33 @@ def paras(text):  # blank line = new paragraph, other line breaks = one space
     return [re.sub(r'[ \t]*\n[ \t]*', ' ', p).strip() for p in re.split(r'\n[ \t]*\n', text) if p.strip()]
 
 
-def images(e):
-    return [x for x in (e.get('img'), e.get('photo'), *(g['src'] for g in e.get('gallery', []))) if x]
+IMAGE, VIDEO = {'.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg', '.avif'}, {'.mp4', '.webm'}
+YOUTUBE = re.compile(r'https://(?:www\.|m\.)?(?:youtube\.com/(?:watch\?v=|shorts/)|youtu\.be/)([\w-]{11})')
+web = lambda p: p.startswith(('https://', 'http://'))
+
+
+def media_item(m, base, n, bad):
+    """One [[media]] block -> one DOCUMENTATION item; n counts FIG. and DOC. numbers."""
+    src, url = m['src'], urllib.parse.urlsplit(m['src'])
+    ext = pathlib.PurePosixPath(url.path).suffix.lower()
+    yt = YOUTUBE.match(src)
+    kind = 'youtube' if yt else 'image' if ext in IMAGE else 'video' if ext in VIDEO else 'doc'
+    label = 'DOC.' if kind == 'doc' else 'FIG.'
+    n[label] += 1
+    it = {'cap': f'{label} {n[label]} — {m["caption"]}', 'kind': kind, 'name': m['caption'],
+          'src': f'https://www.youtube-nocookie.com/embed/{yt[1]}' if yt else src, 'alt': m.get('alt', m['caption'])}
+    if kind == 'image' and 'alt' not in m:
+        bad.append(f'media "{src}" is an image and needs alt (what it shows)')
+    if kind == 'doc':
+        q = base / src
+        size = q.stat().st_size if not web(src) and q.is_file() else 0
+        it['type'] = ext[1:].upper() if ext else 'LINK'
+        it['meta'] = url.netloc if web(src) else f'{size / 1e6:.1f} MB' if size >= 1e6 else f'{-(-size // 1000)} KB'
+    return it
+
+
+def images(e):  # local images only: they become ext-resource-dependency metas
+    return [x for x in (e.get('img'), e.get('photo'), *(g['src'] for g in e.get('gallery', []) if g['kind'] == 'image')) if x and not web(x)]
 
 
 def to_entry(f, stem, base, bad):
@@ -85,7 +110,7 @@ def to_entry(f, stem, base, bad):
     e = {'title': f['title'], 'dwg': dwg, 'period': f['period'], 'status': status, 'desc': f['summary'],
          'tags': [str(t).lower() for t in tags]} | pick(f, {'link': 'link', 'partners_wanted': 'partners'})
     if fe is None:
-        bad += [f'[{k}] only works with [featured]' for k in ('specs', 'learnings', 'notes', 'gallery', 'reference') if k in f]
+        bad += [f'[{k}] only works with [featured]' for k in ('specs', 'learnings', 'notes', 'media', 'reference') if k in f]
     else:
         e['num'] = dwg[3:5]
         e |= pick(fe, {'nav': 'short', 'field': 'field', 'drawing': 'img', 'photo': 'photo', 'keep_drawing_colours': 'raw'})
@@ -112,8 +137,9 @@ def to_entry(f, stem, base, bad):
                 e['prose'] = paras(no['text'])
             if 'cards' in no:
                 e['cards'] = [pick(c, {'name': 'name', 'repo': 'repo', 'workspace': 'ws', 'text': 'body'}) for c in no['cards']]
-        if 'gallery' in f:
-            e['gallery'] = [{'cap': f'FIG. {i} — {g["caption"]}', 'src': g['image'], 'alt': g['alt']} for i, g in enumerate(f['gallery'], 2)]
+        if 'media' in f:
+            n = {'FIG.': 1, 'DOC.': 0}  # FIG. 1 is the drawing
+            e['gallery'] = [media_item(m, base, n, bad) for m in f['media']]
         if (rf := f.get('reference')) is not None:
             if 'link' not in f:
                 bad.append('[reference] needs a top-level link')
@@ -129,7 +155,8 @@ def to_entry(f, stem, base, bad):
             bad.append('void.photo cannot be used with [featured] (both are the page\'s img)')  # ponytail: spec gap, the page has one img key
         e |= pick(vo, {'why': 'why', 'cause': 'cause', 'carried_into': 'carried', 'feeds': 'feeds', 'photo': 'img'})
     top = base.resolve()
-    bad += [f'image "{p}" is not a file in the repo' for p in images(e)
+    local = dict.fromkeys(images(e) + [g['src'] for g in e.get('gallery', []) if not web(g['src'])])
+    bad += [f'file "{p}" is not in the repo' for p in local
             if not ((q := (base / p).resolve()).is_file() and q.is_relative_to(top))]
     return e | {'id': stem, 'group': group}
 

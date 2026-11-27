@@ -35,10 +35,22 @@ name = "N"
 repo = "R"
 workspace = "W"
 text = "B"
-[[gallery]]
+[[media]]
 caption = "KIT"
-image = "img/b.jpg"
+src = "img/b.jpg"
 alt = "Kit"
+[[media]]
+caption = "REPORT"
+src = "files/r.pdf"
+[[media]]
+caption = "DEMO"
+src = "https://youtu.be/dQw4w9WgXcQ"
+[[media]]
+caption = "REPO"
+src = "https://github.com/alex-crr/x"
+[[media]]
+caption = "BENCH"
+src = "files/v.mp4"
 [reference]
 text = "See it."
 button = "GO"
@@ -61,6 +73,9 @@ with tempfile.TemporaryDirectory() as tmp:
     (d / 'img').mkdir()
     for n in ('a.svg', 'b.jpg', 'v.jpg'):
         (d / 'img' / n).write_text('x')
+    (d / 'files').mkdir()
+    (d / 'files' / 'r.pdf').write_bytes(b'x' * 2500)
+    (d / 'files' / 'v.mp4').write_text('x')
     put = lambda name, text: (d / 'projects' / name).write_text(text, encoding='utf-8')
     put('old.toml', BASE.format('Old', 'AC-L01', '2020', 'DONE'))
     put('now.toml', BASE.format('Now', 'AC-L02', '2024 — PRESENT', 'ACTIVE'))
@@ -80,17 +95,23 @@ with tempfile.TemporaryDirectory() as tmp:
         'details': [{'k': 'PERIOD', 'v': '2024 — PRESENT'}, {'k': 'CATEGORY', 'v': 'Cat'}],
         'tech': ['T'], 'thirdLabel': 'SKILLS', 'third': ['H'], 'table': [['Size', '1 mm']],
         'notesTitle': 'Add-ins', 'prose': ['P1', 'P2'], 'cards': [{'name': 'N', 'repo': 'R', 'ws': 'W', 'body': 'B'}],
-        'gallery': [{'cap': 'FIG. 2 — KIT', 'src': 'img/b.jpg', 'alt': 'Kit'}],
+        'gallery': [{'cap': 'FIG. 2 — KIT', 'kind': 'image', 'name': 'KIT', 'src': 'img/b.jpg', 'alt': 'Kit'},
+                    {'cap': 'DOC. 1 — REPORT', 'kind': 'doc', 'name': 'REPORT', 'src': 'files/r.pdf', 'alt': 'REPORT', 'type': 'PDF', 'meta': '3 KB'},
+                    {'cap': 'FIG. 3 — DEMO', 'kind': 'youtube', 'name': 'DEMO', 'src': 'https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ', 'alt': 'DEMO'},
+                    {'cap': 'DOC. 2 — REPO', 'kind': 'doc', 'name': 'REPO', 'src': 'https://github.com/alex-crr/x', 'alt': 'REPO', 'type': 'LINK', 'meta': 'github.com'},
+                    {'cap': 'FIG. 4 — BENCH', 'kind': 'video', 'name': 'BENCH', 'src': 'files/v.mp4', 'alt': 'BENCH'}],
         'linkText': 'See it.', 'linkLabel': 'GO', 'id': 'big', 'group': 'active'}, entries[0]
 
     rejects('x.toml', FEATURED.replace('[specs.table]', '[specs.tabel]'), 'x.toml: unknown key "specs.tabel"')
     rejects('x.toml', FEATURED.replace('CATEGORY', 'Started'), 'specs.details "Started" is already shown')
     rejects('x.toml', BASE.format('X', 'AC-L09', '2020', 'FAILED'), 'drawing_no "AC-L09" must look like AC-Vnn')
-    rejects('x.toml', FEATURED.replace('img/a.svg', 'img/nope.svg'), 'image "img/nope.svg" is not a file')
+    rejects('x.toml', FEATURED.replace('img/a.svg', 'img/nope.svg'), 'file "img/nope.svg" is not in the repo')
+    rejects('x.toml', FEATURED.replace('files/r.pdf', 'files/nope.pdf'), 'file "files/nope.pdf" is not in the repo')
+    rejects('x.toml', FEATURED.replace('alt = "Kit"\n', ''), 'media "img/b.jpg" is an image and needs alt')
     rejects('x.toml', BASE.format('X', 'AC-L09', '2020', 'DONE') + '[specs]\n[specs.table]\nA = "1"\n', '[specs] only works with [featured]')
     rejects('x.toml', BASE.format('X', 'AC-L09', '2020', 'ACTIVE') + '[void]\ncause = "SCOPE"\n', '[void] is only for PAUSED and later')
     rejects('x.toml', FEATURED.replace('button = "GO"\n', ''), '[reference] needs a button label')
-    rejects('x.toml', FEATURED.replace('text = "P1\\n\\nP2"\n', '').split('[[notes.cards]]')[0] + '[[gallery]]' + FEATURED.split('[[gallery]]')[1], '[notes] needs text or')
+    rejects('x.toml', FEATURED.replace('text = "P1\\n\\nP2"\n', '').split('[[notes.cards]]')[0] + '[[media]]' + FEATURED.split('[[media]]', 1)[1], '[notes] needs text or')
     rejects('x.toml', BASE.format('X', 'AC-L01', '2026', 'SHIPPED'), 'status "SHIPPED"')
     rejects('x.toml', BASE.format('X', 'AC-L01', '2026', 'DONE'), 'share drawing_no "AC-L01"')
 print('build checks pass')
